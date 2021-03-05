@@ -1,2 +1,8 @@
 /Assignment/build
 /Assignment/nbproject/private
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
