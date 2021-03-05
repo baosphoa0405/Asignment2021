@@ -1,0 +1,23 @@
+.logo {
+  width: 10%;
+}
+#carouselId .carousel-inner .carousel-item img {
+  width: 100%;
+}
+
+footer {
+  color: white;
+  height: 200px;
+}
+footer ul li {
+  list-style: none;
+  color: #929292;
+  font-size: 20px;
+  /* text-align: center; */
+}
+.title {
+  color: white;
+  letter-spacing: 0.1em;
+  margin-bottom: 15px;
+  text-align: center;
+}
