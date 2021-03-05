@@ -20,20 +20,22 @@ import util.MyConnection;
  * @author Acer
  */
 public class userDAO {
+
     private List<userDTO> allUser;
 
     public List<userDTO> getAllUsers() {
         return allUser;
     }
-     public void getAllUser() {
-        Connection cn = null;       
+
+    public void getAllUser() {
+        Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "select [IDuser],[name],[password],[age],[email],[role] \n" +
-                             "from [dbo].[User]";
+                String sql = "select [IDuser],[name],[password],[age],[email],[role] \n"
+                        + "from [dbo].[User]";
                 pstm = cn.prepareStatement(sql);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
@@ -76,7 +78,8 @@ public class userDAO {
             }
         }
     }
-     public static int insertUser(userDTO newUser) {
+
+    public static int insertUser(userDTO newUser) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -95,17 +98,19 @@ public class userDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            try{
-            if(cn!=null) cn.close();
-            }catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
-        }        
-        return rs;
+            }
+            return rs;
         }
     }
-     
-     public static userDTO findUser(String IDuser, List<userDTO> list) {
+
+    public static userDTO findUser(String IDuser, List<userDTO> list) {
 
         for (userDTO item : list) {
             if (item.getIDuser().equals(IDuser)) {
@@ -114,7 +119,7 @@ public class userDAO {
         }
         return null;
     }
-     
+
     public static int updateUser(userDTO userUpdate) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
@@ -123,7 +128,7 @@ public class userDAO {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
                 String sql = "update [dbo].[User] set [name] = ?,[password] = ?,[age] = ?,[email] = ?, "
-                           + "[role] = ? where [IDuser] = ? ";
+                        + "[role] = ? where [IDuser] = ? ";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, userUpdate.getName());
                 pstm.setString(2, userUpdate.getPassword());
@@ -143,9 +148,8 @@ public class userDAO {
             }
         }
         return rs;
-    } 
-     
-    
+    }
+
     public static int deleteUser(String IDuser) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
@@ -170,7 +174,8 @@ public class userDAO {
         }
         return rs;
     }
-    
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
     }
+
 }

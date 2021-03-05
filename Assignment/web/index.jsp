@@ -265,13 +265,13 @@
                                 <span class="ml-auto"
                                       ><a href="#" class="forgot-pass">Forgot Password</a></span
                                 >
-                                <input
-                                    type="submit"
-                                    name="BtnAction"
-                                    value="LogIn"
-                                    class="btn btn-pill text-white btn-block btn-primary"
-                                    />
                             </div>
+                            <input
+                                type="submit"
+                                name="BtnAction"
+                                value="LogIn"
+                                class="btn btn-pill text-white btn-block btn-primary"
+                                />
                         </form>
                     </div>
                     <div class="modal-footer">

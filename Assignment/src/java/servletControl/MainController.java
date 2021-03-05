@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainController extends HttpServlet {
     
+    private String LOGIN_SERVLET = "LoginServlet";
+    private String LOGIN_ACTION = "LogIn";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,10 +33,16 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            System.out.println("hello main dasd");
-                   
+        String nameButton = request.getParameter("BtnAction");
+        String url = "";
+        try {
+            if (nameButton.equals(LOGIN_ACTION)) {
+                url = LOGIN_SERVLET;
+            }
+            
+        } catch (Exception e) {
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
