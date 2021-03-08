@@ -5,6 +5,7 @@
  */
 package servletControl;
 
+import ass.cart.CartDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,18 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
-
-    private String LOGIN_SERVLET = "LoginServlet";
-    private String LOGIN_ACTION = "LogIn";
-    private String PRODUCT_SERVLET = "ProductServlet";
-    private String ERROR_JSP = "error.jsp";
-    private String ADD_CART_ACTION = "addCart";
-    private String ADD_CART_SERVELET = "AddCartServlet";
-
-    private String REMOVE_CART_ACTION = "RemoveCart";
-    private String REMOVE_CART_SERVELET = "RemoveCartServlet";
-    
+public class RemoveCartServlet extends HttpServlet {
+    private String CART_JSP ="cart.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,24 +31,14 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nameButton = request.getParameter("BtnAction");
-        String url = ERROR_JSP;
-        try {
-            if (nameButton == null) {
-                url = PRODUCT_SERVLET;
-            } else if (nameButton.equals(LOGIN_ACTION)) {
-                url = LOGIN_SERVLET;
-            } else if (nameButton.equals(ADD_CART_ACTION)) {
-                url = ADD_CART_SERVELET;
-            } else if (nameButton.equals(REMOVE_CART_ACTION)){
-                url = REMOVE_CART_SERVELET;
-            }
-
-        } catch (Exception e) {
-
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+        String ID = request.getParameter("ID");
+//        System.out.println("id" + ID);
+        CartDTO cart = (CartDTO) request.getSession().getAttribute("cart");
+        cart.removeItemCart(ID);
+        request.getSession().setAttribute("cart", cart);
+//        request.getRequestDispatcher(CART_JSP).forward(request, response);
+        response.sendRedirect(CART_JSP);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
