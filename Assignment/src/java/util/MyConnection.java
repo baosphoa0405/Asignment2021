@@ -17,7 +17,7 @@ public class MyConnection {
 
     public static Connection getMakeConnect() {
         Connection con = null;
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=ProductManagement;";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=JavawebAssginment;";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(url, "sa", "12345");

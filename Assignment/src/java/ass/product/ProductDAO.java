@@ -20,20 +20,22 @@ import util.MyConnection;
  * @author Acer
  */
 public class ProductDAO {
+
     private List<ProductDTO> allProduct;
 
     public List<ProductDTO> getAllLaptops() {
         return allProduct;
     }
-     public void getAllProduct() {
-        Connection cn = null;       
+
+    public void getAllProduct() {
+        Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory] \n" +
-                             "from [dbo].[Product]";
+                String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory] \n"
+                        + "from [dbo].[Product]";
                 pstm = cn.prepareStatement(sql);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
@@ -78,7 +80,8 @@ public class ProductDAO {
             }
         }
     }
-     public static int insertProduct(ProductDTO newProduct) {
+
+    public static int insertProduct(ProductDTO newProduct) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -99,18 +102,19 @@ public class ProductDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            try{
-            if(cn!=null) cn.close();
-            }catch (Exception e) {
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
-        }        
-        return rs;
+            }
+            return rs;
         }
     }
-     
-     public static ProductDTO findProduct(String IDproduct, List<ProductDTO> list) {
 
+    public static ProductDTO findProduct(String IDproduct, List<ProductDTO> list) {
         for (ProductDTO item : list) {
             if (item.getIDproduct().equals(IDproduct)) {
                 return item;
@@ -118,18 +122,18 @@ public class ProductDAO {
         }
         return null;
     }
-     
+
     public static int updateProduct(ProductDTO productUpdate) throws ClassNotFoundException, SQLException {
         Connection cn = null;
-        
+
         PreparedStatement pstm = null;
         int rs = 0;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
                 String sql = "update [dbo].[Product] set [name] = ?,[img] = ?,[size] = ?,[price] = ?, "
-                           + "[description] = ?, \n" +
-                             "[status] = ?, [IDcategory] = ? where [IDproduct] = ? ";
+                        + "[description] = ?, \n"
+                        + "[status] = ?, [IDcategory] = ? where [IDproduct] = ? ";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, productUpdate.getName());
                 pstm.setString(2, productUpdate.getImg());
@@ -152,9 +156,8 @@ public class ProductDAO {
             }
         }
         return rs;
-    } 
-     
-    
+    }
+
     public static int deleteProduct(String IDproduct) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
@@ -179,7 +182,11 @@ public class ProductDAO {
         }
         return rs;
     }
-    
+  
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        ProductDAO dao = new ProductDAO();
+        dao.getAllProduct();
+        List<ProductDTO> list = dao.getAllLaptops();
+        System.out.println(list);
     }
 }

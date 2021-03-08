@@ -5,8 +5,11 @@
  */
 package servletControl;
 
+import ass.product.ProductDAO;
+import ass.product.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
+public class ProductServlet extends HttpServlet {
 
-    private String LOGIN_SERVLET = "LoginServlet";
-    private String LOGIN_ACTION = "LogIn";
-    private String PRODUCT_SERVLET = "ProductServlet";
-    private String ERROR_JSP = "error.jsp";
-    private String ADD_CART_ACTION = "addCart";
-    private String ADD_CART_SERVELET = "AddCartServlet";
-
-    private String REMOVE_CART_ACTION = "RemoveCart";
-    private String REMOVE_CART_SERVELET = "RemoveCartServlet";
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,27 +30,18 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String INDEX_JSP = "index.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nameButton = request.getParameter("BtnAction");
-        String url = ERROR_JSP;
-        try {
-            if (nameButton == null) {
-                url = PRODUCT_SERVLET;
-            } else if (nameButton.equals(LOGIN_ACTION)) {
-                url = LOGIN_SERVLET;
-            } else if (nameButton.equals(ADD_CART_ACTION)) {
-                url = ADD_CART_SERVELET;
-            } else if (nameButton.equals(REMOVE_CART_ACTION)){
-                url = REMOVE_CART_SERVELET;
-            }
-
-        } catch (Exception e) {
-
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+        
+        ProductDAO dao = new ProductDAO();
+        dao.getAllProduct();
+        List<ProductDTO> listProduct = dao.getAllLaptops();
+//        System.out.println("product serlet runs");
+        request.setAttribute("listProduct", listProduct);
+        request.getRequestDispatcher(INDEX_JSP).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
