@@ -1,27 +1,19 @@
-<!-- Modal sign up-->
-<div
-    class="modal fade"
-    id="signUpModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="#" method="post">
+<%-- 
+    Document   : signup
+    Created on : Mar 9, 2021, 3:14:19 PM
+    Author     : Windows
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>Sign up</h1>
+          <form action="#" method="post">
                     <div class="form-group first">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" />
@@ -46,17 +38,5 @@
                         class="btn btn-pill text-white btn-block btn-primary"
                         />
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                    >
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
+    </body>
+</html>

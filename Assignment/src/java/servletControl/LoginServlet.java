@@ -5,19 +5,26 @@
  */
 package servletControl;
 
+import ass.user.UserDAO;
+import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
  * @author Admin
  */
 public class LoginServlet extends HttpServlet {
-
+    private final String invalidPage = "invalid.html";
+    private final String successPage = "success.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,8 +37,35 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        
+        PrintWriter out = response.getWriter();
+        try {
+            
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            System.out.println("email" +  email);
+            UserDAO dao = new UserDAO();
+            UserDTO result = dao.checkLogin(email, password);
+            String mess = "email or password wrong";
+//            String url = invalidPage;
+            HttpSession session = request.getSession();
+            if(result != null) {
+                System.out.println("hihi");
+//                url = successPage;
+                session.setAttribute("info", result);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }else {
+                session.setAttribute("mess", mess);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+//            response.sendRedirect(url);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            out.close();
+        }
  
     }
 

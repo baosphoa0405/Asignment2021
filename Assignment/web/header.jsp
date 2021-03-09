@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="./css/index.css" />
         <link
@@ -73,25 +73,30 @@
                         </a>
                     </li>
                     </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#loginModal"
-                            >Login</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#signUpModal"
-                            >Sign Up</a
-                        >
-                    </li>
+
+                    <c:if test="${empty sessionScope.info}">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="MainController?BtnAction=login"
+                                >Login</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                href=""
+                                >Sign Up</a
+                            >
+                        </li>      
+                    </c:if>
+                    <c:if test="${not empty  sessionScope.info}">
+                        <h1>${sessionScope.info.getName()}</h1> 
+                        <button>
+                            <a href="MainController?BtnAction=logout">Logout</a>
+                        </button>
+                    </c:if>    
                 </ul>
+                <a href="modalLogin.jsp"></a>
                 <%--<c:set var="listproduct" value="${sessionScope.listproduct}"/>--%>
                 <c:set var="listCart" value="${sessionScope.listProductInCart}"/>
                 <c:forEach var="item" items="${listCart}">

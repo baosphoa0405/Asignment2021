@@ -6,12 +6,12 @@
 package ass.user;
 
 
-public class userDTO {
+public class UserDTO {
     private String IDuser,name,password,email;
     private int age;
     private boolean role;
 
-    public userDTO(String IDuser, String name, String password, String email, int age, boolean role) {
+    public UserDTO(String IDuser, String name, String password, String email, int age, boolean role) {
         this.IDuser = IDuser;
         this.name = name;
         this.password = password;

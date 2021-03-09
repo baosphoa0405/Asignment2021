@@ -19,11 +19,11 @@ import util.MyConnection;
  *
  * @author Acer
  */
-public class userDAO {
+public class UserDAO {
 
-    private List<userDTO> allUser;
+    private List<UserDTO> allUser;
 
-    public List<userDTO> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return allUser;
     }
 
@@ -45,7 +45,7 @@ public class userDAO {
                     int age = rs.getInt("age");
                     String email = rs.getString("email");
                     boolean role = rs.getBoolean("role");
-                    userDTO user = new userDTO(IDuser, name, password, email, age, role);
+                    UserDTO user = new UserDTO(IDuser, name, password, email, age, role);
                     if (allUser == null) {
                         allUser = new ArrayList<>();
                     }
@@ -59,27 +59,27 @@ public class userDAO {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (pstm != null) {
                 try {
                     pstm.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (cn != null) {
                 try {
                     cn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
-    public static int insertUser(userDTO newUser) {
+    public static int insertUser(UserDTO newUser) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -110,9 +110,9 @@ public class userDAO {
         }
     }
 
-    public static userDTO findUser(String IDuser, List<userDTO> list) {
+    public static UserDTO findUser(String IDuser, List<UserDTO> list) {
 
-        for (userDTO item : list) {
+        for (UserDTO item : list) {
             if (item.getIDuser().equals(IDuser)) {
                 return item;
             }
@@ -120,7 +120,7 @@ public class userDAO {
         return null;
     }
 
-    public static int updateUser(userDTO userUpdate) throws ClassNotFoundException, SQLException {
+    public static int updateUser(UserDTO userUpdate) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -174,8 +174,35 @@ public class userDAO {
         }
         return rs;
     }
-
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    
+    public UserDTO checkLogin(String email, String password)
+                throws SQLException, ClassNotFoundException {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if(cn != null) {
+                String sql = "Select * From [User] \n" +
+                              " Where email = ? And password = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, email);
+                pstm.setString(2, password);
+                
+                rs = pstm.executeQuery();
+                if(rs.next()) {
+                    return new UserDTO(rs.getString("IDuser"), rs.getString("name"), rs.getString("password"), rs.getString("email"), rs.getInt("age"), rs.getBoolean("role"));
+                }
+            }
+        }finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+            return null;
+        }
     }
 
-}
