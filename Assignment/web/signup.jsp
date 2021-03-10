@@ -3,40 +3,69 @@
     Created on : Mar 9, 2021, 3:14:19 PM
     Author     : Windows
 --%>
-
+<%@taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        
+
+        
     </head>
     <body>
-        <h1>Sign up</h1>
-          <form action="#" method="post">
-                    <div class="form-group first">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" />
-                    </div>
-                    <div class="form-group last mb-4">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" />
-                    </div>
-                    <div class="d-flex mb-5 align-items-center">
-                        <label class="control control--checkbox mb-0"
-                               ><span class="caption">Remember me</span>
-                            <input type="checkbox" checked="checked" />
-                            <div class="control__indicator"></div>
-                        </label>
-                        <span class="ml-auto"
-                              ><a href="#" class="forgot-pass">Forgot Password</a></span
-                        >
-                    </div>
-                    <input
-                        type="submit"
-                        value="Log In"
-                        class="btn btn-pill text-white btn-block btn-primary"
-                        />
-                </form>
+        <h1 style="text-align: center">SignUp Page</h1>
+        <form action="MainController" method="POST">
+
+            <c:set var="err" value="${requestScope.ERRORS}"/>
+
+            <div class="form-group" style="width: 364px;
+                 margin: auto;font-family: cursive;padding: 2px">
+                <label style="font-family: cursive;font-size: 20px"for="pwd">UserName:</label>
+                <input style="font-size: 20px"placeholder="Username"class="form-control" type="text" name="username" value="${param.username}"/>
+            </div>
+            <c:if test="${not empty err.usernameErr}">
+                <font color="red">${err.usernameErr}</font>
+            </c:if>
+            <div class="form-group"style="width: 364px;
+                 margin: auto;font-family: cursive;padding: 2px">
+                <label style="font-family: cursive;font-size: 20px" for="pwd">Password:</label>
+                <input style="font-size: 20px" placeholder="Password" class="form-control" type="password" name="password" value="${param.password}"/>
+            </div>
+            <c:if test="${not empty err.passwordErr}">
+                <font color="red">${err.passwordErr}</font>
+            </c:if>
+            <div class="form-group"style="width: 364px;
+                 margin: auto;font-family: cursive;padding: 2px">
+                <label style="font-family: cursive;font-size: 20px" for="pwd">Confirm Password:</label>
+                <input style="font-size: 20px" placeholder="Confirm" class="form-control"type="password" name="confirm" value="${param.confirm}"/>
+            </div>
+            <c:if test="${not empty err.confirmErr}">
+                <font color="red">${err.confirmErr}</font>
+            </c:if>
+            <div class="form-group"style="width: 364px;
+                 margin: auto;font-family: cursive;padding: 2px">
+                <label  style="font-family: cursive;font-size: 20px" for="pwd">Full name:</label>
+                <input style="font-size: 20px" placeholder="Fullname"class="form-control"type="text" name="name" value="${param.name}"/>
+            </div>
+            <c:if test="${not empty err.nameErr}">
+                <font color="red">${err.nameErr}</font>
+            </c:if>
+            <c:if test="${not empty err.duplicateUsername}">
+                <font color="red">${err.duplicateUsername}</font>
+            </c:if>  
+  
+            <br/>
+            <input
+                type="submit"
+                name="BtnAction"
+                value="SignUp"
+                class="btn btn-pill text-white btn-block btn-primary"
+                />
+            </br></br> 
+        </form>
     </body>
 </html>

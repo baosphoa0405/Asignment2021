@@ -41,16 +41,14 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             
-            String email = request.getParameter("email");
+            String username = request.getParameter("username");
             String password = request.getParameter("password");
-            System.out.println("email" +  email);
             UserDAO dao = new UserDAO();
-            UserDTO result = dao.checkLogin(email, password);
+            UserDTO result = dao.checkLogin(username, password);
             String mess = "email or password wrong";
 //            String url = invalidPage;
             HttpSession session = request.getSession();
             if(result != null) {
-                System.out.println("hihi");
 //                url = successPage;
                 session.setAttribute("info", result);
                 request.getRequestDispatcher("index.jsp").forward(request, response);

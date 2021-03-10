@@ -20,6 +20,8 @@ public class MainController extends HttpServlet {
 
     private String LOGIN_JSP = "login.jsp";
     private String LOGIN_ACTION = "login";
+    private String SIGNUP_ACTION = "signup";
+    private String SIGNUP_JSP = "signup.jsp";
     private String PRODUCT_SERVLET = "ProductServlet";
     private String LOGIN_SERVLET = "LoginServlet";
     private String ERROR_JSP = "error.jsp";
@@ -30,6 +32,8 @@ public class MainController extends HttpServlet {
     private String REMOVE_CART_SERVELET = "RemoveCartServlet";
     private String LOGOUT_ACTION = "logout";
     private String LOGOUT_SERVELET = "LogoutServlet";
+    private String SIGNUP_ACTION_JSP = "SignUp";
+    private String SIGNUP_SERVLET = "SignUpServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,6 +54,8 @@ public class MainController extends HttpServlet {
                 url = PRODUCT_SERVLET;
             } else if (nameButton.equals(LOGIN_ACTION)) {
                 url = LOGIN_JSP;
+            } else if (nameButton.equals(SIGNUP_ACTION)) {
+                url = SIGNUP_JSP;
             } else if (nameButton.equals(ADD_CART_ACTION)) {
                 url = ADD_CART_SERVELET;
             } else if (nameButton.equals(REMOVE_CART_ACTION)) {
@@ -58,6 +64,8 @@ public class MainController extends HttpServlet {
                 url = LOGIN_SERVLET;
             } else if (nameButton.equals(LOGOUT_ACTION)) {
                 url = LOGOUT_SERVELET;
+            } else if (nameButton.equals(SIGNUP_ACTION_JSP)) {
+                url = SIGNUP_SERVLET;
             }
 
         } catch (Exception e) {

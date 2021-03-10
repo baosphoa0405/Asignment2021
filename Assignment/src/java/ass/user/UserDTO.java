@@ -7,25 +7,25 @@ package ass.user;
 
 
 public class UserDTO {
-    private String IDuser,name,password,email;
-    private int age;
+    private String username,name,password;
     private boolean role;
 
-    public UserDTO(String IDuser, String name, String password, String email, int age, boolean role) {
-        this.IDuser = IDuser;
+    public UserDTO() {
+    }
+
+    public UserDTO(String username, String name, String password, boolean role) {
+        this.username = username;
         this.name = name;
         this.password = password;
-        this.email = email;
-        this.age = age;
         this.role = role;
     }
 
-    public String getIDuser() {
-        return IDuser;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIDuser(String IDuser) {
-        this.IDuser = IDuser;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -44,22 +44,6 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public boolean isRole() {
         return role;
     }
@@ -67,10 +51,10 @@ public class UserDTO {
     public void setRole(boolean role) {
         this.role = role;
     }
-    
+
     @Override
     public String toString() {
-        return "ProductDTO{" + "IDuser=" + IDuser + ", name=" + name + ", password=" + password + ", email=" + email + ", age=" + age + ", role=" + role + '}';
+        return "UserDTO{" + "username=" + username + ", name=" + name + ", password=" + password + ", role=" + role + '}';
     }
     
 }

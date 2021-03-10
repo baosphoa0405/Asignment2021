@@ -84,7 +84,7 @@
                         </li>
                         <li class="nav-item">
                             <a
-                                href=""
+                                href="MainController?BtnAction=signup"
                                 >Sign Up</a
                             >
                         </li>      
