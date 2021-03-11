@@ -18,16 +18,28 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainController extends HttpServlet {
 
-    private String LOGIN_SERVLET = "LoginServlet";
-    private String LOGIN_ACTION = "LogIn";
+    private String LOGIN_JSP = "login.jsp";
+    private String LOGIN_ACTION = "login";
+    private String SIGNUP_ACTION = "signup";
+    private String SIGNUP_JSP = "signup.jsp";
     private String PRODUCT_SERVLET = "ProductServlet";
+    private String LOGIN_SERVLET = "LoginServlet";
     private String ERROR_JSP = "error.jsp";
     private String ADD_CART_ACTION = "addCart";
     private String ADD_CART_SERVELET = "AddCartServlet";
-
+    private String LOGIN_ACTION_JSP = "LogIn";
     private String REMOVE_CART_ACTION = "RemoveCart";
     private String REMOVE_CART_SERVELET = "RemoveCartServlet";
-    
+    private String LOGOUT_ACTION = "logout";
+    private String LOGOUT_SERVELET = "LogoutServlet";
+    private String SIGNUP_ACTION_JSP = "SignUp";
+    private String SIGNUP_SERVLET = "SignUpServlet";
+    private String SIGNUPPAGE_ACTION = "SignUp Page ->";
+    private String LOGINPAGE_ACTION = "<- LoginPage";
+    private String UPDATE_ACTION = "viewProfile";
+    private String UPDATE_SERVLET = "UpdateProfile";
+    private String UPDATE_CONTROLLER = "updateUserController";
+    private String UPDATED_CONTROLLER = "updateProfile";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,15 +54,34 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nameButton = request.getParameter("BtnAction");
         String url = ERROR_JSP;
+
         try {
             if (nameButton == null) {
                 url = PRODUCT_SERVLET;
             } else if (nameButton.equals(LOGIN_ACTION)) {
-                url = LOGIN_SERVLET;
+                url = LOGIN_JSP;
+            } else if (nameButton.equals(SIGNUP_ACTION)) {
+                url = SIGNUP_JSP;
             } else if (nameButton.equals(ADD_CART_ACTION)) {
                 url = ADD_CART_SERVELET;
-            } else if (nameButton.equals(REMOVE_CART_ACTION)){
+            } else if (nameButton.equals(REMOVE_CART_ACTION)) {
                 url = REMOVE_CART_SERVELET;
+            } else if (nameButton.equals(LOGIN_ACTION_JSP)) {
+                url = LOGIN_SERVLET;
+            } else if (nameButton.equals(LOGOUT_ACTION)) {
+                url = LOGOUT_SERVELET;
+            } else if (nameButton.equals(SIGNUP_ACTION_JSP)) {
+                url = SIGNUP_SERVLET;
+            } else if (nameButton.equals(SIGNUPPAGE_ACTION)) {
+                url = SIGNUP_JSP;
+            } else if (nameButton.equals(LOGINPAGE_ACTION)) {
+                url = LOGIN_JSP;
+            }
+              else if (nameButton.equals(UPDATE_ACTION)) {
+                url = UPDATE_CONTROLLER;
+            }
+              else if (nameButton.equals(UPDATE_SERVLET)) {
+                url = UPDATED_CONTROLLER;
             }
 
         } catch (Exception e) {

@@ -19,11 +19,11 @@ import util.MyConnection;
  *
  * @author Acer
  */
-public class userDAO {
+public class UserDAO {
 
-    private List<userDTO> allUser;
+    private List<UserDTO> allUser;
 
-    public List<userDTO> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return allUser;
     }
 
@@ -34,18 +34,15 @@ public class userDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "select [IDuser],[name],[password],[age],[email],[role] \n"
+                String sql = "select [username],[name],[password],[role] \n"
                         + "from [dbo].[User]";
                 pstm = cn.prepareStatement(sql);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
-                    String IDuser = rs.getString("IDuser");
+                    String username = rs.getString("username");
                     String name = rs.getString("name");
                     String password = rs.getString("password");
-                    int age = rs.getInt("age");
-                    String email = rs.getString("email");
-                    boolean role = rs.getBoolean("role");
-                    userDTO user = new userDTO(IDuser, name, password, email, age, role);
+                    UserDTO user = new UserDTO(username, name, password, true);
                     if (allUser == null) {
                         allUser = new ArrayList<>();
                     }
@@ -59,41 +56,39 @@ public class userDAO {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (pstm != null) {
                 try {
                     pstm.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (cn != null) {
                 try {
                     cn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(userDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
-    public static int insertUser(userDTO newUser) {
+    public static int insertUser(UserDTO newUser) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "insert into [dbo].[User] values (?,?,?,?,?,?)";
+                String sql = "insert into [dbo].[User] values (?,?,?,?)";
                 pstm = cn.prepareStatement(sql);
-                pstm.setString(1, newUser.getIDuser());
+                pstm.setString(1, newUser.getUsername());
                 pstm.setString(2, newUser.getName());
                 pstm.setString(3, newUser.getPassword());
-                pstm.setInt(4, newUser.getAge());
-                pstm.setString(5, newUser.getEmail());
-                pstm.setBoolean(6, newUser.isRole());
+                pstm.setBoolean(4, newUser.isRole());
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -110,31 +105,30 @@ public class userDAO {
         }
     }
 
-    public static userDTO findUser(String IDuser, List<userDTO> list) {
+    public static UserDTO findUser(String Username, List<UserDTO> list) {
 
-        for (userDTO item : list) {
-            if (item.getIDuser().equals(IDuser)) {
+        for (UserDTO item : list) {
+            if (item.getUsername().equals(Username)) {
                 return item;
             }
         }
         return null;
     }
 
-    public static int updateUser(userDTO userUpdate) throws ClassNotFoundException, SQLException {
+    public static int updateUser(UserDTO userUpdate) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "update [dbo].[User] set [name] = ?,[password] = ?,[age] = ?,[email] = ?, "
-                        + "[role] = ? where [IDuser] = ? ";
+                String sql = "update [dbo].[User] set [name] = ?,[password] = ?,[role] = ? "
+                        + " where [username] = ? ";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, userUpdate.getName());
                 pstm.setString(2, userUpdate.getPassword());
-                pstm.setInt(3, userUpdate.getAge());
-                pstm.setString(5, userUpdate.getEmail());
-                pstm.setBoolean(6, userUpdate.isRole());
+                pstm.setBoolean(3, userUpdate.isRole());
+                pstm.setString(4, userUpdate.getUsername());
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -157,7 +151,7 @@ public class userDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "delete [dbo].[User] where [IDuser] = ?";
+                String sql = "delete [dbo].[User] where [username] = ?";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, IDuser);
                 rs = pstm.executeUpdate();
@@ -174,8 +168,65 @@ public class userDAO {
         }
         return rs;
     }
-
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    
+    public UserDTO checkLogin(String username, String password)
+                throws SQLException, ClassNotFoundException {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if(cn != null) {
+                String sql = "Select * From [User] \n" +
+                              " Where username = ? And password = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, username);
+                pstm.setString(2, password);
+                
+                rs = pstm.executeQuery();
+                if(rs.next()) {
+                    return new UserDTO(rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getBoolean("role"));
+                }
+            }
+        }finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+            return null;
+        }
+    
+    public UserDTO checkAccountExist(String username)
+                throws SQLException, ClassNotFoundException {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if(cn != null) {
+                String sql = "Select * From [User] \n" +
+                              " Where username = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, username);
+                
+                rs = pstm.executeQuery();
+                if(rs.next()) {
+                    return new UserDTO(rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getBoolean("role"));
+                }
+            }
+        }finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+            return null;
+        }
+    
     }
 
-}
