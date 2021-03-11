@@ -7,6 +7,7 @@ package servletControl;
 
 import ass.user.UserDAO;
 import ass.user.UserDTO;
+import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -48,7 +49,19 @@ public class LoginServlet extends HttpServlet {
             String mess = "email or password wrong";
 //            String url = invalidPage;
             HttpSession session = request.getSession();
-            if(result != null) {
+            
+            boolean valid = true;
+            UserRegErr rErr = new UserRegErr();
+            
+            if (username.length() == 0) {
+                valid = false;
+                rErr.setUsernameErr("Username can't be blank");
+            }if (password.length() == 0) {
+                valid = false;
+                rErr.setPasswordErr("Password can't be blank");
+            }
+            request.setAttribute("ERRORS", rErr);        
+            if(result != null && valid) {
 //                url = successPage;
                 session.setAttribute("info", result);
                 request.getRequestDispatcher("index.jsp").forward(request, response);

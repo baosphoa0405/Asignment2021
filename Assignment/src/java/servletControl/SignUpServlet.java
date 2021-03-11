@@ -47,17 +47,17 @@ public class SignUpServlet extends HttpServlet {
             
             boolean errs = false;
             UserRegErr rErr = new UserRegErr();
-            if(username.length()<6 || username.length()>20){
+            if(username.length()<4 || username.length()>10){
                 errs=true;
-                rErr.setUsernameErr("Username's length must be 6 --> 20 characters.");
+                rErr.setUsernameErr("Username's length must be 4 --> 10 characters.");
             }
             else if(dao.checkAccountExist(username)!=null){
                 errs=true;
                 rErr.setUsernameErr("Username: "+username+" was existed.");
             }
-            if(password.length()<6 || password.length()>20){
+            if(password.length()<3 || password.length()>10){
                 errs=true;
-                rErr.setPasswordErr("Password's length must be 6 --> 20 characters.");
+                rErr.setPasswordErr("Password's length must be 3 --> 10 characters.");
             }
             else if(!confirm.equals(password)){
                 errs=true;

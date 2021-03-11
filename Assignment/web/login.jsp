@@ -13,17 +13,24 @@
     </head>
     <body>
         <h1 style="text-align: center">Login Page</h1>
-        <!--<h1>    <c:if test="${empty mess}" ></c:if> </h1>-->
-        ${mess}
+        
         <form action="MainController" method="POST">
+            <c:set var="err" value="${requestScope.ERRORS}"/>
+            
             <div class="form-group first">
                 <label for="email">Username</label>
                 <input type="text" class="form-control" id="username" name="username" />
             </div>
+            <c:if test="${not empty err.usernameErr}">
+                <font color="red">${err.usernameErr}</font>
+            </c:if>
             <div class="form-group last mb-4">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" />
             </div>
+                <c:if test="${not empty err.passwordErr}">
+                <font color="red">${err.passwordErr}</font>
+            </c:if>
             <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0"
                        ><span class="caption">Remember me</span>
