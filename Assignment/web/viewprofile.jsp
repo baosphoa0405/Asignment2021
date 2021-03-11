@@ -17,8 +17,8 @@
         <form method="POST" action="MainController">
            
             Username <input type="text" name="username" value="${sessionScope.user.getUsername()}" hidden /><br /><br />
-            Name <input type="text" name="name" value="${sessionScope.user.getName()}" /><br /><br />
-            Password <input type="password" name="password" value="${sessionScope.user.getPassword()}" /><br /><br />
+            Name <input type="text" name="name" value="${sessionScope.info.getName()}" /><br /><br />
+            Password <input type="password" name="password" value="${sessionScope.info.getPassword()}" /><br /><br />
             
             
             <input type="submit" value="UpdateProfile" name="BtnAction" />

@@ -27,7 +27,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "updateProfile", urlPatterns = {"/updateProfile"})
 public class updateProfile extends HttpServlet {
     private String ERROR_URL = "error.jsp";
-    private String SUCCESS_URL = "success.html";
+    private String SUCCESS_URL = "viewprofile.jsp";
+    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,9 +58,8 @@ public class updateProfile extends HttpServlet {
                 String url = ERROR_URL;
                 a = UserDAO.updateUser(newUser);
                 if ( a > 0){
-                  url = SUCCESS_URL;
-                   
-               
+                session.setAttribute("info", newUser);
+                request.getRequestDispatcher("viewprofile.jsp").forward(request, response);              
                 }
                 else {
                     
