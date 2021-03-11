@@ -11,26 +11,59 @@
 <!DOCTYPE html>
 <%@include file="header.jsp" %>
  
-        <h1>Update Profile</h1>
+       
         
         <%--<c:set var="user" value="${sessionScope.user}" />--%>
-        <form method="POST" action="MainController">
+        
         <c:set var="err" value="${requestScope.ERRORS}"/>   
-            Username <input type="text" name="username" value="${sessionScope.user.getUsername()}" readonly ><br /><br /><br /><br />
-            Name <input type="text" name="name" value="${sessionScope.info.getName()}" /><br /><br />
-            <c:if test="${not empty err.nameErr}">
-                <font color="red">${err.nameErr}</font>
-            </c:if> <br /><br />
-            Password <input type="password" name="password" value="${sessionScope.info.getPassword()}" /><br /><br /> 
-            <c:if test="${not empty err.passwordErr}">
-                <font color="red">${err.passwordErr}</font>
-            </c:if> <br /><br />
             
-            <input type="submit" value="UpdateProfile" name="BtnAction" /> <br /><br />
-            <c:if test="${not empty err.duplicateUsername}">
-                <font color="green">${err.duplicateUsername}</font>
-            </c:if> 
-            
+           
+                
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="MainController" method="POST">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Edit Profile</h4>
+
+                            </div>
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    <label>Username</label> <br>
+                                    <input type="text" name="username" value="${sessionScope.user.getUsername()}" readonly  required>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" value="${sessionScope.info.getName()}" class="form-control" required>
+                                    <c:if test="${not empty err.nameErr}">
+                                          <font color="red">${err.nameErr}</font>
+                                    </c:if>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" value="${sessionScope.info.getPassword()}" class="form-control" required>
+                                     <c:if test="${not empty err.passwordErr}">
+                                           <font color="red">${err.passwordErr}</font>
+                                     </c:if>
+                                </div>
+                                
+                                     <c:if test="${not empty err.duplicateUsername}">
+                                           <font color="green">${err.duplicateUsername}</font>
+                                     </c:if> 
+                                
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="UpdateProfile" name="BtnAction" >
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>       
         </form>
     </body>
 </html>

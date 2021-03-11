@@ -95,8 +95,9 @@
                         </li>      
                     </c:if>
                     <c:if test="${not empty  sessionScope.info}">
-                        <h1>${sessionScope.info.getName()}</h1> 
+                        <h2>${sessionScope.info.getName()}</h2> 
                         
+                       
                         <button>
                             <a href="MainController?BtnAction=logout">Logout</a>
                         </button>
@@ -105,10 +106,14 @@
                       
                      <c:if test="${not empty  sessionScope.info}">    
                         
-                            
-                            <button> 
+                            <li class="nav-item active">
+                                <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
+                            accesskey="">View Profile <span class="sr-only"></span>
+                                </a>
+                            </li>
+<!--                            <button> 
                                 <a href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}">View Profile</a>
-                            </button>
+                            </button>-->
                     
                      </c:if>    
                    
