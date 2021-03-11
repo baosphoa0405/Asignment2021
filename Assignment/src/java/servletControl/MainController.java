@@ -34,6 +34,10 @@ public class MainController extends HttpServlet {
     private String LOGOUT_SERVELET = "LogoutServlet";
     private String SIGNUP_ACTION_JSP = "SignUp";
     private String SIGNUP_SERVLET = "SignUpServlet";
+    private String UPDATE_ACTION = "viewProfile";
+    private String UPDATE_SERVLET = "UpdateProfile";
+    private String UPDATE_CONTROLLER = "updateUserController";
+    private String UPDATED_CONTROLLER = "updateProfile";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,6 +70,12 @@ public class MainController extends HttpServlet {
                 url = LOGOUT_SERVELET;
             } else if (nameButton.equals(SIGNUP_ACTION_JSP)) {
                 url = SIGNUP_SERVLET;
+            }
+              else if (nameButton.equals(UPDATE_ACTION)) {
+                url = UPDATE_CONTROLLER;
+            }
+              else if (nameButton.equals(UPDATE_SERVLET)) {
+                url = UPDATED_CONTROLLER;
             }
 
         } catch (Exception e) {
