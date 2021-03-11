@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: aliceblue">
             <img src="./images/logo.png" alt="" srcset="" class="logo" />
             <button
                 class="navbar-toggler"
@@ -84,6 +84,7 @@
                         </li>
                         <li class="nav-item">
                             <a
+                                class="nav-link"
                                 href="MainController?BtnAction=signup"
                                 >Sign Up</a
                             >
