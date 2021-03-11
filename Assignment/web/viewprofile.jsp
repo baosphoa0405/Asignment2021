@@ -15,13 +15,21 @@
         
         <%--<c:set var="user" value="${sessionScope.user}" />--%>
         <form method="POST" action="MainController">
-           
-            Username <input type="text" name="username" value="${sessionScope.user.getUsername()}" hidden /><br /><br />
-            Name <input type="text" name="name" value="${sessionScope.user.getName()}" /><br /><br />
-            Password <input type="password" name="password" value="${sessionScope.user.getPassword()}" /><br /><br />
+        <c:set var="err" value="${requestScope.ERRORS}"/>   
+            Username <input type="text" name="username" value="${sessionScope.user.getUsername()}" readonly ><br /><br /><br /><br />
+            Name <input type="text" name="name" value="${sessionScope.info.getName()}" /><br /><br />
+            <c:if test="${not empty err.nameErr}">
+                <font color="red">${err.nameErr}</font>
+            </c:if> <br /><br />
+            Password <input type="password" name="password" value="${sessionScope.info.getPassword()}" /><br /><br /> 
+            <c:if test="${not empty err.passwordErr}">
+                <font color="red">${err.passwordErr}</font>
+            </c:if> <br /><br />
             
-            
-            <input type="submit" value="UpdateProfile" name="BtnAction" />
+            <input type="submit" value="UpdateProfile" name="BtnAction" /> <br /><br />
+            <c:if test="${not empty err.duplicateUsername}">
+                <font color="green">${err.duplicateUsername}</font>
+            </c:if> 
             
         </form>
     </body>
