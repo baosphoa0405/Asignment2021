@@ -49,24 +49,15 @@
                            >Home <span class="sr-only">(current)</span></a
                         >
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item ">
                         <a
                             class="nav-link dropdown-toggle"
-                            href="#"
+                            href="MainController?BtnAction=listproduct"
                             id="navbarDropdown"
                             role="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
                             >
                             List product
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Men</a>
-                            <a class="dropdown-item" href="#">Female</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Kid's</a>
-                        </div>
                     <li class="nav-item active">
                         <a class="nav-link" href="MainController"
                            >View To Cart <span class="sr-only"></span>

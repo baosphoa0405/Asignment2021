@@ -20,11 +20,13 @@ public class MainController extends HttpServlet {
 
     private String LOGIN_SERVLET = "LoginServlet";
     private String LOGIN_ACTION = "LogIn";
+    private String LISTPRODUCT_ACTION = "listproduct";
+    
     private String PRODUCT_SERVLET = "ProductServlet";
     private String ERROR_JSP = "error.jsp";
     private String ADD_CART_ACTION = "addCart";
     private String ADD_CART_SERVELET = "AddCartServlet";
-
+    private String LISTPRODUCT_SERVLET = "ListProductServlet";
     private String REMOVE_CART_ACTION = "RemoveCart";
     private String REMOVE_CART_SERVELET = "RemoveCartServlet";
     
@@ -51,6 +53,8 @@ public class MainController extends HttpServlet {
                 url = ADD_CART_SERVELET;
             } else if (nameButton.equals(REMOVE_CART_ACTION)){
                 url = REMOVE_CART_SERVELET;
+            } else if (nameButton.equals(LISTPRODUCT_ACTION)) {
+                url = LISTPRODUCT_SERVLET;
             }
 
         } catch (Exception e) {
