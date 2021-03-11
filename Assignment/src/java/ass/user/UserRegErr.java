@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Windows
  */
 public class UserRegErr implements Serializable{
-    private String usernameErr,nameErr,passwordErr, confirmErr, duplicateUsername;
+    private String usernameErr,nameErr,passwordErr, confirmErr, duplicateUsername, upErr;
 
     public UserRegErr() {
     }
@@ -64,5 +64,15 @@ public class UserRegErr implements Serializable{
     public void setDuplicateUsername(String duplicateUsername) {
         this.duplicateUsername = duplicateUsername;
     }
+
+    public String getUpErr() {
+        return upErr;
+    }
+
+    public void setUpErr(String upErr) {
+        this.upErr = upErr;
+    }
+    
+    
     
 }

@@ -122,12 +122,13 @@ public class UserDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "update [dbo].[User] set [name] = ?,[password] = ?, "
-                        + " where [IDuser] = ? ";
+                String sql = "update [dbo].[User] set [name] = ?,[password] = ?,[role] = ? "
+                        + " where [username] = ? ";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, userUpdate.getName());
                 pstm.setString(2, userUpdate.getPassword());
                 pstm.setBoolean(3, userUpdate.isRole());
+                pstm.setString(4, userUpdate.getUsername());
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -150,7 +151,7 @@ public class UserDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "delete [dbo].[User] where [IDuser] = ?";
+                String sql = "delete [dbo].[User] where [username] = ?";
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, IDuser);
                 rs = pstm.executeUpdate();

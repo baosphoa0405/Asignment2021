@@ -17,15 +17,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
+//import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
  * @author Admin
  */
 public class LoginServlet extends HttpServlet {
+
     private final String invalidPage = "invalid.html";
     private final String successPage = "success.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,10 +40,10 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         PrintWriter out = response.getWriter();
         try {
-            
+
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
@@ -49,24 +51,26 @@ public class LoginServlet extends HttpServlet {
             String mess = "email or password wrong";
 //            String url = invalidPage;
             HttpSession session = request.getSession();
-            
+
             boolean valid = true;
             UserRegErr rErr = new UserRegErr();
-            
+
             if (username.length() == 0) {
                 valid = false;
                 rErr.setUsernameErr("Username can't be blank");
-            }if (password.length() == 0) {
+            }
+            if (password.length() == 0) {
                 valid = false;
                 rErr.setPasswordErr("Password can't be blank");
             }
-            request.setAttribute("ERRORS", rErr);        
-            if(result != null && valid) {
+            request.setAttribute("ERRORS", rErr);
+            if (result != null && valid) {
 //                url = successPage;
                 session.setAttribute("info", result);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            }else {
-                session.setAttribute("mess", mess);
+            } else {
+                valid = false;
+                rErr.setUpErr("Username or Password wrong");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 //            response.sendRedirect(url);
@@ -77,7 +81,7 @@ public class LoginServlet extends HttpServlet {
         } finally {
             out.close();
         }
- 
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

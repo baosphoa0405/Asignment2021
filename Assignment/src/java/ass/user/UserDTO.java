@@ -5,8 +5,10 @@
  */
 package ass.user;
 
+import java.io.Serializable;
 
-public class UserDTO {
+
+public class UserDTO implements Serializable{
     private String username,name,password;
     private boolean role;
 

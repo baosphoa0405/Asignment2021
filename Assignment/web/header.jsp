@@ -3,6 +3,9 @@
     Created on : Mar 6, 2021, 1:26:55 PM
     Author     : Admin
 --%>
+<%@page import="java.util.List"%>
+<%@page import="ass.user.UserDAO"%>
+<%@page import="ass.user.UserDTO"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -73,7 +76,7 @@
                         </a>
                     </li>
                     </li>
-
+                          
                     <c:if test="${empty sessionScope.info}">
                         <li class="nav-item">
                             <a
@@ -92,10 +95,25 @@
                     </c:if>
                     <c:if test="${not empty  sessionScope.info}">
                         <h1>${sessionScope.info.getName()}</h1> 
+                        
                         <button>
                             <a href="MainController?BtnAction=logout">Logout</a>
                         </button>
-                    </c:if>    
+                    </c:if>
+                        
+                      
+                     <c:if test="${not empty  sessionScope.info}">    
+                        
+                            
+                            <button> 
+                                <a href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}">View Profile</a>
+                            </button>
+                    
+                     </c:if>    
+                   
+                       
+                        
+                   
                 </ul>
                 <a href="modalLogin.jsp"></a>
                 <%--<c:set var="listproduct" value="${sessionScope.listproduct}"/>--%>

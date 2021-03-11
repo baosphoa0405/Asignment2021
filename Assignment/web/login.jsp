@@ -11,8 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        
-                <style type="text/css">
+
+        <style type="text/css">
 
             .hehe
             {
@@ -25,12 +25,8 @@
         <h1 style="text-align: center; padding-bottom: 40px; color: mediumblue">Login Page</h1>
 
         <form action="MainController" method="POST">
-            <c:set var="err" value="${requestScope.ERRORS}"/>
 
-            <!--            <div class="form-group first">
-                            <label for="email">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" />
-                        </div>-->
+            <c:set var="err" value="${requestScope.ERRORS}"/>
             <div class="form-group" style="width: 364px;
                  margin: auto;font-family: cursive;padding: 2px">
                 <label style="font-family: cursive;font-size: 20px; font-weight: bold"for="pwd">UserName:</label>
@@ -39,10 +35,6 @@
             <c:if test="${not empty err.usernameErr}">
                 <font color="red">${err.usernameErr}</font>
             </c:if>
-            <!--            <div class="form-group last mb-4">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" />
-                        </div>-->
             <div class="form-group"style="width: 364px;
                  margin: auto;font-family: cursive;padding: 2px">
                 <label style="font-family: cursive;font-size: 20px; font-weight: bold"for="pwd">Password:</label><br>
@@ -53,22 +45,18 @@
             </c:if>
             <div class="form-group"style="width: 364px;
                  margin: auto;font-family: cursive;padding: 2px">
-<!--                <label class="control control--checkbox mb-0"
-                       ><span class="caption">Remember me</span>-->
-<label style="font-family: cursive;font-size: 20px; font-weight: bold"for="pwd">Remember me</label>
-                    <input type="checkbox" checked="checked" />
-                    <div class="control__indicator"></div>
+
+                <label style="font-family: cursive;font-size: 20px; font-weight: bold"for="pwd">Remember me</label>
+                <input type="checkbox" checked="checked" />
+                <div class="control__indicator"></div>
                 </label>
                 <span class="ml-auto"
                       ><a href="#" class="forgot-pass">Forgot Password</a></span
                 >
             </div>
-<!--            <input
-                type="submit"
-                name="BtnAction"
-                value="LogIn"
-                class="btn btn-pill text-white btn-block btn-primary"
-                />-->
+            <c:if test="${not empty err.upErr}">
+                <font color="red">${err.upErr}</font>
+            </c:if>
             <input
                 style="width: 24%; margin-left: 38%"
                 type="submit"
