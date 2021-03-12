@@ -5,12 +5,15 @@
  */
 package ass.product;
 
+import ass.category.CategoryDAO;
+import ass.category.CategoryDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.MyConnection;
@@ -79,6 +82,52 @@ public class ProductDAO {
                 }
             }
         }
+    }
+    
+    public static Vector<CategoryDTO> getAllCategorys() {
+        Connection cn = null;       
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        Vector<CategoryDTO> list = new Vector<>();
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select [IDcategory], [categoryName] from [dbo].[Category]";
+                pstm = cn.prepareStatement(sql);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String categoryName = rs.getString("categoryName");
+                    String categoryID = rs.getString("IDcategory");
+                    CategoryDTO pro = new CategoryDTO(categoryID, categoryName);
+                    list.add(pro);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return list;
     }
 
     public static int insertProduct(ProductDTO newProduct) {
@@ -181,6 +230,33 @@ public class ProductDAO {
             }
         }
         return rs;
+    }
+    
+    public List<ProductDTO> getProductByCid(String cid) {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        List<ProductDTO> list = new ArrayList<>();
+        String query = "select * from Product\n"
+                + "where IDcategory = ?";
+        try {
+            cn = MyConnection.getMakeConnect();
+            pstm = cn.prepareStatement(query);
+            pstm.setString(1, cid);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                list.add(new ProductDTO(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getFloat(7),
+                        rs.getBoolean(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
   
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
