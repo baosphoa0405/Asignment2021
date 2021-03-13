@@ -14,7 +14,7 @@
             <c:forEach items= "${listProduct}" var="item">
                 <div class="col-3">
                     <form method="POST" action="MainController">
-                        <div class="card">
+                        <div class="card" style="height: 450px">
                             <img class="card-img-top"  style="width: 100%; height: 200px" src="./images/${item.img}.jpg" alt="" />
                             <div class="card-body">
                                 <h4 class="card-title">${item.name}</h4>
