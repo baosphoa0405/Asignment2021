@@ -9,26 +9,33 @@
 <%@include file="carousel.jsp" %>
 
 <main>
-    <div class="container">
-        <div class="row">    
-            <c:forEach items= "${listProduct}" var="item">
-                <div class="col-3">
-                    <form method="POST" action="MainController">
-                        <div class="card" style="height: 450px">
-                            <img class="card-img-top"  style="width: 100%; height: 200px" src="./images/${item.img}.jpg" alt="" />
-                            <div class="card-body">
-                                <h4 class="card-title">${item.name}</h4>
-                                <p class="card-text">Price: ${item.price} vnđ</p>
-                            </div>
-                            <p style="text-align: center">Description: ${item.description}</p>
-                            <button name="BtnAction" value="addCart" type="submit" class="btn btn-success" >
-                                Add To Cart
-                            </button>
-                            <input type="hidden" name="ID" value="${item.IDproduct}" />
-                        </div>   
-                    </form>
-                </div>      
-            </c:forEach>
+    <div class="container" style="border: 1px solid black">
+        <div class="row">
+            <div class="col-4">
+                <%@include file="./leftProduct.jsp" %>
+            </div>
+            <div class="col-8">
+                <div class="row">    
+                    <c:forEach items= "${listProduct}" var="item">
+                        <div class="col-4">
+                            <form method="POST" action="MainController">
+                                <div class="card" style="height: 450px">
+                                    <img class="card-img-top"  style="width: 100%; height: 200px" src="./images/${item.img}.jpg" alt="" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">${item.name}</h4>
+                                        <p class="card-text">Price: ${item.price} vnđ</p>
+                                    </div>
+                                    <p style="text-align: center">Description: ${item.description}</p>
+                                    <button name="BtnAction" value="addCart" type="submit" class="btn btn-success" >
+                                        Add To Cart
+                                    </button>
+                                    <input type="hidden" name="ID" value="${item.IDproduct}" />
+                                </div>   
+                            </form>
+                        </div>      
+                    </c:forEach>
+                </div>
+            </div>
         </div>
     </div>
 </main>
