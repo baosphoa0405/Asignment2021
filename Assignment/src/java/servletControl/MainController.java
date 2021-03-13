@@ -40,9 +40,12 @@ public class MainController extends HttpServlet {
     private String UPDATE_SERVLET = "UpdateProfile";
     private String UPDATE_CONTROLLER = "updateUserController";
     private String UPDATED_CONTROLLER = "updateProfile";
-    
     private String LISTPRODUCT_ACTION = "listproduct";
     private String LISTPRODUCT_SERVLET = "ListProductServlet";
+    private String MANAGEUSER_ACTION = "Manage Users";
+    private String MANAGEUSER_SERVLET = "ManageUsersServlet";
+    private String MANAGERUSER_JSP = "manageuser.jsp";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -87,6 +90,9 @@ public class MainController extends HttpServlet {
                 url = UPDATED_CONTROLLER;
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
+            } else if (nameButton.equals(MANAGEUSER_ACTION)) {
+                System.out.println("MainController User");
+                url = MANAGEUSER_SERVLET;
             }
 
         } catch (Exception e) {
