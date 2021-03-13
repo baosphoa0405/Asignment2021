@@ -55,7 +55,7 @@
                     <li class="nav-item dropdown">
                         <a
                             class="nav-link dropdown-toggle"
-                            href="#"
+                            href="MainController?btnAction=listproduct"
                             id="navbarDropdown"
                             role="button"
                             data-toggle="dropdown"
@@ -64,12 +64,12 @@
                             >
                             List product
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Men</a>
                             <a class="dropdown-item" href="#">Female</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Kid's</a>
-                        </div>
+                        </div>-->
                     <li class="nav-item active">
                         <a class="nav-link" href="MainController"
                            >View To Cart <span class="sr-only"></span>
