@@ -5,28 +5,23 @@
  */
 package servletControl;
 
-import ass.user.UserDAO;
+import ass.checkout.CheckoutDTO;
 import ass.user.UserDTO;
-import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-//import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
  * @author Admin
  */
-public class LoginServlet extends HttpServlet {
-
-    private final String invalidPage = "invalid.html";
-    private final String successPage = "success.jsp";
+public class CheckoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,52 +32,25 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String SUCCESS = "checkout.jsp";
+    private String FAIL = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        try {
-
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
-            UserDTO result = dao.checkLogin(username, password);
-            String mess = "email or password wrong";
-//            String url = invalidPage;
-            HttpSession session = request.getSession();
-
-            boolean valid = true;
-            UserRegErr rErr = new UserRegErr();
-
-            if (username.length() == 0) {
-                valid = false;
-                rErr.setUsernameErr("Username can't be blank");
-            }
-            if (password.length() == 0) {
-                valid = false;
-                rErr.setPasswordErr("Password can't be blank");
-            }
-            request.setAttribute("ERRORS", rErr);
-            if (result != null && valid) {
-//                url = successPage;
-                session.setAttribute("info", result);
-                request.getRequestDispatcher("ProductServlet").forward(request, response);
-            } else {
-                valid = false;
-                rErr.setUpErr("Username or Password wrong");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
-//            response.sendRedirect(url);
-        } catch (ClassNotFoundException ex) {
-//            System.out.println();
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            out.close();
+        String total = request.getParameter("Total");
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("info");
+        String url = FAIL;
+        if (user != null) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            url = SUCCESS;
+            CheckoutDTO checkout = new CheckoutDTO(user.getUsername(), null, dtf.format(now), Float.parseFloat(total), false);
+            System.out.println("date order " + checkout.getDateOrder());
+            session.setAttribute("checkout", checkout);
         }
-
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
