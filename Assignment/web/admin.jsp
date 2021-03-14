@@ -20,7 +20,7 @@
             <table>
                 <tr>
                     <td </br></br><input style="font-size: 20px"class="btn btn-primary" type="submit" value="Manage Users" name="btAction" /></td>
-                    <td </br></br><input style="font-size: 20px"class="btn btn-primary" type="submit" value="Manage Products" name="btAction" /></td>
+                    <td </br></br><input style="font-size: 20px"class="btn btn-primary"  type="submit" value="Manage Products" name="btAction" /></td>
                 </tr>
             </table>    
             </br>

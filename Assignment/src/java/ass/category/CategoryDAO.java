@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,8 +66,8 @@ public class CategoryDAO {
         }
         return list;
     }
-     public static ArrayList<CategoryDTO> getAllCategory() throws SQLException{
-        ArrayList<CategoryDTO> list = new ArrayList<>();
+     public static List<CategoryDTO> getAllCategory() throws SQLException{
+        List<CategoryDTO> list = new ArrayList<>();
         Connection cn = MyConnection.getMakeConnect();
         if(cn!=null){
             String sql="select *\n" +

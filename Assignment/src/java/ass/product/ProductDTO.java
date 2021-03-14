@@ -29,6 +29,7 @@ public class ProductDTO {
         this.price = price;
         this.status = status;
     }
+    
 
     public String getIDproduct() {
         return IDproduct;

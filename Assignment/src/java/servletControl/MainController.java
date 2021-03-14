@@ -55,7 +55,7 @@ public class MainController extends HttpServlet {
     private String SEARCHFORADMIN_ACTION = "Search Name";
     private String SEARCHFORADMIN_SERVLET = "SearchForAdminServlet";
     private String MANAGEPRODUCTS_ACTION = "Manage Products";
-    private String MANAGEPRODUCTS_JSP = "manageproduct.jsp";
+    private String MANAGEPRODUCTS_JSP = "manager";
     
     
     
@@ -106,21 +106,10 @@ public class MainController extends HttpServlet {
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
             } else if (nameButton.equals(MANAGEUSER_ACTION)) {
-//                System.out.println("MainController User");
+                System.out.println("MainController User");
                 url = MANAGERUSER_JSP;
             }
-             else if (nameButton.equals(ADDNEWPRODUCT_ACTION)) {
-                
-                url = ADDNEWPRODUCT_JSP;
-            }
-            else if (nameButton.equals(SEARCHFORADMIN_ACTION)) {
-                
-                url = SEARCHFORADMIN_SERVLET;
-            }
-            else if (nameButton.equals(MANAGEPRODUCTS_ACTION)) {
-                
-                url = MANAGEPRODUCTS_JSP;
-            }
+            
 
         } catch (Exception e) {
 

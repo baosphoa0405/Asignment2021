@@ -5,11 +5,7 @@
  */
 package servletControl;
 
-import ass.category.CategoryDAO;
 import ass.product.ProductDAO;
-import ass.user.UserDAO;
-import ass.user.UserDTO;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,17 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author DELL
+ * @author Acer
  */
-@WebServlet(name = "NullServlet", urlPatterns = {"/NullServlet"})
-public class NullServlet extends HttpServlet {
-    private final String loginPage="login.jsp";
-    private final String adminview="admin.jsp";
-    private final String customerview="customerview.jsp";
+@WebServlet(name = "EditControl", urlPatterns = {"/edit"})
+public class EditControl extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,34 +33,20 @@ public class NullServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String url=loginPage;
-            HttpSession s = request.getSession();
-            if(s.getAttribute("us")!=null && s.getAttribute("pw")!=null){
-                String username = (String) s.getAttribute("us");
-                String password = (String) s.getAttribute("pw");
-                UserDTO a= UserDAO.getAccount(username, password);
-                if (a != null) {
-                   
-                        if (a.isRole()== true) {
-                            s.setAttribute("listproduct", ProductDAO.getAllProductForAdmin());
-                            
-                            url = adminview;
-                        } else {
-                            s.setAttribute("listproduct", ProductDAO.getAllProduct1());
-                            s.setAttribute("category", CategoryDAO.getAllCategory());
-                            url = customerview;
-                        }
-                        //s.setAttribute("category", CategoryDAO.getAllCategory());
-                    
-                }
-            }
-            //request.removeAttribute("err");
-            request.getRequestDispatcher(url).forward(request, response);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        request.setCharacterEncoding("UTF-8");
+        String pidpro = request.getParameter("idproduct");
+        String pname = request.getParameter("name");
+        String pimage = request.getParameter("image");
+        String pprice = request.getParameter("price");
+        String psize = request.getParameter("size");
+        String pdescription = request.getParameter("description");
+        String pstatus = request.getParameter("status");
+        String pidcategory = request.getParameter("idcategory");
+        
+        ProductDAO dao = new ProductDAO();
+        dao.editProduct(pname, pimage, psize, pprice, pdescription, pstatus, pidcategory, pidpro);
+        response.sendRedirect("manager");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
