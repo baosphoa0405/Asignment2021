@@ -6,24 +6,21 @@
 package servletControl;
 
 import ass.user.UserDAO;
-import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Windows
  */
-@WebServlet(name = "ManageUsersServlet", urlPatterns = {"/ManageUsersServlet"})
-public class ManageUsersServlet extends HttpServlet {
+@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/DeleteUserServlet"})
+public class DeleteUserServlet extends HttpServlet {
     private String MANAGEUSER_JSP = "manageuser.jsp";
 
     /**
@@ -38,16 +35,20 @@ public class ManageUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession ss = request.getSession();
-        try (PrintWriter out = response.getWriter()) {
-            UserDAO a = new UserDAO();
-            a.getAllUser();
-//            List<UserDTO> list = a.getAllUsers();
-//            List<UserDTO> search = new ArrayList<>();
-            ss.setAttribute("listaccount", a.getAllUsers());
-            System.out.println("aaa" + a.getAllUsers());
+        PrintWriter out = response.getWriter();
+        try {
+            String username = request.getParameter("username");
+            System.out.println("username" + username);
+            UserDAO dao = new UserDAO();
+            dao.deleteUser(username);
             String url = MANAGEUSER_JSP;
-           request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            out.close();
         }
     }
 

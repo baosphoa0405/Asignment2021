@@ -7,10 +7,12 @@ package servletControl;
 
 import ass.user.UserDAO;
 import ass.user.UserDTO;
+import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +24,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Windows
  */
-@WebServlet(name = "ManageUsersServlet", urlPatterns = {"/ManageUsersServlet"})
-public class ManageUsersServlet extends HttpServlet {
-    private String MANAGEUSER_JSP = "manageuser.jsp";
-
+@WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
+public class UpdateUserServlet extends HttpServlet {
+     private String ERROR_URL = "error.jsp";
+    private String SUCCESS_URL = "manageuser.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,16 +40,55 @@ public class ManageUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession ss = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            UserDAO a = new UserDAO();
-            a.getAllUser();
-//            List<UserDTO> list = a.getAllUsers();
-//            List<UserDTO> search = new ArrayList<>();
-            ss.setAttribute("listaccount", a.getAllUsers());
-            System.out.println("aaa" + a.getAllUsers());
-            String url = MANAGEUSER_JSP;
-           request.getRequestDispatcher(url).forward(request, response);
+            String username = request.getParameter("username");
+            String name = request.getParameter("name").trim();;
+            String password = request.getParameter("password").trim(); 
+            boolean role = Boolean.parseBoolean(request.getParameter("role"));
+            UserDTO newUser = new UserDTO(username, name, password, role);
+            System.out.println(newUser);
+            UserDAO dao = new UserDAO();
+            
+            boolean errs = false;
+            UserRegErr rErr = new UserRegErr();
+            HttpSession session = request.getSession();
+            if(password.length()==0){
+                errs=true;
+                rErr.setPasswordErr("Password's not blank");
+            }
+            if(name.length()>5 && password.length()>5){
+                errs=true;
+                rErr.setDuplicateUsername("Updated!!");
+            }
+            if(name.length()<5 || name.length()>50){
+                errs=true;
+                rErr.setNameErr("Fullname's length must be 5 --> 20 letters.");
+            }
+            request.setAttribute("ERRORS", rErr);
+            int a;
+            try {
+                
+                String url = ERROR_URL;
+                a = UserDAO.updateUser(newUser);
+                if ( a > 0 ){
+                    
+                session.setAttribute("info", newUser);
+                request.getRequestDispatcher("manageuser.jsp").forward(request, response);  
+                request.setAttribute("ERRORS", rErr);
+                }
+                else if (errs==true) {
+                    
+                    request.setAttribute("ERRORS", rErr);
+                }
+                
+                request.getRequestDispatcher(url).forward(request, response);
+                
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

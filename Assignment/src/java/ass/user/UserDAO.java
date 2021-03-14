@@ -144,7 +144,7 @@ public class UserDAO {
         return rs;
     }
 
-    public static int deleteUser(String IDuser) throws ClassNotFoundException, SQLException {
+    public static int deleteUser(String username) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -153,7 +153,7 @@ public class UserDAO {
             if (cn != null) {
                 String sql = "delete [dbo].[User] where [username] = ?";
                 pstm = cn.prepareStatement(sql);
-                pstm.setString(1, IDuser);
+                pstm.setString(1, username);
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {

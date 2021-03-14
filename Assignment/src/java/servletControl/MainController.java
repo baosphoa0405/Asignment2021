@@ -45,6 +45,12 @@ public class MainController extends HttpServlet {
     private String MANAGEUSER_ACTION = "Manage Users";
     private String MANAGEUSER_SERVLET = "ManageUsersServlet";
     private String MANAGERUSER_JSP = "manageuser.jsp";
+    private String DELETEUSER_JSP = "Delete";
+    private String DELETEUSER_SERVLET = "DeleteUserServlet";
+    private String UPDATEUSER_JSP = "Update";
+    private String UPDATEUSER_SERVLET = "UpdateUserServlet";
+    private String UPDATEUSER_JSP1 = "updateuser.jsp";
+    private String UPDATEUSER_JSP2 = "UpdateUser";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,8 +65,8 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String nameButton = request.getParameter("BtnAction");
+        System.out.println("button"+ nameButton);
         String url = ERROR_JSP;
-
         try {
             if (nameButton == null) {
                 url = PRODUCT_SERVLET;
@@ -91,8 +97,13 @@ public class MainController extends HttpServlet {
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
             } else if (nameButton.equals(MANAGEUSER_ACTION)) {
-                System.out.println("MainController User");
                 url = MANAGEUSER_SERVLET;
+            } else if (nameButton.equals(DELETEUSER_JSP)) {
+                url = DELETEUSER_SERVLET;
+            } else if (nameButton.equals(UPDATEUSER_JSP)) {
+                url = UPDATEUSER_JSP1;
+            } else if (nameButton.equals(UPDATEUSER_JSP2)) {
+                url = UPDATEUSER_SERVLET;
             }
 
         } catch (Exception e) {
