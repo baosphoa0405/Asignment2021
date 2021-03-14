@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,6 +46,19 @@ public class MainController extends HttpServlet {
     private String MANAGEUSER_ACTION = "Manage Users";
     private String MANAGEUSER_SERVLET = "ManageUsersServlet";
     private String MANAGERUSER_JSP = "manageuser.jsp";
+    private String ADDNEWPRODUCT_ACTION = "Add New Product";
+    private String ADDNEWPRODUCT_JSP = "addproductform.jsp";
+    private String ADDNEWCATEGORY_ACTION = "Add New Category";
+    private String ADDNEWCATEGORY_JSP = "addcategoryform.jsp";
+    private String ADDNEWCATEGORY_ACTION1 = "Add Category";
+    private String ADDNEWCATEGORY_SERVLET = "AddCategoryServlet";
+    private String SEARCHFORADMIN_ACTION = "Search Name";
+    private String SEARCHFORADMIN_SERVLET = "SearchForAdminServlet";
+    private String MANAGEPRODUCTS_ACTION = "Manage Products";
+    private String MANAGEPRODUCTS_JSP = "manageproduct.jsp";
+    
+    
+    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,6 +72,7 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession ss = request.getSession();
         String nameButton = request.getParameter("BtnAction");
         String url = ERROR_JSP;
 
@@ -91,8 +106,20 @@ public class MainController extends HttpServlet {
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
             } else if (nameButton.equals(MANAGEUSER_ACTION)) {
-                System.out.println("MainController User");
-                url = MANAGEUSER_SERVLET;
+//                System.out.println("MainController User");
+                url = MANAGERUSER_JSP;
+            }
+             else if (nameButton.equals(ADDNEWPRODUCT_ACTION)) {
+                
+                url = ADDNEWPRODUCT_JSP;
+            }
+            else if (nameButton.equals(SEARCHFORADMIN_ACTION)) {
+                
+                url = SEARCHFORADMIN_SERVLET;
+            }
+            else if (nameButton.equals(MANAGEPRODUCTS_ACTION)) {
+                
+                url = MANAGEPRODUCTS_JSP;
             }
 
         } catch (Exception e) {

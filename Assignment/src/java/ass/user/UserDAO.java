@@ -75,7 +75,25 @@ public class UserDAO {
             }
         }
     }
-
+     public static UserDTO getAccount(String u, String p) throws SQLException{
+        UserDTO a=null;
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblUser\n" +
+                        "where username=? and password=?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1, u);
+            pst.setString(2, p);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                a = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), 
+                        rs.getBoolean(4));
+            }
+            cn.close();
+        }
+        return a;
+    }
     public static int insertUser(UserDTO newUser) {
         Connection cn = null;
         PreparedStatement pstm = null;

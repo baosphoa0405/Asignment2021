@@ -29,6 +29,24 @@ public class ProductDAO {
     public List<ProductDTO> getAllLaptops() {
         return allProduct;
     }
+    
+    public static ArrayList<ProductDTO> getAllProduct1() throws SQLException{
+        ArrayList<ProductDTO> list = new ArrayList<>();
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblProduct\n" +
+                        "where status=1";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                list.add(new ProductDTO(rs.getString(1),rs.getString(2), rs.getString(3), 
+                        rs.getString(4), rs.getString(5), rs.getString(6),rs.getFloat(7),rs.getBoolean(8)));
+            }
+            cn.close();
+        }
+        return list;
+    }
 
     public void getAllProduct() {
         Connection cn = null;
@@ -82,6 +100,21 @@ public class ProductDAO {
                 }
             }
         }
+    }
+    public static ArrayList<ProductDTO> getAllProductForAdmin() throws SQLException{
+        ArrayList<ProductDTO> list = new ArrayList<>();
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblProduct\n";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                list.add(new ProductDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getFloat(7),rs.getBoolean(8)));
+            }
+            cn.close();
+        }
+        return list;
     }
     
     public static Vector<CategoryDTO> getAllCategorys() {
