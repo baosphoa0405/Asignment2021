@@ -44,6 +44,10 @@
         <servlet-name>CheckoutedServlet</servlet-name>
         <servlet-class>servletControl.CheckoutedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompleteCheckout</servlet-name>
+        <servlet-class>servletControl.CompleteCheckout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>CheckoutedServlet</servlet-name>
         <url-pattern>/CheckoutedServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteCheckout</servlet-name>
+        <url-pattern>/CompleteCheckout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

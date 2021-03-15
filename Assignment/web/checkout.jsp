@@ -18,7 +18,7 @@
                     <p class="card-text">
                     <form method="POST" action="CheckoutedServlet">
                         <label for="dateShip">Date Ship:</label>
-                        <input type="date" id="birthday" name="dateShip" >
+                        <input type="date" id="dateShip" name="dateShip" min="${sessionScope.checkout.getDateOrder()}"  >
                         <p class='text-danger'>${requestScope.errorDateShip}</p>
                         <br/>
                         <button class="btn btn-primary">

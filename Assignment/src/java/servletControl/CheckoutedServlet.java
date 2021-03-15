@@ -5,6 +5,7 @@
  */
 package servletControl;
 
+import ass.checkout.CheckoutDAO;
 import ass.checkout.CheckoutDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,7 +34,7 @@ public class CheckoutedServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private String FAIL = "checkout.jsp";
-    private String SUCCESS = "ProductServlet";
+    private String SUCCESS = "CompleteCheckout";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,6 +42,7 @@ public class CheckoutedServlet extends HttpServlet {
 
         try {
             String dateShip = request.getParameter("dateShip");
+            System.out.println("dateship" + dateShip);
             if (dateShip.isEmpty()) {
                 request.setAttribute("errorDateShip", "Vui lòng chọn dateship");
                 request.getRequestDispatcher(FAIL).forward(request, response);
@@ -52,18 +54,15 @@ public class CheckoutedServlet extends HttpServlet {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date dateShipCom = sdf.parse(dateShip);
             Date dateOrderCom = sdf.parse(checkout.getDateOrder());
-
-            System.out.println("dateShipCom : " + sdf.format(dateShipCom));
-            System.out.println("dateOrderCom : " + sdf.format(dateOrderCom));
             String url = FAIL;
-            if (dateShipCom.compareTo(dateOrderCom) > 0) {
-                url = SUCCESS;
+            if (dateShipCom.compareTo(dateOrderCom) > 0 || dateShipCom.compareTo(dateOrderCom) == 0) {
+                CheckoutDAO a = new CheckoutDAO();
+                boolean check = a.insertCart(checkout.getUsername(), false, dateOrderCom, dateShipCom, checkout.getTotalPrice());
+                if (check) {
+                    url = SUCCESS;
+                }
             } else if (dateShipCom.compareTo(dateOrderCom) < 0) {
                 request.setAttribute("errorDateShip", "VUI LÒNG CHỌN NGÀY SỚM HƠN NGÀY ORDER");
-            } else if (dateShipCom.compareTo(dateOrderCom) == 0) {
-                url = SUCCESS;
-            } else {
-                System.out.println("How to get here?");
             }
             request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {

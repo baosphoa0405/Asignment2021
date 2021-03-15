@@ -5,13 +5,14 @@
  */
 package ass.checkout;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Admin
  */
-public class CheckoutDTO {
+public class CheckoutDTO implements Serializable{
 
     private String username, dateShip, dateOrder;
     private float totalPrice;
