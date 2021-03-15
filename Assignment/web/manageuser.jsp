@@ -24,7 +24,7 @@
             <table>
                 <tr>
                     <td><input style="width:268px;height:32px;margin: 7px;font-family: cursive;font-size: 20px"placeholder="Enter Name User"type="text" name="searchValue" value="${param.searchValue}"/></td>
-                    <td><input style="font-size: 20px"class="haha" type="submit" name="btAction" value="Search Username"/></td>
+                    <td><input style="font-size: 20px" type="submit" name="BtnAction" value="Search User" /></td>
                 </tr>
             </table>
             <c:if test="${not empty accountsearch}">
@@ -49,9 +49,9 @@
                                 <td style="font-family: cursive">${account.password}</td>
                                 <td style="font-family: cursive">${account.name}</td>
 
-                                <td style="font-family: cursive"align="center"><a href="process?btAction=View Order&id=${account.username}">View Order</a></td>
-                                <td style="font-family: cursive"align="center"><a href="process?btAction=Delete Account&id=${account.username}" 
-                                                                                  onclick="return confirm('Are you sure to Delete ?')">Delete</a></td>
+                                <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Update" /></td>
+                                <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Delete" /></td>
+                                <input type="hidden" name="username" value="${account.username}" />
                             </tr>
 
                         </c:forEach>

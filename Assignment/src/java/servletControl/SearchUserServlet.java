@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SearchUserServlet", urlPatterns = {"/SearchUserServlet"})
 public class SearchUserServlet extends HttpServlet {
-
+    private String MANAGEUSER_JSP = "manageuser.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,10 +52,8 @@ public class SearchUserServlet extends HttpServlet {
            }
            request.setAttribute("value", value);
             request.setAttribute("accountsearch", search);
-            String url="MainController?BtnAction=Manage Users";
-            request.getRequestDispatcher(url).forward(request, response);
-//               String url = MANAGEUSER_JSP;
-//               request.getRequestDispatcher(url).forward(request, response);
+               String url = MANAGEUSER_JSP;
+               request.getRequestDispatcher(url).forward(request, response);
         }
         catch(Exception e){
             e.printStackTrace();

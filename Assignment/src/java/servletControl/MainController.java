@@ -51,6 +51,8 @@ public class MainController extends HttpServlet {
     private String UPDATEUSER_SERVLET = "UpdateUserServlet";
     private String UPDATEUSER_JSP1 = "updateuser.jsp";
     private String UPDATEUSER_JSP2 = "UpdateUser";
+    private String SEARCHUSER_JSP = "Search User";
+    private String SEARCHUSER_SERVLET = "SearchUserServlet";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -104,6 +106,8 @@ public class MainController extends HttpServlet {
                 url = UPDATEUSER_JSP1;
             } else if (nameButton.equals(UPDATEUSER_JSP2)) {
                 url = UPDATEUSER_SERVLET;
+            } else if (nameButton.equals(SEARCHUSER_JSP)) {
+                url = SEARCHUSER_SERVLET;
             }
 
         } catch (Exception e) {

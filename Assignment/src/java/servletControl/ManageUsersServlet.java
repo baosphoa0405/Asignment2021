@@ -45,7 +45,6 @@ public class ManageUsersServlet extends HttpServlet {
 //            List<UserDTO> list = a.getAllUsers();
 //            List<UserDTO> search = new ArrayList<>();
             ss.setAttribute("listaccount", a.getAllUsers());
-            System.out.println("aaa" + a.getAllUsers());
             String url = MANAGEUSER_JSP;
            request.getRequestDispatcher(url).forward(request, response);
         }
