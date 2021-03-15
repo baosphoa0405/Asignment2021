@@ -5,12 +5,9 @@
  */
 package servletControl;
 
-import ass.user.UserDAO;
-import ass.user.UserDTO;
+import ass.product.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +17,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Windows
+ * @author Acer
  */
-@WebServlet(name = "ManageUsersServlet", urlPatterns = {"/ManageUsersServlet"})
-public class ManageUsersServlet extends HttpServlet {
-    private String MANAGEUSER_JSP = "manageuser.jsp";
-
+@WebServlet(name = "ManageProductServlet", urlPatterns = {"/ManageProductServlet"})
+public class ManageProductServlet extends HttpServlet {
+    private String MANAGEPRODUCT_JSP = "manager";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,11 +37,11 @@ public class ManageUsersServlet extends HttpServlet {
         System.out.println("servlet user");
         HttpSession ss = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            UserDAO a = new UserDAO();
-           ss.setAttribute("listaccount", a.getAllUsers());
+            ProductDAO a = new ProductDAO();
+//           ss.setAttribute("listaccount", a.getAllLaptops());
             System.out.println("du lieu user");
-           String url = MANAGEUSER_JSP;
-           
+           String url = MANAGEPRODUCT_JSP;
+           request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

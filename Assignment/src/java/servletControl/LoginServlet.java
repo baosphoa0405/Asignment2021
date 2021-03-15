@@ -70,6 +70,9 @@ public class LoginServlet extends HttpServlet {
                 if (result.isRole()) {
                         request.getRequestDispatcher("admin.jsp").forward(request, response);
                 }
+                else {
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             } else {
                 valid = false;
                 rErr.setUpErr("Username or Password wrong");
