@@ -63,10 +63,10 @@ public class LoginServlet extends HttpServlet {
                 valid = false;
                 rErr.setPasswordErr("Password can't be blank");
             }
-            if (username.length() != 0 && password.length() != 0) {
-                valid = false;
-                rErr.setUpErr("Username or Password wrong");
-            }
+//            if (username.length() != 0 && password.length() != 0) {
+//                valid = false;
+//                rErr.setUpErr("Username or Password wrong");
+//            }
             request.setAttribute("ERRORS", rErr);
             if (result != null && valid) {
                 session.setAttribute("info", result);
