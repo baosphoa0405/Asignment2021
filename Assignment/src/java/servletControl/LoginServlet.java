@@ -27,6 +27,7 @@ public class LoginServlet extends HttpServlet {
 
     private final String invalidPage = "invalid.html";
     private final String successPage = "success.jsp";
+    private final String admin = "admin.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,8 +49,7 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
             UserDTO result = dao.checkLogin(username, password);
-            String mess = "email or password wrong";
-//            String url = invalidPage;
+            
             HttpSession session = request.getSession();
 
             boolean valid = true;
@@ -63,17 +63,23 @@ public class LoginServlet extends HttpServlet {
                 valid = false;
                 rErr.setPasswordErr("Password can't be blank");
             }
+//            if (username.length() != 0 && password.length() != 0) {
+//                valid = false;
+//                rErr.setUpErr("Username or Password wrong");
+//            }
             request.setAttribute("ERRORS", rErr);
             if (result != null && valid) {
-//                url = successPage;
                 session.setAttribute("info", result);
-                request.getRequestDispatcher("ProductServlet").forward(request, response);
+                if (result.isRole()) {
+                        request.getRequestDispatcher("admin.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             } else {
-                valid = false;
-                rErr.setUpErr("Username or Password wrong");
+//                valid = false;
+//                rErr.setUpErr("Username or Password wrong");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-//            response.sendRedirect(url);
         } catch (ClassNotFoundException ex) {
 //            System.out.println();
             ex.printStackTrace();

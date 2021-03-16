@@ -40,10 +40,24 @@ public class MainController extends HttpServlet {
     private String UPDATE_SERVLET = "UpdateProfile";
     private String UPDATE_CONTROLLER = "updateUserController";
     private String UPDATED_CONTROLLER = "updateProfile";
-    private String ACTION_HISTORY = "history";
-    private String HistoryServlet = "HistoryServlet";
     private String LISTPRODUCT_ACTION = "listproduct";
     private String LISTPRODUCT_SERVLET = "ListProductServlet";
+    private String MANAGEUSER_ACTION = "Manage Users";
+    private String MANAGEUSER_SERVLET = "ManageUsersServlet";
+    private String MANAGERUSER_JSP = "manageuser.jsp";
+    private String DELETEUSER_JSP = "Delete";
+    private String DELETEUSER_SERVLET = "DeleteUserServlet";
+    private String UPDATEUSER_JSP = "Update";
+    private String UPDATEUSER_SERVLET = "UpdateUserServlet";
+    private String SEARCHUSER_JSP = "Search User";
+    private String SEARCHUSER_SERVLET = "SearchUserServlet";
+    private String EDITUSER_ACTION = "Edit User";
+    private String EDITUSER_SERVLET = "EditUserServlet";
+    
+    private String ACTION_HISTORY = "history";
+    private String HistoryServlet = "HistoryServlet";
+//    private String LISTPRODUCT_ACTION = "listproduct";
+//    private String LISTPRODUCT_SERVLET = "ListProductServlet";
     private String CART_ACTION_INDE = "InDe";
     private String INDE_SERVLET = "InDeServlet";
     private String CHECKOUT_ACTION = "checkout";
@@ -62,7 +76,6 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nameButton = request.getParameter("BtnAction");
         String url = ERROR_JSP;
-        System.out.println(nameButton + "dasdas");
         try {
             if (nameButton == null) {
                 url = PRODUCT_SERVLET;
@@ -90,6 +103,16 @@ public class MainController extends HttpServlet {
                 url = UPDATED_CONTROLLER;
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
+            } else if (nameButton.equals(MANAGEUSER_ACTION)) {
+                url = MANAGEUSER_SERVLET;
+            } else if (nameButton.equals(DELETEUSER_JSP)) {
+                url = DELETEUSER_SERVLET;
+            } else if (nameButton.equals(UPDATEUSER_JSP)) {
+                url = UPDATEUSER_SERVLET;
+            } else if (nameButton.equals(SEARCHUSER_JSP)) {
+                url = SEARCHUSER_SERVLET;
+            } else if (nameButton.equals(EDITUSER_ACTION)) {
+                url = EDITUSER_SERVLET;
             } else if (nameButton.equals(CART_ACTION_INDE)){
                 url = INDE_SERVLET;
             }else if (nameButton.equals(CHECKOUT_ACTION)){

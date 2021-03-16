@@ -1526,8 +1526,8 @@
 								"$ref": "AAAAAAF357Tl2hBFBCk="
 							},
 							"name": "IDcart",
-							"type": "nvarchar",
-							"length": "10",
+							"type": "int",
+							"length": 0,
 							"primaryKey": true
 						},
 						{
@@ -1605,8 +1605,8 @@
 								"$ref": "AAAAAAF38V+xCxcw0Cg="
 							},
 							"name": "IDcartDetail",
-							"type": "nvarchar",
-							"length": "10",
+							"type": "int",
+							"length": 0,
 							"primaryKey": true
 						},
 						{
