@@ -26,8 +26,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
 public class UpdateUserServlet extends HttpServlet {
-     private String ERROR_URL = "error.jsp";
-    private String SUCCESS_URL = "manageuser.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,56 +38,13 @@ public class UpdateUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("username");
-            String name = request.getParameter("name").trim();;
-            String password = request.getParameter("password").trim(); 
-            boolean role = Boolean.parseBoolean(request.getParameter("role"));
-            UserDTO newUser = new UserDTO(username, name, password, role);
-            System.out.println(newUser);
-            UserDAO dao = new UserDAO();
-            
-            boolean errs = false;
-            UserRegErr rErr = new UserRegErr();
-            HttpSession session = request.getSession();
-            if(password.length()==0){
-                errs=true;
-                rErr.setPasswordErr("Password's not blank");
-            }
-            if(name.length()>5 && password.length()>5){
-                errs=true;
-                rErr.setDuplicateUsername("Updated!!");
-            }
-            if(name.length()<5 || name.length()>50){
-                errs=true;
-                rErr.setNameErr("Fullname's length must be 5 --> 20 letters.");
-            }
-            request.setAttribute("ERRORS", rErr);
-            int a;
-            try {
-                
-                String url = ERROR_URL;
-                a = UserDAO.updateUser(newUser);
-                if ( a > 0 ){
-                    
-                session.setAttribute("info", newUser);
-                request.getRequestDispatcher("manageuser.jsp").forward(request, response);  
-                request.setAttribute("ERRORS", rErr);
-                }
-                else if (errs==true) {
-                    
-                    request.setAttribute("ERRORS", rErr);
-                }
-                
-                request.getRequestDispatcher(url).forward(request, response);
-                
-                
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        UserDAO dao = new UserDAO();
+        String username1 = request.getParameter("username1");
+        System.out.println("id tao ne" + username1);
+        UserDTO u = dao.getUserByUsername(username1);
+        
+        request.setAttribute("detail", u);
+        request.getRequestDispatcher("updateuser.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

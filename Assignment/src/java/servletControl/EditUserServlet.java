@@ -6,6 +6,7 @@
 package servletControl;
 
 import ass.user.UserDAO;
+import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,9 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Windows
  */
-@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/DeleteUserServlet"})
-public class DeleteUserServlet extends HttpServlet {
-    private String MANAGEUSER_JSP = "ManageUsersServlet";
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/EditUserServlet"})
+public class EditUserServlet extends HttpServlet {
+
+    private String MANAGEUSER_SERVLET = "ManageUsersServlet";
+    private String UPDATEUSER_JSP = "updateuser.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,19 +38,19 @@ public class DeleteUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
             String username = request.getParameter("username");
+
             UserDAO dao = new UserDAO();
-            dao.deleteUser(username);
-            String url = MANAGEUSER_JSP;
+            dao.updateUserbyAdmin(name, password, username);
+            String url = MANAGEUSER_SERVLET;
             request.getRequestDispatcher(url).forward(request, response);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            out.close();
         }
     }
 

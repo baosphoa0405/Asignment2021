@@ -49,10 +49,10 @@ public class MainController extends HttpServlet {
     private String DELETEUSER_SERVLET = "DeleteUserServlet";
     private String UPDATEUSER_JSP = "Update";
     private String UPDATEUSER_SERVLET = "UpdateUserServlet";
-    private String UPDATEUSER_JSP1 = "updateuser.jsp";
-    private String UPDATEUSER_JSP2 = "UpdateUser";
     private String SEARCHUSER_JSP = "Search User";
     private String SEARCHUSER_SERVLET = "SearchUserServlet";
+    private String EDITUSER_ACTION = "Edit User";
+    private String EDITUSER_SERVLET = "EditUserServlet";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,7 +67,6 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String nameButton = request.getParameter("BtnAction");
-        System.out.println("button"+ nameButton);
         String url = ERROR_JSP;
         try {
             if (nameButton == null) {
@@ -103,11 +102,11 @@ public class MainController extends HttpServlet {
             } else if (nameButton.equals(DELETEUSER_JSP)) {
                 url = DELETEUSER_SERVLET;
             } else if (nameButton.equals(UPDATEUSER_JSP)) {
-                url = UPDATEUSER_JSP1;
-            } else if (nameButton.equals(UPDATEUSER_JSP2)) {
                 url = UPDATEUSER_SERVLET;
             } else if (nameButton.equals(SEARCHUSER_JSP)) {
                 url = SEARCHUSER_SERVLET;
+            } else if (nameButton.equals(EDITUSER_ACTION)) {
+                url = EDITUSER_SERVLET;
             }
 
         } catch (Exception e) {

@@ -228,5 +228,45 @@ public class UserDAO {
             return null;
         }
     
+    public UserDTO getUserByUsername(String username){
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        String query = "select [username], [name], [password], [role] from [dbo].[User] where username = ? ";
+        try {
+            cn = MyConnection.getMakeConnect();
+                pstm = cn.prepareStatement(query);
+                pstm.setString(1, username);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    return new UserDTO(rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getBoolean("role"));
+                }
+        } catch (Exception e) {
+            e.printStackTrace();   
+        }
+        return null;
+    }
+    
+    public static void updateUserbyAdmin(String name, String password, String username) throws ClassNotFoundException, SQLException {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "update [dbo].[User] set [name] = ?, [password] = ? "
+                        + " where [username] = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, name);
+                pstm.setString(2, password);
+                
+                pstm.setString(3, username);
+                pstm.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     }
 

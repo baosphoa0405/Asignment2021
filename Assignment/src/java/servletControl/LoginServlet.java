@@ -49,7 +49,6 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
             UserDTO result = dao.checkLogin(username, password);
-            String mess = "email or password wrong";
             
             HttpSession session = request.getSession();
 
@@ -64,15 +63,21 @@ public class LoginServlet extends HttpServlet {
                 valid = false;
                 rErr.setPasswordErr("Password can't be blank");
             }
+            if (username.length() != 0 && password.length() != 0) {
+                valid = false;
+                rErr.setUpErr("Username or Password wrong");
+            }
             request.setAttribute("ERRORS", rErr);
             if (result != null && valid) {
                 session.setAttribute("info", result);
                 if (result.isRole()) {
                         request.getRequestDispatcher("admin.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
             } else {
-                valid = false;
-                rErr.setUpErr("Username or Password wrong");
+//                valid = false;
+//                rErr.setUpErr("Username or Password wrong");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
