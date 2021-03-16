@@ -5,26 +5,23 @@
  */
 package servletControl;
 
-import ass.category.CategoryDTO;
-import ass.product.ProductDAO;
-import ass.product.ProductDTO;
-import ass.user.UserDAO;
+import ass.checkout.CheckoutDTO;
+import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class ProductServlet extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +32,25 @@ public class ProductServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String INDEX_JSP = "index.jsp";
-    private String successPage = "success.jsp";
+    private String SUCCESS = "checkout.jsp";
+    private String FAIL = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        ProductDAO dao = new ProductDAO();
-        dao.getAllProduct();
-        List<ProductDTO> listProduct = dao.getAllLaptops();
-        List<CategoryDTO> listCategory = dao.getAllCategorys();
-//        System.out.println("product serlet runs");
-        request.setAttribute("listProduct", listProduct);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        String total = request.getParameter("Total");
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("info");
+        String url = FAIL;
+        if (user != null) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            url = SUCCESS;
+            CheckoutDTO checkout = new CheckoutDTO(null, user.getUsername(), dtf.format(now), null, Float.parseFloat(total), false);
+            System.out.println("date order " + checkout.getDateOrder());
+            session.setAttribute("checkout", checkout);
+        }
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

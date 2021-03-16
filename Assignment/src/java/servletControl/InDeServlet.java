@@ -5,26 +5,23 @@
  */
 package servletControl;
 
-import ass.category.CategoryDTO;
+import ass.cart.CartDTO;
 import ass.product.ProductDAO;
 import ass.product.ProductDTO;
-import ass.user.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class ProductServlet extends HttpServlet {
+public class InDeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +32,31 @@ public class ProductServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String INDEX_JSP = "index.jsp";
-    private String successPage = "success.jsp";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
+        String id = request.getParameter("ID");
+        String flag = request.getParameter("Flag");
+        System.out.println(id + "-" + flag);
         ProductDAO dao = new ProductDAO();
         dao.getAllProduct();
+        // lấy danh sách
         List<ProductDTO> listProduct = dao.getAllLaptops();
-        List<CategoryDTO> listCategory = dao.getAllCategorys();
-//        System.out.println("product serlet runs");
-        request.setAttribute("listProduct", listProduct);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        // tìm product
+        ProductDTO product = dao.findProduct(id, listProduct);
+        HttpSession session = request.getSession();
+        // get cart
+        CartDTO cart = (CartDTO) session.getAttribute("cart");
+        if (Boolean.parseBoolean(flag)) {
+            // add
+            cart.addItemCart(product.getIDproduct());
+        } else {
+            // remove
+            cart.removeItemCart(id);
+        }
+        session.setAttribute("listProductInCart", cart.getList());
+        request.getSession().setAttribute("cart", cart);
+        response.sendRedirect("cart.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

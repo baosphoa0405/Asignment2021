@@ -81,6 +81,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
+//            System.out.println();
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();

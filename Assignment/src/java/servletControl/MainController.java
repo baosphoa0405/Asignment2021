@@ -54,6 +54,14 @@ public class MainController extends HttpServlet {
     private String EDITUSER_ACTION = "Edit User";
     private String EDITUSER_SERVLET = "EditUserServlet";
     
+    private String ACTION_HISTORY = "history";
+    private String HistoryServlet = "HistoryServlet";
+//    private String LISTPRODUCT_ACTION = "listproduct";
+//    private String LISTPRODUCT_SERVLET = "ListProductServlet";
+    private String CART_ACTION_INDE = "InDe";
+    private String INDE_SERVLET = "InDeServlet";
+    private String CHECKOUT_ACTION = "checkout";
+    private String CHECKOUT_SERVLET = "CheckoutServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -89,11 +97,9 @@ public class MainController extends HttpServlet {
                 url = SIGNUP_JSP;
             } else if (nameButton.equals(LOGINPAGE_ACTION)) {
                 url = LOGIN_JSP;
-            }
-              else if (nameButton.equals(UPDATE_ACTION)) {
+            } else if (nameButton.equals(UPDATE_ACTION)) {
                 url = UPDATE_CONTROLLER;
-            }
-              else if (nameButton.equals(UPDATE_SERVLET)) {
+            } else if (nameButton.equals(UPDATE_SERVLET)) {
                 url = UPDATED_CONTROLLER;
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
@@ -107,11 +113,18 @@ public class MainController extends HttpServlet {
                 url = SEARCHUSER_SERVLET;
             } else if (nameButton.equals(EDITUSER_ACTION)) {
                 url = EDITUSER_SERVLET;
+            } else if (nameButton.equals(CART_ACTION_INDE)){
+                url = INDE_SERVLET;
+            }else if (nameButton.equals(CHECKOUT_ACTION)){
+                url = CHECKOUT_SERVLET;
+            }else if (nameButton.equals(ACTION_HISTORY)) {
+                url = HistoryServlet;
+                System.out.println("hihi " + url);
             }
-
         } catch (Exception e) {
 
         } finally {
+            System.out.println("url" + url);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
