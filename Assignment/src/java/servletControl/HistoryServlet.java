@@ -5,26 +5,30 @@
  */
 package servletControl;
 
-import ass.category.CategoryDTO;
+import ass.cart.CartDetailDTO;
+import ass.checkout.CheckoutDAO;
+import ass.checkout.CheckoutDTO;
 import ass.product.ProductDAO;
 import ass.product.ProductDTO;
-import ass.user.UserDAO;
+import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class ProductServlet extends HttpServlet {
+public class HistoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +39,42 @@ public class ProductServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String INDEX_JSP = "index.jsp";
-    private String successPage = "success.jsp";
+    private String FAIL = "MainController";
+    private String SUCCESS = "history.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("info");
+        System.out.println(user);
+        String url = FAIL;
+        CheckoutDAO dao = new CheckoutDAO();
+        if (user != null) {
+            url = SUCCESS;
+            // get all list cart của user mua
+            List<CheckoutDTO> cart = dao.getAllInfoCartByUserName(user.getUsername());
+            List<CartDetailDTO> listCartDetail = null;
+            ArrayList<List<CartDetailDTO>> listCartDetailAll = new ArrayList<List<CartDetailDTO>>();
+            ProductDAO productDao = new ProductDAO();
+            productDao.getAllProduct();
+            List<ProductDTO> listProductTest = productDao.getAllLaptops();
+            for (CheckoutDTO item : cart) {
+                try {
+                    // lấy từng id zo bản cart detal query ra ;
+                    listCartDetail = dao.getAllInfoCartDetail(Integer.parseInt(item.getIDcart()));
+                    listCartDetailAll.add(listCartDetail);
+                    System.out.println("list cart detail"+listCartDetailAll);
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoryServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            session.setAttribute("cartHistory", cart);
+            session.setAttribute("cartDetail", listCartDetailAll);
+            session.setAttribute("listProductHistory", listProductTest);
+        }
+        request.getRequestDispatcher(url).forward(request, response);
 
-        ProductDAO dao = new ProductDAO();
-        dao.getAllProduct();
-        List<ProductDTO> listProduct = dao.getAllLaptops();
-        List<CategoryDTO> listCategory = dao.getAllCategorys();
-//        System.out.println("product serlet runs");
-        request.setAttribute("listProduct", listProduct);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

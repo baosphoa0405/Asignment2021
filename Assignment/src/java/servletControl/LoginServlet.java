@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
             if (result != null && valid) {
 //                url = successPage;
                 session.setAttribute("info", result);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("ProductServlet").forward(request, response);
             } else {
                 valid = false;
                 rErr.setUpErr("Username or Password wrong");
@@ -75,6 +75,7 @@ public class LoginServlet extends HttpServlet {
             }
 //            response.sendRedirect(url);
         } catch (ClassNotFoundException ex) {
+//            System.out.println();
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();

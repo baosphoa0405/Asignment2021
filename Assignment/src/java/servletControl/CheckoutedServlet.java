@@ -5,26 +5,24 @@
  */
 package servletControl;
 
-import ass.category.CategoryDTO;
-import ass.product.ProductDAO;
-import ass.product.ProductDTO;
-import ass.user.UserDAO;
+import ass.checkout.CheckoutDAO;
+import ass.checkout.CheckoutDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class ProductServlet extends HttpServlet {
+public class CheckoutedServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,25 +33,45 @@ public class ProductServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String INDEX_JSP = "index.jsp";
-    private String successPage = "success.jsp";
+    private String FAIL = "checkout.jsp";
+    private String SUCCESS = "CompleteCheckout";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
-        ProductDAO dao = new ProductDAO();
-        dao.getAllProduct();
-        List<ProductDTO> listProduct = dao.getAllLaptops();
-        List<CategoryDTO> listCategory = dao.getAllCategorys();
-//        System.out.println("product serlet runs");
-        request.setAttribute("listProduct", listProduct);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        try {
+            String dateShip = request.getParameter("dateShip");
+            System.out.println("dateship" + dateShip);
+            if (dateShip.isEmpty()) {
+                request.setAttribute("errorDateShip", "Vui lòng chọn dateship");
+                request.getRequestDispatcher(FAIL).forward(request, response);
+            }
+            System.out.println(dateShip);
+            HttpSession session = request.getSession();
+            CheckoutDTO checkout = (CheckoutDTO) session.getAttribute("checkout");
+            System.out.println("checkout  date" + checkout.getDateOrder());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateShipCom = sdf.parse(dateShip);
+            Date dateOrderCom = sdf.parse(checkout.getDateOrder());
+            String url = FAIL;
+            if (dateShipCom.compareTo(dateOrderCom) > 0 || dateShipCom.compareTo(dateOrderCom) == 0) {
+                CheckoutDAO a = new CheckoutDAO();
+                boolean check = a.insertCart(checkout.getUsername(), false, dateOrderCom, dateShipCom, checkout.getTotalPrice());
+                if (check) {
+                    url = SUCCESS;
+                }
+            } else if (dateShipCom.compareTo(dateOrderCom) < 0) {
+                request.setAttribute("errorDateShip", "VUI LÒNG CHỌN NGÀY SỚM HƠN NGÀY ORDER");
+            }
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

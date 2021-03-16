@@ -5,11 +5,13 @@
  */
 package ass.product;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Acer
  */
-public class ProductDTO {
+public class ProductDTO implements Serializable{
     private String IDproduct;
     private String name;
     private String size;

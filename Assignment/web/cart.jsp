@@ -11,26 +11,26 @@
 <main style="height: 1000px">
     <div class="container" style="margin: 100px 100px">
         <div class="row">
-            <div class="col-8">
+            <div class="col-9" style="z-index: 999">
                 <c:set var="cart" value="${sessionScope.cart}" />
                 <c:set var="hashMap" value="${sessionScope.listProductInCart}"/>
                 <c:if test="${empty cart || empty hashMap}">
                     <h1>No Cart To view</h1>
                 </c:if>
                 <c:if test="${not empty cart && not empty hashMap}">
-                    <table class="table">
+                    <table class="table" style="width: 500px">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Img</th>
                                 <th>Price</th>
-                                <th>Quanlity</th>
-                                <th>Size</th>
+                                <th colspan="2">Quanlity</th>
+                                <th colspan="2" style="    padding-left: 50px">Size</th>
+                                <th></th>
                                 <th>Sum</th>
-
+                                <th></th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <c:set var="listproduct" value="${sessionScope.listproduct}"/>
                         <form>
@@ -41,8 +41,16 @@
                                             <td scope="row">${itemProduct.name}</td>
                                             <td><img src="./images/${itemProduct.img}.jpg" width="200px" height="200px"/></td>
                                             <td>${String.format("%,.0f", itemProduct.price)}Đ</td>
-                                            <td>${itemCart.value}</td>
-                                            <td>${itemProduct.size}</td>
+                                            <td colspan="3" style="text-align: center">
+                                                <button class="btn btn-danger">
+                                                    <a href="MainController?BtnAction=InDe&ID=${itemProduct.IDproduct}&Flag=True">+</a>
+                                                </button>
+                                                ${itemCart.value}
+                                                <button class="btn btn-danger">
+                                                    <a  href="InDeServlet?ID=${itemProduct.IDproduct}&Flag=False">-</a>
+                                                </button>
+                                            </td>
+                                            <td colspan="2" >${itemProduct.size}</td>">
                                             <td>${String.format("%,.0f", itemProduct.price * itemCart.value)}Đ</td>
                                             <c:set var="total" value="${total + (itemProduct.price * itemCart.value)}"/>
                                             <td><a href="MainController?BtnAction=RemoveCart&ID=${itemProduct.IDproduct}">Remove</a></td>
@@ -55,10 +63,16 @@
                     </table>
                 </c:if>
             </div>
-            <div class="col-4">
+            <div class="col-3" style="text-align: right">
                 <h3>Cart Summary</h3>
                 <p>Total Sum: ${total > 0 ? String.format("%,.0f", total) : 0} Đ</p>
-                <button type="button" class="btn btn-primary px-4">Checkout</button>
+                <button type="button" class="btn btn-primary px-4">
+                    <a href="MainController?BtnAction=checkout&Total=${total}" style="color: black">Checkout</a>
+                </button>
+<!--                <form action="MainController">
+                    <input type="hidden" name="BtnAction" value="${total}" />
+                </form>-->
+
             </div>
         </div>
     </div>
