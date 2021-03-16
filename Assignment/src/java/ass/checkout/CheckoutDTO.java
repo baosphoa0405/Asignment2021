@@ -12,11 +12,19 @@ import java.util.Date;
  *
  * @author Admin
  */
-public class CheckoutDTO implements Serializable{
+public class CheckoutDTO implements Serializable {
 
-    private String username, dateShip, dateOrder;
+    private String IDcart, username, dateShip, dateOrder;
     private float totalPrice;
     boolean isPay;
+
+    public String getIDcart() {
+        return IDcart;
+    }
+
+    public void setIDcart(String IDcart) {
+        this.IDcart = IDcart;
+    }
 
     public String getUsername() {
         return username;
@@ -58,7 +66,8 @@ public class CheckoutDTO implements Serializable{
         this.isPay = isPay;
     }
 
-    public CheckoutDTO(String username, String dateShip, String dateOrder, float totalPrice, boolean isPay) {
+    public CheckoutDTO(String IDcart, String username, String dateOrder, String dateShip, float totalPrice, boolean isPay) {
+        this.IDcart = IDcart;
         this.username = username;
         this.dateShip = dateShip;
         this.dateOrder = dateOrder;
@@ -68,7 +77,9 @@ public class CheckoutDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "CheckoutDTO{" + "username=" + username + ", dateShip=" + dateShip + ", dateOrder=" + dateOrder + ", totalPrice=" + totalPrice + ", isPay=" + isPay + '}';
+        return "CheckoutDTO{" + "IDcart=" + IDcart + ", username=" + username + ", dateShip=" + dateShip + ", dateOrder=" + dateOrder + ", totalPrice=" + totalPrice + ", isPay=" + isPay + '}';
     }
+
+  
 
 }

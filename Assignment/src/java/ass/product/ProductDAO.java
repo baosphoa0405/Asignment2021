@@ -200,7 +200,37 @@ public class ProductDAO {
         }
         return a;
     }
-    
+
+    public static List<ProductDTO> findAllProductByID(String IDproduct) {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ProductDTO a = null;
+        List<ProductDTO> list = new ArrayList<ProductDTO>();
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select * from Product where IDproduct = ?";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, IDproduct);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    a = new ProductDTO(rs.getString("IDproduct"),
+                            rs.getString("name"),
+                            rs.getString("img"),
+                            rs.getString("size"),
+                            rs.getString("description"),
+                            rs.getString("IDcategory"),
+                            rs.getFloat("price"),
+                            rs.getBoolean("status"));
+                    list.add(a);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     public static int updateProduct(ProductDTO productUpdate) throws ClassNotFoundException, SQLException {
         Connection cn = null;

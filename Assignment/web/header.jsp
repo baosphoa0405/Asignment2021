@@ -64,19 +64,19 @@
                             >
                             List product
                         </a>
-<!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Men</a>
-                            <a class="dropdown-item" href="#">Female</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Kid's</a>
-                        </div>-->
+                        <!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <a class="dropdown-item" href="#">Men</a>
+                                                    <a class="dropdown-item" href="#">Female</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Kid's</a>
+                                                </div>-->
                     <li class="nav-item active">
                         <a class="nav-link" href="MainController"
                            >View To Cart <span class="sr-only"></span>
                         </a>
                     </li>
                     </li>
-                          
+
                     <c:if test="${empty sessionScope.info}">
                         <li class="nav-item">
                             <a
@@ -95,30 +95,32 @@
                     </c:if>
                     <c:if test="${not empty  sessionScope.info}">
                         <h2>${sessionScope.info.getName()}</h2> 
-                        
-                       
-                        <button>
+
+                        <button class="btn btn-danger">
+                            <a href="MainController?BtnAction=history">View to history</a>
+                        </button>
+                        <button class="btn btn-danger">
                             <a href="MainController?BtnAction=logout">Logout</a>
                         </button>
                     </c:if>
-                        
-                      
-                     <c:if test="${not empty  sessionScope.info}">    
-                        
-                            <li class="nav-item active">
-                                <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
-                            accesskey="">View Profile <span class="sr-only"></span>
-                                </a>
-                            </li>
-<!--                            <button> 
-                                <a href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}">View Profile</a>
-                            </button>-->
-                    
-                     </c:if>    
-                   
-                       
-                        
-                   
+
+
+                    <c:if test="${not empty  sessionScope.info}">    
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
+                               accesskey="">View Profile <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <!--                            <button> 
+                                                        <a href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}">View Profile</a>
+                                                    </button>-->
+
+                    </c:if>    
+
+
+
+
                 </ul>
                 <a href="modalLogin.jsp"></a>
                 <%--<c:set var="listproduct" value="${sessionScope.listproduct}"/>--%>

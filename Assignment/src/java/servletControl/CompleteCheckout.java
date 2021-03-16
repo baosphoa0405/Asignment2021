@@ -70,6 +70,7 @@ public class CompleteCheckout extends HttpServlet {
                     session.removeAttribute("listProductInCart");
                     // bỏ id cart zo tìm ra dc infoCart
                     CheckoutDTO infoCart = dao.getAllInfoCart(IDcart);
+                    System.out.println("ahaha" + infoCart);
                     // bỏ id cart zo tìm ra dc 1 list cartdetail
                     List<ProductDTO> listProduct = new ArrayList<ProductDTO>();
                     List<CartDetailDTO> listInfoCartDetail = dao.getAllInfoCartDetail(IDcart);

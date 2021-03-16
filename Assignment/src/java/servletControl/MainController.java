@@ -40,7 +40,8 @@ public class MainController extends HttpServlet {
     private String UPDATE_SERVLET = "UpdateProfile";
     private String UPDATE_CONTROLLER = "updateUserController";
     private String UPDATED_CONTROLLER = "updateProfile";
-
+    private String ACTION_HISTORY = "history";
+    private String HistoryServlet = "HistoryServlet";
     private String LISTPRODUCT_ACTION = "listproduct";
     private String LISTPRODUCT_SERVLET = "ListProductServlet";
     private String CART_ACTION_INDE = "InDe";
@@ -61,7 +62,7 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nameButton = request.getParameter("BtnAction");
         String url = ERROR_JSP;
-
+        System.out.println(nameButton + "dasdas");
         try {
             if (nameButton == null) {
                 url = PRODUCT_SERVLET;
@@ -93,6 +94,9 @@ public class MainController extends HttpServlet {
                 url = INDE_SERVLET;
             }else if (nameButton.equals(CHECKOUT_ACTION)){
                 url = CHECKOUT_SERVLET;
+            }else if (nameButton.equals(ACTION_HISTORY)) {
+                url = HistoryServlet;
+                System.out.println("hihi " + url);
             }
         } catch (Exception e) {
 

@@ -33,7 +33,7 @@ public class CheckoutDAO {
 //        LocalDate localDate = dateOrder.toLocalDate();  
         java.sql.Date dateOrderFormat = new java.sql.Date(dateOrder.getTime());
         System.out.println("dateOrderFormat " + dateOrderFormat);
-        
+
         java.sql.Date dateShipFormat = new java.sql.Date(dateShip.getTime());
         System.out.println("dateShipFormat " + dateShipFormat);
         try {
@@ -117,12 +117,13 @@ public class CheckoutDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "select [totalPrice], [dateOrder], [dateShip], [isPay], [username] from [Cart] where IDcart = ?";
+                String sql = "select [IDcart], [totalPrice], [dateOrder], [dateShip], [isPay], [username] from [Cart] where IDcart = ?";
                 pstm = cn.prepareStatement(sql);
                 pstm.setInt(1, IDcart);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
-                    CheckoutDTO a = new CheckoutDTO(rs.getString("username"),
+                    String IDCart = Integer.toString(rs.getInt("IDcart"));
+                    CheckoutDTO a = new CheckoutDTO(IDCart, rs.getString("username"),
                             rs.getDate("dateOrder").toString(),
                             rs.getDate("dateShip").toString(),
                             rs.getFloat("totalPrice"),
@@ -133,6 +134,34 @@ public class CheckoutDAO {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public List<CheckoutDTO> getAllInfoCartByUserName(String username) {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        List<CheckoutDTO> list = new ArrayList<>();
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select [IDcart], [totalPrice], [dateOrder], [dateShip], [isPay], [username] from [Cart] where username = ?";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, username);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String IDCart = Integer.toString(rs.getInt("IDcart"));
+                    System.out.println("hihi" + IDCart);
+                    CheckoutDTO a = new CheckoutDTO(IDCart, rs.getString("username"),
+                            rs.getDate("dateOrder").toString(),
+                            rs.getDate("dateShip").toString(),
+                            rs.getFloat("totalPrice"),
+                            rs.getBoolean("isPay"));
+                    list.add(a);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 
     public List<CartDetailDTO> getAllInfoCartDetail(int IDcart) throws SQLException {
@@ -168,7 +197,7 @@ public class CheckoutDAO {
         }
         return list;
     }
-
+    
     public static void main(String[] args) throws SQLException, ParseException {
         CheckoutDAO a = new CheckoutDAO();
 //        System.out.println("adadasda");
@@ -187,8 +216,8 @@ public class CheckoutDAO {
 
 //        CartDetailDTO b = a.getAllInfoCartDetail(17);
 //        System.out.println(b);
-        int b = a.getIDCart("U002");
-        System.out.println(b + " dasda");
+        List<CheckoutDTO> b = a.getAllInfoCartByUserName("U002");
+        System.out.println(b.toString() + " dasda");
     }
 
 }
