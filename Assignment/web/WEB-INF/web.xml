@@ -24,6 +24,38 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>servletControl.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>servletControl.SearchServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchKeyServlet</servlet-name>
+        <servlet-class>servletControl.SearchKeyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InDeServlet</servlet-name>
+        <servlet-class>servletControl.InDeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>servletControl.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutedServlet</servlet-name>
+        <servlet-class>servletControl.CheckoutedServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompleteCheckout</servlet-name>
+        <servlet-class>servletControl.CompleteCheckout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>servletControl.HistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageUserControl</servlet-name>
+        <servlet-class>servletControl.ManageUserControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -47,6 +79,38 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/SearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchKeyServlet</servlet-name>
+        <url-pattern>/SearchKeyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InDeServlet</servlet-name>
+        <url-pattern>/InDeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutedServlet</servlet-name>
+        <url-pattern>/CheckoutedServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompleteCheckout</servlet-name>
+        <url-pattern>/CompleteCheckout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/HistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserControl</servlet-name>
+        <url-pattern>/ManageUserControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

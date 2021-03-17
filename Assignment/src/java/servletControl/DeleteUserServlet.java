@@ -1,19 +1,14 @@
-package servletControl;
-
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package servletControl;
 
-import ass.category.CategoryDTO;
-import ass.product.ProductDAO;
-import ass.product.ProductDTO;
+import ass.user.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Windows
  */
-@WebServlet(urlPatterns = {"/LoadCategory"})
-public class LoadCategory extends HttpServlet {
+@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/DeleteUserServlet"})
+public class DeleteUserServlet extends HttpServlet {
+    private String MANAGEUSER_JSP = "ManageUsersServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,17 +35,19 @@ public class LoadCategory extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoadCategory</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoadCategory at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            String username = request.getParameter("username");
+            UserDAO dao = new UserDAO();
+            dao.deleteUser(username);
+            String url = MANAGEUSER_JSP;
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            out.close();
         }
     }
 
@@ -65,15 +63,7 @@ public class LoadCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cateID=request.getParameter("cid");
-       //b2 cid->dao
-       ProductDAO dao = new ProductDAO();
-        List<ProductDTO> ListP= dao.getProductByCid(cateID);
-        List<CategoryDTO> listc=dao.getAllCategorys();
-        
-       request.setAttribute("listProduct", ListP);
-       request.setAttribute("listCategory", listc);
-       request.getRequestDispatcher("ListProduct.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

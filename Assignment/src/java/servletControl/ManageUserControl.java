@@ -5,19 +5,21 @@
  */
 package servletControl;
 
+import ass.user.UserDAO;
+import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Windows
+ * @author Acer
  */
-public class LogoutServlet extends HttpServlet {
+public class ManageUserControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,10 +33,17 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.removeAttribute("info");
-        session.invalidate();
-        response.sendRedirect("MainController");
+        PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
+        UserDAO dao = new UserDAO();
+        
+        dao.getAllUser();
+        List<UserDTO> listUser = dao.getAllUsers();
+        
+//        System.out.println("product serlet runs");
+        request.setAttribute("listUser", listUser);
+        
+        request.getRequestDispatcher("ManagerCart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

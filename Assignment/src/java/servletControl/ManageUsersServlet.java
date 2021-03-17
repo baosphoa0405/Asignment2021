@@ -38,14 +38,19 @@ public class ManageUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("servlet user");
         HttpSession ss = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             UserDAO a = new UserDAO();
-           ss.setAttribute("listaccount", a.getAllUsers());
+          
             System.out.println("du lieu user");
-           String url = MANAGEUSER_JSP;
            
+           
+            a.getAllUser();
+//            List<UserDTO> list = a.getAllUsers();
+//            List<UserDTO> search = new ArrayList<>();
+            ss.setAttribute("listaccount", a.getAllUsers());
+            String url = MANAGEUSER_JSP;
+           request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

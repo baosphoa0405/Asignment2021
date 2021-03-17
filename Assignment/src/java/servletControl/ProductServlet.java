@@ -5,6 +5,7 @@
  */
 package servletControl;
 
+import ass.category.CategoryDTO;
 import ass.product.ProductDAO;
 import ass.product.ProductDTO;
 import ass.user.UserDAO;
@@ -41,12 +42,14 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         ProductDAO dao = new ProductDAO();
         dao.getAllProduct();
         List<ProductDTO> listProduct = dao.getAllLaptops();
+        List<CategoryDTO> listCategory = dao.getAllCategorys();
 //        System.out.println("product serlet runs");
         request.setAttribute("listProduct", listProduct);
+        request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

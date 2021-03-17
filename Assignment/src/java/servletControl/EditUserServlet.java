@@ -5,19 +5,26 @@
  */
 package servletControl;
 
+import ass.user.UserDAO;
+import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Windows
  */
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/EditUserServlet"})
+public class EditUserServlet extends HttpServlet {
+
+    private String MANAGEUSER_SERVLET = "ManageUsersServlet";
+    private String UPDATEUSER_JSP = "updateuser.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,10 +38,20 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.removeAttribute("info");
-        session.invalidate();
-        response.sendRedirect("MainController");
+        try (PrintWriter out = response.getWriter()) {
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
+            String username = request.getParameter("username");
+
+            UserDAO dao = new UserDAO();
+            dao.updateUserbyAdmin(name, password, username);
+            String url = MANAGEUSER_SERVLET;
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

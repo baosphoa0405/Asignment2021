@@ -162,7 +162,7 @@ public class UserDAO {
         return rs;
     }
 
-    public static int deleteUser(String IDuser) throws ClassNotFoundException, SQLException {
+    public static int deleteUser(String username) throws ClassNotFoundException, SQLException {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -171,7 +171,7 @@ public class UserDAO {
             if (cn != null) {
                 String sql = "delete [dbo].[User] where [username] = ?";
                 pstm = cn.prepareStatement(sql);
-                pstm.setString(1, IDuser);
+                pstm.setString(1, username);
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -245,6 +245,95 @@ public class UserDAO {
         }
             return null;
         }
+    
+    public UserDTO getUserByUsername(String username){
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        String query = "select [username], [name], [password], [role] from [dbo].[User] where username = ? ";
+        try {
+            cn = MyConnection.getMakeConnect();
+                pstm = cn.prepareStatement(query);
+                pstm.setString(1, username);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    return new UserDTO(rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getBoolean("role"));
+                }
+        } catch (Exception e) {
+            e.printStackTrace();   
+        }
+        return null;
+    }
+    
+    public static void updateUserbyAdmin(String name, String password, String username) throws ClassNotFoundException, SQLException {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "update [dbo].[User] set [name] = ?, [password] = ? "
+                        + " where [username] = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, name);
+                pstm.setString(2, password);
+                
+                pstm.setString(3, username);
+                pstm.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void getAllUserbyRole(){
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+           try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select [username],[name] from [dbo].[User] where role =?";
+                pstm = cn.prepareStatement(sql);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String username = rs.getString("username");
+                    String name = rs.getString("name");
+                   
+                    UserDTO us = new UserDTO(username, name);
+                    if (allUser == null) {
+                        allUser = new ArrayList<>();
+                    }
+                    allUser.add(us);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+    }
     
     }
 

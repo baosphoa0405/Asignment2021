@@ -5,29 +5,30 @@
  */
 package servletControl;
 
-import ass.user.UserDAO;
+import ass.cart.CartDetailDTO;
+import ass.checkout.CheckoutDAO;
+import ass.checkout.CheckoutDTO;
+import ass.product.ProductDAO;
+import ass.product.ProductDTO;
 import ass.user.UserDTO;
-import ass.user.UserRegErr;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-//import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
  * @author Admin
  */
-public class LoginServlet extends HttpServlet {
-
-    private final String invalidPage = "invalid.html";
-    private final String successPage = "success.jsp";
-    private final String admin = "admin.jsp";
+public class HistoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,57 +39,41 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String FAIL = "MainController";
+    private String SUCCESS = "history.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        try {
-
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
-            UserDTO result = dao.checkLogin(username, password);
-            
-            HttpSession session = request.getSession();
-
-            boolean valid = true;
-            UserRegErr rErr = new UserRegErr();
-
-            if (username.length() == 0) {
-                valid = false;
-                rErr.setUsernameErr("Username can't be blank");
-            }
-            if (password.length() == 0) {
-                valid = false;
-                rErr.setPasswordErr("Password can't be blank");
-            }
-//            if (username.length() != 0 && password.length() != 0) {
-//                valid = false;
-//                rErr.setUpErr("Username or Password wrong");
-//            }
-            request.setAttribute("ERRORS", rErr);
-            if (result != null && valid) {
-                session.setAttribute("info", result);
-                if (result.isRole()) {
-                        request.getRequestDispatcher("admin.jsp").forward(request, response);
-                } else  {
-                    request.getRequestDispatcher("ProductServlet").forward(request, response);
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("info");
+        System.out.println(user);
+        String url = FAIL;
+        CheckoutDAO dao = new CheckoutDAO();
+        if (user != null) {
+            url = SUCCESS;
+            // get all list cart của user mua
+            List<CheckoutDTO> cart = dao.getAllInfoCartByUserName(user.getUsername());
+            List<CartDetailDTO> listCartDetail = null;
+            ArrayList<List<CartDetailDTO>> listCartDetailAll = new ArrayList<List<CartDetailDTO>>();
+            ProductDAO productDao = new ProductDAO();
+            productDao.getAllProduct();
+            List<ProductDTO> listProductTest = productDao.getAllLaptops();
+            for (CheckoutDTO item : cart) {
+                try {
+                    // lấy từng id zo bản cart detal query ra ;
+                    listCartDetail = dao.getAllInfoCartDetail(Integer.parseInt(item.getIDcart()));
+                    listCartDetailAll.add(listCartDetail);
+                    System.out.println("list cart detail"+listCartDetailAll);
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoryServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
-            } else {
-//                valid = false;
-//                rErr.setUpErr("Username or Password wrong");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        } catch (ClassNotFoundException ex) {
-//            System.out.println();
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            out.close();
+            session.setAttribute("cartHistory", cart);
+            session.setAttribute("cartDetail", listCartDetailAll);
+            session.setAttribute("listProductHistory", listProductTest);
         }
+        request.getRequestDispatcher(url).forward(request, response);
 
     }
 
