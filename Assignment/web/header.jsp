@@ -113,7 +113,7 @@
                             
                     
                      </c:if>
-<!--                     <c:if test="${sessionScope.info.isRole() == true}">    
+                     <c:if test="${sessionScope.info.isRole() == true}">    
                         
                             <li class="nav-item active">
                                 <a class="nav-link" href="manager"
@@ -122,7 +122,7 @@
                             </li>
                             
                     
-                     </c:if>      -->
+                     </c:if>      
                    
                        
                         

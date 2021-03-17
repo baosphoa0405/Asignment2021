@@ -1,5 +1,3 @@
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -66,7 +64,7 @@
                                 <td>${item.IDproduct}</td>
                                 <td>${item.name}</td>
                                 <td>${item.size}</td>
-                                <td>${item.price}</td>
+                                <td>${String.format("%,.0f", item.price)}</td>
                                 
                                 <td>
                                     <img src="./images/${item.img}.jpg">
@@ -95,7 +93,7 @@
                     </ul>
                 </div>
             </div>
-            <a href="MainController"><button type="button" class="btn btn-primary">Back to home</button>
+            
 
         </div>
         <!-- Edit Modal HTML -->
@@ -151,10 +149,13 @@
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" class="btn btn-success" value="Add">
                         </div>
+                       
                     </form>
                 </div>
+                
             </div>
         </div>
+         <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
         
         
     <script src="js/manager.js" type="text/javascript"></script>

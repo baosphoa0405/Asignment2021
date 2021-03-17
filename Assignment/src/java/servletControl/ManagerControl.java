@@ -42,8 +42,9 @@ public class ManagerControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        request.setCharacterEncoding("UTF-8");
         ProductDAO dao = new ProductDAO();
         CategoryDAO dao1 = new CategoryDAO();
         dao.getAllProduct();

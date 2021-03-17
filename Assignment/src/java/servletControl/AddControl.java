@@ -34,7 +34,7 @@ public class AddControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        request.setCharacterEncoding("UTF-8");
         String pidpro = request.getParameter("idproduct");
         String pname = request.getParameter("name");
         String pimage = request.getParameter("image");

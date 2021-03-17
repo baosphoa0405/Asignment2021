@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+        <title>EditProduct</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,7 +46,7 @@
                         <form action="edit" method="post">
                             <div class="modal-header">						
                                 <h4 class="modal-title">Edit Product</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                
                             </div>
                             
                             <div class="modal-body">	
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input value="${detail.price}" name="price" type="text" class="form-control" required>
+                                    <input value="${(detail.price)}" name="price" type="text" class="form-control" required>
                                 </div>
             
                                 <div class="form-group">
@@ -91,12 +91,14 @@
 
                             </div>
                             <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <a href="manager"><button type="button" class="btn btn-primary">Cancel</button>
                                 <input type="submit" class="btn btn-success" value="Edit">
                             </div>
                         </form>
                     </div>
+                                
                 </div>
+                                
             </div>
 
         </div>

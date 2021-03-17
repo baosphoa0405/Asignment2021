@@ -35,6 +35,7 @@ public class ManageProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("servlet user");
+        request.setCharacterEncoding("UTF-8");
         HttpSession ss = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             ProductDAO a = new ProductDAO();
