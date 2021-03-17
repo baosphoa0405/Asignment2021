@@ -52,6 +52,10 @@
         <servlet-name>HistoryServlet</servlet-name>
         <servlet-class>servletControl.HistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageUserControl</servlet-name>
+        <servlet-class>servletControl.ManageUserControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>HistoryServlet</servlet-name>
         <url-pattern>/HistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserControl</servlet-name>
+        <url-pattern>/ManageUserControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

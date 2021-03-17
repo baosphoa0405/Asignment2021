@@ -103,24 +103,32 @@
                             <a href="MainController?BtnAction=logout">Logout</a>
                         </button>
                     </c:if>
-
-
+                        
+                      
                     <c:if test="${not empty  sessionScope.info}">    
-
-                        <li class="nav-item active">
-                            <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
-                               accesskey="">View Profile <span class="sr-only"></span>
-                            </a>
-                        </li>
-                        <!--                            <button> 
-                                                        <a href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}">View Profile</a>
-                                                    </button>-->
-
-                    </c:if>    
-
-
-
-
+                        
+                            <li class="nav-item active">
+                                <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
+                            accesskey="">View Profile <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            
+                    
+                     </c:if>
+                     <c:if test="${sessionScope.info.isRole() == true}">    
+                        
+                            <li class="nav-item active">
+                                <a class="nav-link" href="manager"
+                            accesskey="">Manager Product <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            
+                    
+                     </c:if>      
+                   
+                       
+                        
+                   
                 </ul>
                 <a href="modalLogin.jsp"></a>
                 <%--<c:set var="listproduct" value="${sessionScope.listproduct}"/>--%>
