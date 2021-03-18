@@ -60,6 +60,10 @@
         <servlet-name>ManageCartServlet</servlet-name>
         <servlet-class>servletControl.ManageCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteServletCart</servlet-name>
+        <servlet-class>servletControl.DeleteServletCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>ManageCartServlet</servlet-name>
         <url-pattern>/ManageCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServletCart</servlet-name>
+        <url-pattern>/DeleteServletCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

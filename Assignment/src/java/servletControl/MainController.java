@@ -79,6 +79,8 @@ public class MainController extends HttpServlet {
     private String INDE_SERVLET = "InDeServlet";
     private String CHECKOUT_ACTION = "checkout";
     private String CHECKOUT_SERVLET = "CheckoutServlet";
+    private String ACTION_DELETE_CART_ADMIN = "adminRemoveCart";
+    private String SERVLET_DELETE_CART_ADMIN = "DeleteServletCart";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -155,6 +157,8 @@ public class MainController extends HttpServlet {
             }else if (nameButton.equals(ACTION_HISTORY)) {
                 url = HistoryServlet;
                 System.out.println("hihi " + url);
+            }else if (nameButton.equals(ACTION_DELETE_CART_ADMIN)) {
+                url = SERVLET_DELETE_CART_ADMIN;
             }
         } catch (Exception e) {
 

@@ -6,6 +6,7 @@
 package servletControl;
 
 import ass.cart.CartDTO;
+import ass.checkout.CheckoutDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class RemoveCartServlet extends HttpServlet {
-    private String CART_JSP ="cart.jsp";
+
+    private String CART_JSP = "cart.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,12 +36,9 @@ public class RemoveCartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String ID = request.getParameter("ID");
 //        System.out.println("id" + ID);
-        CartDTO cart = (CartDTO) request.getSession().getAttribute("cart");
-        cart.removeItemCart(ID);
-        request.getSession().setAttribute("cart", cart);
 //        request.getRequestDispatcher(CART_JSP).forward(request, response);
         response.sendRedirect(CART_JSP);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
