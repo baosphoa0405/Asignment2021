@@ -38,13 +38,10 @@ public class DeleteServletCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String ID = request.getParameter("id");
         CheckoutDAO dao = new CheckoutDAO();
-        int count = dao.calCountID(Integer.parseInt(ID));
         boolean check = dao.deleteCartByID(Integer.parseInt(ID));
         System.out.println("hihi check" + check);
         boolean flag = false;
-        for (int i = 0; i < count; i++) {
-            flag = dao.deleteCartDetailByID(Integer.parseInt(ID));
-        }
+        flag = dao.deleteCartID(Integer.parseInt(ID));
         if (flag && check) {
             request.getRequestDispatcher("ManageUserControl").forward(request, response);
         }

@@ -21,9 +21,6 @@
             }
         </style>
     <body>
-        ${sessionScope.cartHistory}
-        ${sessionScope.cartDetail}
-        ${sessionScope.listProductHistory}
         <div class="container">
             <c:if test="${empty sessionScope.cartHistory}">
                 <h1 style="text-align: center">History Cart Of User Is Empty</h1>
@@ -185,9 +182,9 @@
                                     </td>
                                     <td>${item.totalPrice}</td>
                                     <td><button class="btn btn-danger">
-                                           
+                                            <a href="MainController?BtnAction=adminRemoveCart&id=${item.IDcart}">Remove</a>  
                                         </button>
-                                         <a href="MainController?BtnAction=adminRemoveCart&id=${item.IDcart}">Remove</a>
+
                                     </td>
 
                                 </tr>

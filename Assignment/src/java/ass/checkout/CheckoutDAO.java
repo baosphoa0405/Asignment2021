@@ -217,29 +217,8 @@ public class CheckoutDAO {
         return check;
     }
 
-    public int calCountID(int idCart) {
-        Connection cn = null;
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        int count = 0;
-        try {
-            cn = MyConnection.getMakeConnect();
-            if (cn != null) {
-                String sql = "select IDcart from [CartDetail] where IDcart = ? ";
-                pstm = cn.prepareStatement(sql);
-                pstm.setInt(1, idCart);
-                rs = pstm.executeQuery();
-                while (rs.next()) {
-                    count = count + 1;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
 
-    public boolean deleteCartDetailByID(int idCart) {
+    public boolean deleteCartID(int idCart) {
         Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -278,8 +257,7 @@ public class CheckoutDAO {
 //        System.out.println(b);
 //        List<CheckoutDTO> b = a.getAllInfoCartByUserName("U002");
 //        System.out.println(b.toString() + " dasda");
-        int b = a.calCountID(16);
-        System.out.println("bdasd" + b);
+       
     }
 
 }

@@ -47,6 +47,7 @@ public class ViewHistoryByAdmin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("info");
+        System.out.println("das" + user);
         String pus = request.getParameter("pus");
         System.out.println(user);
         String url = FAIL;
