@@ -67,7 +67,7 @@
                 <h3>Cart Summary</h3>
                 <p>Total Sum: ${total > 0 ? String.format("%,.0f", total) : 0} Đ</p>
                 <button type="button" class="btn btn-primary px-4">
-                    <a href="MainController?BtnAction=checkout&Total=${total}" style="color: black">Checkout</a>
+                    <a href="MainController?BtnAction=checkout&Total=${total}" style="color: black" onclick="return confirm('Are you sure?')">Checkout</a>
                 </button>
 <!--                <form action="MainController">
                     <input type="hidden" name="BtnAction" value="${total}" />
