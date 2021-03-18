@@ -56,6 +56,10 @@
         <servlet-name>ManageUserControl</servlet-name>
         <servlet-class>servletControl.ManageUserControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCartServlet</servlet-name>
+        <servlet-class>servletControl.ManageCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>ManageUserControl</servlet-name>
         <url-pattern>/ManageUserControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCartServlet</servlet-name>
+        <url-pattern>/ManageCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

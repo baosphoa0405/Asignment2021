@@ -56,7 +56,10 @@ public class MainController extends HttpServlet {
     private String SEARCHFORADMIN_SERVLET = "SearchForAdminServlet";
     private String MANAGEPRODUCTS_ACTION = "Manage Products";
     private String MANAGEPRODUCTS_JSP = "ManageProductServlet";
-    
+    private String MANAGECART_ACTION = "Manage Cart";
+    private String MANAGECART_JSP = "ManageUserControl";
+    private String VIEWCART_ACTION = "viewcart";
+    private String VIEWCART_JSP = "ViewHistoryByAdmin";
     
     
     private String DELETEUSER_JSP = "Delete";
@@ -125,6 +128,14 @@ public class MainController extends HttpServlet {
               else if (nameButton.equals(MANAGEPRODUCTS_ACTION)) {
 //                System.out.println("MainController User");
                 url = MANAGEPRODUCTS_JSP;
+            }
+              else if (nameButton.equals(MANAGECART_ACTION)) {
+//                
+                url = MANAGECART_JSP;
+            }
+              else if (nameButton.equals(VIEWCART_ACTION)) {
+//                
+                url = VIEWCART_JSP;
             }
             
 

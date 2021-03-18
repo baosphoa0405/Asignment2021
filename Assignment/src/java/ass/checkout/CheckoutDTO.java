@@ -14,7 +14,10 @@ import java.util.Date;
  */
 public class CheckoutDTO implements Serializable {
 
-    private String IDcart, username, dateShip, dateOrder;
+    public String IDcart;
+    public String username;
+
+    private String dateShip, dateOrder;
     private float totalPrice;
     boolean isPay;
 
