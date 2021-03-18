@@ -29,23 +29,23 @@ public class ProductDAO {
     public List<ProductDTO> getAllLaptops() {
         return allProduct;
     }
-    
-    public static List<ProductDTO> getAllProductbyStatus(String id) throws SQLException{
+
+    public static List<ProductDTO> getAllProductbyStatus(String id) throws SQLException {
         List<ProductDTO> list = new ArrayList<>();
         Connection cn = MyConnection.getMakeConnect();
-        if(cn!=null){
-            String sql="select *\n" +
-                        "from tblProduct\n" +
-                        "where status=?";
+        if (cn != null) {
+            String sql = "select *\n"
+                    + "from tblProduct\n"
+                    + "where status=?";
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setString(1, id);
             ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                list.add(new ProductDTO(rs.getString(1),rs.getString(2), rs.getString(3), 
-                        rs.getString(4), rs.getString(5), rs.getString(6),rs.getFloat(7),rs.getBoolean(8)));
+            while (rs.next()) {
+                list.add(new ProductDTO(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getFloat(7), rs.getBoolean(8), Integer.parseInt(rs.getString(9))));
             }
-            cn.close();
         }
+        cn.close();
         return list;
     }
 
@@ -56,7 +56,7 @@ public class ProductDAO {
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory] \n"
+                String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory],[quanlity] \n"
                         + "from [dbo].[Product]";
                 pstm = cn.prepareStatement(sql);
                 rs = pstm.executeQuery();
@@ -69,11 +69,14 @@ public class ProductDAO {
                     String description = rs.getString("description");
                     boolean status = rs.getBoolean("status");
                     String IDcategory = rs.getString("IDcategory");
-                    ProductDTO pro = new ProductDTO(IDproduct, name, img, size, description, IDcategory, price, status);
+                    int quanlity = Integer.parseInt(rs.getString("quanlity"));
+//                    System.out.println("huhu" +quanlity);
+                    ProductDTO pro = new ProductDTO(IDproduct, name, img, size, description, IDcategory, price, status, quanlity);
                     if (allProduct == null) {
                         allProduct = new ArrayList<>();
                     }
                     allProduct.add(pro);
+//                    System.out.println("hahaha"+ allProduct.get(0).getQuanlity());
                 }
             }
         } catch (Exception e) {
@@ -102,22 +105,22 @@ public class ProductDAO {
             }
         }
     }
-    public static ArrayList<ProductDTO> getAllProductForAdmin() throws SQLException{
+
+    public static ArrayList<ProductDTO> getAllProductForAdmin() throws SQLException {
         ArrayList<ProductDTO> list = new ArrayList<>();
         Connection cn = MyConnection.getMakeConnect();
-        if(cn!=null){
-            String sql="select *\n" +
-                        "from tblProduct\n";
+        if (cn != null) {
+            String sql = "select *\n"
+                    + "from tblProduct\n";
             PreparedStatement pst = cn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                list.add(new ProductDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getFloat(7),rs.getBoolean(8)));
+            while (rs.next()) {
+                list.add(new ProductDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getFloat(7), rs.getBoolean(8), Integer.parseInt(rs.getString(9))));
             }
             cn.close();
         }
         return list;
     }
-    
 
     public static Vector<CategoryDTO> getAllCategorys() {
         Connection cn = null;
@@ -165,8 +168,8 @@ public class ProductDAO {
         return list;
     }
 
-    public static void insertProduct(String idproduct,String name, String image, String size,String price,
-                                     String description, String status, String idcategory) {
+    public static void insertProduct(String idproduct, String name, String image, String size, String price,
+            String description, String status, String idcategory) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -175,7 +178,7 @@ public class ProductDAO {
             if (cn != null) {
                 String sql = "insert into [dbo].[Product] values (?,?,?,?,?,?,?,?)";
                 pstm = cn.prepareStatement(sql);
-                
+
                 pstm.setString(1, idproduct);
                 pstm.setString(2, name);
                 pstm.setString(3, image);
@@ -184,7 +187,7 @@ public class ProductDAO {
                 pstm.setString(6, description);
                 pstm.setString(7, status);
                 pstm.setString(8, idcategory);
-                
+
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -197,7 +200,7 @@ public class ProductDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }
 
@@ -230,7 +233,8 @@ public class ProductDAO {
                             rs.getString("description"),
                             rs.getString("IDcategory"),
                             rs.getFloat("price"),
-                            rs.getBoolean("status"));
+                            rs.getBoolean("status"), Integer.parseInt(rs.getString("quanlity")));
+
                 }
             }
         } catch (Exception e) {
@@ -260,7 +264,7 @@ public class ProductDAO {
                             rs.getString("description"),
                             rs.getString("IDcategory"),
                             rs.getFloat("price"),
-                            rs.getBoolean("status"));
+                            rs.getBoolean("status"), Integer.parseInt(rs.getString("quanlity")));
                     list.add(a);
                 }
             }
@@ -304,34 +308,59 @@ public class ProductDAO {
         }
         return rs;
     }
-    public void editProduct(String name, String image, String size,String price,
-                            String description, String status, String idcategory,String pid ) {
+        public static boolean updateQuanlityProduct(String count, String id) throws ClassNotFoundException, SQLException {
+        Connection cn = null;
+
+        PreparedStatement pstm = null;
+        boolean check = false;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "update [dbo].Product set [quanlity] = ? where [IDproduct] = ?";
+                pstm = cn.prepareStatement(sql);
+                pstm.setString(1, count);
+                pstm.setString(2, id);
+                check =  pstm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return check;
+    }
+
+    public void editProduct(String name, String image, String size, String price,
+            String description, String status, String idcategory, String pid) {
         Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String query = "update [dbo].[Product] set [name] = ?,[img] = ?,[size] = ?,[price] = ?, "
-                        + "[description] = ?, \n"
-                        + "[status] = ?, [IDcategory] = ? where [IDproduct] = ?";
+                + "[description] = ?, \n"
+                + "[status] = ?, [IDcategory] = ? where [IDproduct] = ?";
         try {
             cn = MyConnection.getMakeConnect();
             pstm = cn.prepareStatement(query);
-            
-            
-            
-                pstm.setString(1, name);
-                pstm.setString(2, image);
-                pstm.setString(3, size);
-                pstm.setString(4, price);
-                pstm.setString(5, description);
-                pstm.setString(6, status);
-                pstm.setString(7, idcategory);
-                pstm.setString(8, pid);
-                pstm.executeUpdate();
-            
+
+            pstm.setString(1, name);
+            pstm.setString(2, image);
+            pstm.setString(3, size);
+            pstm.setString(4, price);
+            pstm.setString(5, description);
+            pstm.setString(6, status);
+            pstm.setString(7, idcategory);
+            pstm.setString(8, pid);
+            pstm.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public static void deleteProduct(String pid) throws ClassNotFoundException, SQLException {
@@ -356,7 +385,7 @@ public class ProductDAO {
                 cn.close();
             }
         }
-        
+
     }
 
     public List<ProductDTO> getProductByCid(String cid) {
@@ -379,20 +408,20 @@ public class ProductDAO {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getFloat(7),
-                        rs.getBoolean(8)));
+                        rs.getBoolean(8), Integer.parseInt(rs.getString(9))));
             }
         } catch (Exception e) {
         }
         return list;
     }
-    
-    public ProductDTO getProductByID(String id){
+
+    public ProductDTO getProductByID(String id) {
         Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String query = "select [IDproduct],[name],[img],"
-                     + "[size],[price],[description],[status],[IDcategory] "
-                     + "from [dbo].[Product] where IDproduct =?";
+                + "[size],[price],[description],[status],[IDcategory] "
+                + "from [dbo].[Product] where IDproduct =?";
         try {
             cn = MyConnection.getMakeConnect();
             pstm = cn.prepareStatement(query);
@@ -406,14 +435,14 @@ public class ProductDAO {
                         rs.getString(6),
                         rs.getString(8),
                         rs.getFloat(5),
-                        rs.getBoolean(7));
+                        rs.getBoolean(7), Integer.parseInt(rs.getString(9)));
             }
         } catch (Exception e) {
         }
         return null;
     }
-  
 
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         ProductDAO dao = new ProductDAO();
 //        dao.getAllProduct();
