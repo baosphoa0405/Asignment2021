@@ -68,8 +68,9 @@
                             >
                         </li>      
                     </c:if>
-                    <c:if test="${not empty  sessionScope.info}">
+                    <c:if test="${not empty  sessionScope.info || not empty sessionScope.email}">
                         <h2>${sessionScope.info.getName()}</h2> 
+                        <h2>${sessionScope.email}</h2> 
 
                         <button class="btn btn-danger">
                             <a href="MainController?BtnAction=history">View to history</a>

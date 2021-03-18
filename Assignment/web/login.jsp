@@ -71,6 +71,8 @@
                 value="SignUp Page ->"
                 class="btn btn-pill text-white btn-block btn-primary"
                 />
+            <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8084/Assignment/loginGoogle&response_type=code
+               &client_id=880725442268-cnf5jta95eikerbmeumm3s090k5sgvf4.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>  
         </form>
     </body>
 </html>
