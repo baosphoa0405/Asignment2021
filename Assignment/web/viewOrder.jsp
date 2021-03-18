@@ -6,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header.jsp" %>
 <main style="margin: 100px 100px; height: 1000px">
-    <table border="1"  style="width: 1000px">
+    <table border="1"  style="width: 1000px; text-align: center; margin-left: 13%">
         <thead>
             <tr>
                 <th>Account</th>
@@ -20,11 +20,11 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="item" items="${sessionScope.listProduct}">
+            <c:forEach var="item" items="${sessionScope.listProduct1}">
                 <tr>
                     <td>${sessionScope.infoCart.username}</td>
                     <td>${item.name}</td>
-                    <td>${item.price}</td>
+                    <td>${String.format("%,.0f", item.price)} VND</td>
                     <td>${item.size}</td>
                     <td><img src="./images/${item.img}.jpg" style="width: 100px; height: 100px"/></td>
                         <c:forEach var="i" items="${sessionScope.infoCartDetail}">

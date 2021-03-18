@@ -33,7 +33,7 @@
                 <input style="font-size: 20px"placeholder="Username"class="form-control" type="text" name="username" value="${param.username}"/>
             </div>
             <c:if test="${not empty err.usernameErr}">
-                <font color="red">${err.usernameErr}</font>
+                <p style="text-align: center; color: red" >${err.usernameErr}</p>
             </c:if>
             <div class="form-group"style="width: 364px;
                  margin: auto;font-family: cursive;padding: 2px">
@@ -41,7 +41,7 @@
                 <input style="font-size: 20px" placeholder="Password" class="form-control" type="password" name="password" value="${param.password}"/>
             </div>
             <c:if test="${not empty err.passwordErr}">
-                <font color="red">${err.passwordErr}</font>
+                <p style="text-align: center; color: red">${err.passwordErr}</p>
             </c:if>
             <div class="form-group"style="width: 364px;
                  margin: auto;font-family: cursive;padding: 2px">

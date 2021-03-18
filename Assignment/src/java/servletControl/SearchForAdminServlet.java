@@ -5,26 +5,24 @@
  */
 package servletControl;
 
-import ass.user.UserDAO;
-import ass.user.UserDTO;
+
+import ass.product.ProductDAO;
+import ass.product.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Windows
+ * @author DELL
  */
-@WebServlet(name = "ManageUsersServlet", urlPatterns = {"/ManageUsersServlet"})
-public class ManageUsersServlet extends HttpServlet {
-    private String MANAGEUSER_JSP = "manageuser.jsp";
+@WebServlet(name = "SearchForAdminServlet", urlPatterns = {"/SearchForAdminServlet"})
+public class SearchForAdminServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +36,25 @@ public class ManageUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession ss = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            UserDAO a = new UserDAO();
-          
-            System.out.println("du lieu user");
-           
-           
-            a.getAllUser();
-//            List<UserDTO> list = a.getAllUsers();
-//            List<UserDTO> search = new ArrayList<>();
-            ss.setAttribute("listaccount", a.getAllUsers());
-            String url = MANAGEUSER_JSP;
-           request.getRequestDispatcher(url).forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            String value = request.getParameter("searchValue").trim();
+            ArrayList<ProductDTO> list = ProductDAO.getAllProductForAdmin();
+            ArrayList<ProductDTO> search = new ArrayList<>();
+            if(!value.isEmpty()){
+                for (ProductDTO p : list) {
+                    if (p.getName().contains(value)) {
+                        search.add(p);
+                    }
+                }
+            }
+            request.setAttribute("value", value);
+            request.setAttribute("productsearch", search);
+            String url="ProcessServlet?btAction=Manage Products";
+            request.getRequestDispatcher(url).forward(request, response);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

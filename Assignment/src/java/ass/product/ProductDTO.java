@@ -20,8 +20,9 @@ public class ProductDTO implements Serializable{
     private String IDcategory;
     private float price;
     private boolean status;
+    private int quanlity;
 
-    public ProductDTO(String IDproduct, String name, String img, String size, String description, String IDcategory, float price, boolean status) {
+    public ProductDTO(String IDproduct, String name, String img, String size, String description, String IDcategory, float price, boolean status, int quanlity) {
         this.IDproduct = IDproduct;
         this.name = name;
         this.img = img;
@@ -30,7 +31,17 @@ public class ProductDTO implements Serializable{
         this.IDcategory = IDcategory;
         this.price = price;
         this.status = status;
+        this.quanlity = quanlity;
     }
+
+    public int getQuanlity() {
+        return quanlity;
+    }
+
+    public void setQuanlity(int quanlity) {
+        this.quanlity = quanlity;
+    }
+    
 
     public String getIDproduct() {
         return IDproduct;
@@ -98,7 +109,8 @@ public class ProductDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "ProductDTO{" + "IDproduct=" + IDproduct + ", name=" + name + ", img=" + img + ", size=" + size + ", description=" + description + ", IDcategory=" + IDcategory + ", price=" + price + ", status=" + status + '}';
+        return "ProductDTO{" + "IDproduct=" + IDproduct + ", name=" + name + ", size=" + size + ", img=" + img + ", description=" + description + ", IDcategory=" + IDcategory + ", price=" + price + ", status=" + status + ", quanlity=" + quanlity + '}';
     }
-    
+
+ 
 }
