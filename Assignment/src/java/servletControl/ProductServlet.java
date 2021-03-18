@@ -47,6 +47,7 @@ public class ProductServlet extends HttpServlet {
         dao.getAllProduct();
         List<ProductDTO> listProduct = dao.getAllLaptops();
         List<CategoryDTO> listCategory = dao.getAllCategorys();
+//        System.out.println("dsadasd" + listProduct);
 //        System.out.println("product serlet runs");
         request.setAttribute("listProduct", listProduct);
         request.setAttribute("listCategory", listCategory);
