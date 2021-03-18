@@ -109,7 +109,7 @@
 
                         <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Update" /></td>
                         <input type="hidden" name="username1" value="${account.username}" />
-                        <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Delete" onclick="return confirm('Are you sure?')" /></td>
+                        <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Delete" onclick="return confirm('Are you sure Delete?')" /></td>
                         <input type="hidden" name="username" value="${account.username}" />
                     </form>
                     </tr>
@@ -152,7 +152,7 @@
 
                         <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Update" /></td>
                         <input type="hidden" name="username1" value="${account.username}" />
-                        <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Delete" onclick="return confirm('Are you sure?')" /></td>
+                        <td style="font-family: cursive" align="center"><input style="font-size: 20px" type="submit" name="BtnAction" value="Delete" onclick="return confirm('Are you sure Delete?')" /></td>
                         <input type="hidden" name="username" value="${account.username}" />
                     </form>
                     </tr>
