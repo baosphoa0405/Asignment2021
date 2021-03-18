@@ -42,13 +42,14 @@
                                             <td><img src="./images/${itemProduct.img}.jpg" width="200px" height="200px"/></td>
                                             <td>${String.format("%,.0f", itemProduct.price)}Đ</td>
                                             <td colspan="3" style="text-align: center">
-                                                <button class="btn btn-danger">
+                                                <button class="btn btn-danger" ${itemCart.value ge  itemProduct.quanlity ? "disabled" : "" }>
                                                     <a href="MainController?BtnAction=InDe&ID=${itemProduct.IDproduct}&Flag=True">+</a>
                                                 </button>
                                                 ${itemCart.value}
                                                 <button class="btn btn-danger">
                                                     <a  href="InDeServlet?ID=${itemProduct.IDproduct}&Flag=False">-</a>
                                                 </button>
+                                              
                                             </td>
                                             <td colspan="2" >${itemProduct.size}</td>">
                                             <td>${String.format("%,.0f", itemProduct.price * itemCart.value)}Đ</td>

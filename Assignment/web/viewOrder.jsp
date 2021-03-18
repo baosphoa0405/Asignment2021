@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="item" items="${sessionScope.listProduct}">
+            <c:forEach var="item" items="${sessionScope.listProduct1}">
                 <tr>
                     <td>${sessionScope.infoCart.username}</td>
                     <td>${item.name}</td>
