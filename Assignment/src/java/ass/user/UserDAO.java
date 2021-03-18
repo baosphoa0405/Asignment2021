@@ -75,7 +75,25 @@ public class UserDAO {
             }
         }
     }
-
+     public static UserDTO getAccount(String u, String p) throws SQLException{
+        UserDTO a=null;
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblUser\n" +
+                        "where username=? and password=?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1, u);
+            pst.setString(2, p);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                a = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), 
+                        rs.getBoolean(4));
+            }
+            cn.close();
+        }
+        return a;
+    }
     public static int insertUser(UserDTO newUser) {
         Connection cn = null;
         PreparedStatement pstm = null;
@@ -266,6 +284,55 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void getAllUserbyRole(){
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+           try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select [username],[name] from [dbo].[User] where role =?";
+                pstm = cn.prepareStatement(sql);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String username = rs.getString("username");
+                    String name = rs.getString("name");
+                   
+                    UserDTO us = new UserDTO(username, name);
+                    if (allUser == null) {
+                        allUser = new ArrayList<>();
+                    }
+                    allUser.add(us);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
     }
     
     }

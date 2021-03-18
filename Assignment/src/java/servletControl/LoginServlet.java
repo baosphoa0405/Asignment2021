@@ -70,12 +70,13 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("ERRORS", rErr);
             if (result != null && valid) {
                 session.setAttribute("info", result);
-                if (result.isRole()) {
+                 if (result.isRole()) {
                         request.getRequestDispatcher("admin.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("ProductServlet").forward(request, response);
                 }
-            } else {
+               
+            }else {
 //                valid = false;
 //                rErr.setUpErr("Username or Password wrong");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

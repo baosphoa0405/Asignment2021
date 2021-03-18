@@ -9,22 +9,17 @@ import ass.user.UserDAO;
 import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Windows
+ * @author Acer
  */
-@WebServlet(name = "ManageUsersServlet", urlPatterns = {"/ManageUsersServlet"})
-public class ManageUsersServlet extends HttpServlet {
-    private String MANAGEUSER_JSP = "manageuser.jsp";
+public class ManageUserControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +33,17 @@ public class ManageUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession ss = request.getSession();
-        try (PrintWriter out = response.getWriter()) {
-            UserDAO a = new UserDAO();
-          
-            System.out.println("du lieu user");
-           
-           
-            a.getAllUser();
-//            List<UserDTO> list = a.getAllUsers();
-//            List<UserDTO> search = new ArrayList<>();
-            ss.setAttribute("listaccount", a.getAllUsers());
-            String url = MANAGEUSER_JSP;
-           request.getRequestDispatcher(url).forward(request, response);
-        }
+        PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
+        UserDAO dao = new UserDAO();
+        
+        dao.getAllUser();
+        List<UserDTO> listUser = dao.getAllUsers();
+        
+//        System.out.println("product serlet runs");
+        request.setAttribute("listUser", listUser);
+        
+        request.getRequestDispatcher("ManagerCart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

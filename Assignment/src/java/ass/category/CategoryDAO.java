@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,6 +63,22 @@ public class CategoryDAO {
                     Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+        return list;
+    }
+     public static List<CategoryDTO> getAllCategory() throws SQLException{
+        List<CategoryDTO> list = new ArrayList<>();
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblCategory\n";
+                        
+            PreparedStatement pst = cn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                list.add(new CategoryDTO(rs.getString(1), rs.getString(2)));
+            }
+            cn.close();
         }
         return list;
     }
@@ -139,6 +157,23 @@ public class CategoryDAO {
             }
         }
         return rs;
+    }
+    public static CategoryDTO getCategoryByName(String name) throws SQLException{
+        CategoryDTO c = null;
+        Connection cn = MyConnection.getMakeConnect();
+        if(cn!=null){
+            String sql="select *\n" +
+                        "from tblCategory\n"
+                    + "where categoryName=?";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1, name);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                c= new CategoryDTO(rs.getString(1), rs.getString(2));
+            }
+            cn.close();
+        }
+        return c;
     }
     
      public static void main(String[] args) throws ClassNotFoundException, SQLException {

@@ -31,6 +31,7 @@ public class ProductDTO implements Serializable{
         this.price = price;
         this.status = status;
     }
+    
 
     public String getIDproduct() {
         return IDproduct;
