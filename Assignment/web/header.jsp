@@ -12,9 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Gucci Page</title>
+
         <link rel="stylesheet" href="./css/index.css" />
         <link
             rel="stylesheet"
@@ -51,30 +50,6 @@
                         <a class="nav-link" href="MainController"
                            >Home <span class="sr-only">(current)</span></a
                         >
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="MainController?btnAction=listproduct"
-                            id="navbarDropdown"
-                            role="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            >
-                            List product
-                        </a>
-                        <!--                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="#">Men</a>
-                                                    <a class="dropdown-item" href="#">Female</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Kid's</a>
-                                                </div>-->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="MainController"
-                           >View To Cart <span class="sr-only"></span>
-                        </a>
-                    </li>
                     </li>
 
                     <c:if test="${empty sessionScope.info}">
@@ -153,17 +128,6 @@
                         </i>
                     </a>
                 </div>
-                <form class="form-inline my-2 my-lg-0">
-                    <input
-                        class="form-control mr-sm-2"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                        />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        Search
-                    </button>
-                </form>
             </div>
         </nav>
 

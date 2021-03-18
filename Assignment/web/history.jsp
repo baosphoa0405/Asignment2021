@@ -9,12 +9,12 @@
 
 <h1 style="text-align: center">View History Cart</h1>
 
-<div class="container"  style="height: 500px" >
+<div class="container"  style="height: 1000px" style="margin: 100px 100px" >
     <c:if test="${empty sessionScope.cartHistory}">
         <h1 style="text-align: center">History Cart Empty Please Buy Product</h1>
     </c:if>
     <c:if test="${not empty sessionScope.cartHistory}">
-        <table border="1" style="margin: 100px 100px; height: 100px" >
+        <table border="1" style="text-align: center" >
             <thead>
                 <tr>
 
@@ -102,7 +102,7 @@
                             <td>${item.username}</td>
                             <td  colspan="2">${item.dateShip}</td>
                             <td  colspan="2">${item.dateOrder}</td>
-                            <td>${item.totalPrice}</td>
+                            <td>${String.format("%,.0f", item.totalPrice)}</td>
                             <td>${item.isPay}</td>
                             <td>
                                 <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
@@ -149,14 +149,14 @@
                                         <c:if test="${cartDetail.IDcart eq item.IDcart}">
                                             <c:forEach var="product" items="${sessionScope.listProductHistory}">
                                                 <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${product.price}<br/> 
+                                                    ${String.format("%,.0f", product.price)}<br/> 
                                                 </c:if>
                                             </c:forEach>
                                         </c:if>
                                     </c:forEach>
                                 </c:forEach>     
                             </td>
-                            <td>${item.totalPrice}</td>
+                            <td>${String.format("%,.0f", item.totalPrice)}</td>
                         </tr>
                     </c:if>
 
@@ -164,6 +164,8 @@
             </tbody>
         </table>
     </c:if>
+       
 </div>
 
-<%@include file="footer.html" %>
+
+

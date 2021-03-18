@@ -60,12 +60,18 @@ public class CompleteCheckout extends HttpServlet {
         String url = FAIL;
         CartDetailDTO cartDetail = null;
         ProductDAO productDao = new ProductDAO();
+        productDao.getAllProduct();
         for (String item : listKeys) {
             cartDetail = new CartDetailDTO(IDcart, cart.get(item), item);
             boolean flag;
             try {
                 flag = dao.insertCartDetail(cartDetail);
                 if (flag) {
+                    ProductDTO sl = productDao.findProduct(item, productDao.getAllLaptops());
+                    int count = sl.getQuanlity() - cart.get(item);
+                    String s=Integer.toString(count);
+                    boolean check = productDao.updateQuanlityProduct(s, item);
+                    System.out.println("hello world" + check);
                     url = SUCCESS;
                     session.removeAttribute("listProductInCart");
                     // bỏ id cart zo tìm ra dc infoCart
@@ -80,13 +86,18 @@ public class CompleteCheckout extends HttpServlet {
                         ProductDTO i = productDao.findProductByID(cartDetailDTO.IDproduct);
                         listProduct.add(i);
                     }
-                    session.setAttribute("listProduct", listProduct);
+                    session.setAttribute("listProduct1", listProduct);
+                    session.removeAttribute("listproduct");
+                    session.removeAttribute("cart");
+                    session.removeAttribute("listProductInCart");
                     // bỏ id product zo tìm ra dc product
                     session.setAttribute("infoCart", infoCart);
                     session.setAttribute("infoCartDetail", listInfoCartDetail);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(CompleteCheckout.class.getName()).log(Level.SEVERE, null, ex);
+            }catch(ClassNotFoundException ex){
+                ex.printStackTrace();
             }
 
         }
