@@ -26,12 +26,12 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage<b>Cart</b></h2>
+                            <h2>Manage<b> Cart</b></h2>
                         </div>
-                        <div class="col-sm-6">
+<!--                        <div class="col-sm-6">
                             <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
                             <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
@@ -49,6 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <c:forEach items="${listUser}" var="item">
                             <tr>
                                 <td>
@@ -58,92 +59,22 @@
                                     </span>
                                 </td>
                                 <td>${item.username}</td>
-                                <td>${item.name}</td>
-                                
-                                
+                                <td>${item.name}</td>                                                                    
                                 <td>
-                                    <a href="loadproduct?pid=${item.username}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="delete?pid=${item.username}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <a href="ViewHistoryByAdmin?pus=${item.username}"><button type="button" class="btn btn-primary">View Cart</button>
+<!--                                    <a href="delete?pid=${item.username}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
                                 </td>
                             </tr>
                         </c:forEach>
+
                     </tbody>
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                    </ul>
-                </div>
+                
             </div>
             
 
         </div>
-        <!-- Edit Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="add" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Product</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>IDProduct</label>
-                                <input name="idproduct" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Image</label>
-                                <input name="image" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Size</label>
-                                <textarea name="size" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" type="text" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <textarea name="status" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>IDCategory</label>
-                                <select name="idcategory" class="form-select" aria-label="Default select example">
-                                    <c:forEach items="${listCC}" var="item">
-                                        <option value="${item.IDcategory}">${item.categoryName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                       
-                    </form>
-                </div>
-                
-            </div>
-        </div>
+       
          <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
         
         

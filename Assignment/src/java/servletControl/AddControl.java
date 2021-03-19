@@ -42,10 +42,11 @@ public class AddControl extends HttpServlet {
         String psize = request.getParameter("size");
         String pdescription = request.getParameter("description");
         String pstatus = request.getParameter("status");
+        String pquanlity = request.getParameter("quanlity");
         String pidcategory = request.getParameter("idcategory");
         
         ProductDAO dao = new ProductDAO();
-        dao.insertProduct(pidpro, pname, pimage, psize, pprice, pdescription, pstatus, pidcategory);
+        dao.insertProduct(pidpro, pname, pimage, psize, pprice, pdescription, pstatus, pquanlity, pidcategory);
         response.sendRedirect("manager");
     }
 

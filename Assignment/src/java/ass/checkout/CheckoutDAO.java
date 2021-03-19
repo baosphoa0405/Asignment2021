@@ -197,7 +197,46 @@ public class CheckoutDAO {
         }
         return list;
     }
-    
+
+    public boolean deleteCartByID(int idCart) {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean check = false;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "delete [dbo].[Cart] where [IDcart] = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setInt(1, idCart);
+                check = pstm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+
+    public boolean deleteCartID(int idCart) {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean check = false;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "delete [dbo].[CartDetail] where [IDcart] = ? ";
+                pstm = cn.prepareStatement(sql);
+                pstm.setInt(1, idCart);
+                check = pstm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
     public static void main(String[] args) throws SQLException, ParseException {
         CheckoutDAO a = new CheckoutDAO();
 //        System.out.println("adadasda");
@@ -216,8 +255,9 @@ public class CheckoutDAO {
 
 //        CartDetailDTO b = a.getAllInfoCartDetail(17);
 //        System.out.println(b);
-        List<CheckoutDTO> b = a.getAllInfoCartByUserName("U002");
-        System.out.println(b.toString() + " dasda");
+//        List<CheckoutDTO> b = a.getAllInfoCartByUserName("U002");
+//        System.out.println(b.toString() + " dasda");
+       
     }
 
 }
