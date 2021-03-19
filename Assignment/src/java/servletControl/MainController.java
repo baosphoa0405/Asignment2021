@@ -119,8 +119,9 @@ public class MainController extends HttpServlet {
             } else if (nameButton.equals((LISTPRODUCT_ACTION))) {
                 url = LISTPRODUCT_SERVLET;
             } else if (nameButton.equals(MANAGEUSER_ACTION)) {
-                System.out.println("MainController User");
-                url = MANAGERUSER_JSP;
+//                System.out.println("MainController User");
+//                url = MANAGERUSER_JSP;
+                  url = MANAGEUSER_SERVLET;
             }
               else if (nameButton.equals(MANAGEPRODUCTS_ACTION)) {
 //                System.out.println("MainController User");
