@@ -27,9 +27,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "updateProfile", urlPatterns = {"/updateProfile"})
 public class updateProfile extends HttpServlet {
+
     private String ERROR_URL = "error.jsp";
     private String SUCCESS_URL = "success.html";
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,53 +47,49 @@ public class updateProfile extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
             String name = request.getParameter("name").trim();;
-            String password = request.getParameter("password").trim();; 
+            String password = request.getParameter("password").trim();;
             boolean role = Boolean.parseBoolean(request.getParameter("role"));
             UserDTO newUser = new UserDTO(username, name, password, role);
             System.out.println(newUser);
             UserDAO dao = new UserDAO();
-            
+
             boolean errs = false;
             UserRegErr rErr = new UserRegErr();
             HttpSession session = request.getSession();
-            if(password.length()==0){
-                errs=true;
+            if (password.trim().length() == 0) {
+                errs = true;
                 rErr.setPasswordErr("Password's not blank");
             }
-            if(name.length()>5 && password.length()>5){
-                errs=true;
+            if (name.length() > 5 && password.length() > 5) {
+                errs = true;
                 rErr.setDuplicateUsername("Updated!!");
             }
-            if(name.length()<5 || name.length()>50){
-                errs=true;
+            if (name.length() < 5 || name.length() > 20) {
+                errs = true;
                 rErr.setNameErr("Fullname's length must be 5 --> 20 letters.");
             }
-            request.setAttribute("ERRORS", rErr);
             int a;
             try {
-                
                 String url = ERROR_URL;
-                a = UserDAO.updateUser(newUser);
-                if ( a > 0 ){
-                    
-                session.setAttribute("info", newUser);
-                request.getRequestDispatcher("viewprofile.jsp").forward(request, response);  
-                request.setAttribute("ERRORS", rErr);
-                }
-                else if (errs==true) {
-                    
+                if (!errs) {
+                    a = UserDAO.updateUser(newUser);
+                    if (a > 0) {
+                        session.setAttribute("info", newUser);
+                        request.getRequestDispatcher("viewprofile.jsp").forward(request, response);
+                    }
+                } else if (errs == true) {
+                    url = "viewprofile.jsp";
                     request.setAttribute("ERRORS", rErr);
                 }
-                
+
                 request.getRequestDispatcher(url).forward(request, response);
-                
-                
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 

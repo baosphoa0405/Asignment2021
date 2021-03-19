@@ -9,9 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Error</title>
     </head>
     <body>
-        <h1>error</h1>
+        <h1>Đương dẫn không tôn tại</h1>
+        <a href="MainController">Go Back Home</a>
     </body>
 </html>

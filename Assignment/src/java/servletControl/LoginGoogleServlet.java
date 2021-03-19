@@ -67,7 +67,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 dao.getAllUser();
                 UserDTO usergg = dao.findUser(words[0], dao.getAllUsers());
                 if (usergg == null) {
-                    UserDTO a = new UserDTO(words[0], null, null, false);
+                    UserDTO a = new UserDTO(words[0], words[0], null, false);
                     int count = dao.insertUser(a);
                     session.setAttribute("info", a);
                     System.out.println("count" + count);

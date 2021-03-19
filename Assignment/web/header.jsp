@@ -68,10 +68,9 @@
                             >
                         </li>      
                     </c:if>
-                    <c:if test="${not empty  sessionScope.info || not empty sessionScope.email}">
+                    <c:if test="${not empty  sessionScope.info}">
                         <h2>${sessionScope.info.getName()}</h2> 
-                        <h2>${sessionScope.email}</h2> 
-
+                       
                         <button class="btn btn-danger">
                             <a href="MainController?BtnAction=history">View to history</a>
                         </button>
@@ -79,22 +78,22 @@
                             <a href="MainController?BtnAction=logout">Logout</a>
                         </button>
                     </c:if>
-                        
-                      
+            
+
                     <c:if test="${not empty  sessionScope.info}">    
-                        
-                            <li class="nav-item active">
-                                <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
-                            accesskey="">View Profile <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            
-                    
-                     </c:if>
-                   
-                       
-                        
-                   
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="MainController?BtnAction=viewProfile&username=${sessionScope.info.getUsername()}"
+                               accesskey="">View Profile <span class="sr-only"></span>
+                            </a>
+                        </li>
+
+
+                    </c:if>
+
+
+
+
                 </ul>
                 <a href="modalLogin.jsp"></a>
                 <%--<c:set var="listproduct" value="${sessionScope.listproduct}"/>--%>
