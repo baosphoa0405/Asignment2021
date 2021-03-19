@@ -38,6 +38,7 @@
                             <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Cart</span></a>
 <!--                            <a href="loadcart?pus=${item.username}"><button type="button" class="btn btn-primary">Edit Cart</button>		-->
                                 
+
                         </div>
                         
                     </div>
@@ -46,11 +47,12 @@
                     <thead>
                         <tr>
                             
+
                             <th>IDcart</th>
                             <th>Account</th>
                             <th  colspan="2">DateShip</th>
                             <th  colspan="2">DateOrder</th>
-<!--                            <th>TotalPrice</th>-->
+                            <!--                            <th>TotalPrice</th>-->
                             <th>Status</th>
                             <th>Name</th>
                             <th>Quanlity</th>
@@ -58,222 +60,221 @@
                             <th>Price</th>
                             <th>Total</th>
                             
+                            <th>Function</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="item" items="${sessionScope.cartHistory}">
-                            
-                    <c:if test="${item.isPay eq true}">
-                        <tr >
-                            <td style="background: red">${item.IDcart}</td>
-                            <td>${item.username}</td>
-                            <td colspan="2">${item.dateShip}</td>
-                            <td  colspan="2">${item.dateOrder}</td>
-                            <td>${item.totalPrice}</td>
-                            <td>${item.isPay}</td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${product.name}  <br/> 
+                            <c:if test="${item.isPay eq true}">
+                                <tr >
+                                    <td style="background: red">${item.IDcart}</td>
+                                    <td>${item.username}</td>
+                                    <td colspan="2">${item.dateShip}</td>
+                                    <td  colspan="2">${item.dateOrder}</td>
+                                    <td>${item.totalPrice}</td>
+                                    <td>${item.isPay}</td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${product.name}  <br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${cartDetail.quanlity}  <br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${cartDetail.quanlity}  <br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    <img style="width: 100px; height: 100px" src="./images/${product.img}.jpg"/><br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            <img style="width: 100px; height: 100px" src="./images/${product.img}.jpg"/><br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${product.price}<br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${product.price}<br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            <td>${item.totalPrice}</td>
-                        </tr>
-                    </c:if>
-                    <c:if test="${item.isPay ne true}">
-                        <tr >
-                            <td >${item.IDcart}</td>
-                            <td>${item.username}</td>
-                            <td  colspan="2">${item.dateShip}</td>
-                            <td  colspan="2">${item.dateOrder}</td>
-<!--                            <td>${item.totalPrice}</td>-->
-                            <td>${item.isPay}</td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${product.name}  <br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>${item.totalPrice}</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${item.isPay ne true}">
+                                <tr >
+                                    <td >${item.IDcart}</td>
+                                    <td>${item.username}</td>
+                                    <td  colspan="2">${item.dateShip}</td>
+                                    <td  colspan="2">${item.dateOrder}</td>
+        <!--                            <td>${item.totalPrice}</td>-->
+                                    <td>${item.isPay}</td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${product.name}  <br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                                                    
-                                                    
-                            </td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${cartDetail.quanlity} <br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${cartDetail.quanlity} <br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    <img style="width: 100px; height: 100px" src="./images/${product.img}.jpg"/><br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            <img style="width: 100px; height: 100px" src="./images/${product.img}.jpg"/><br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>     
-                            </td>
-                            
-                            <td>
-                                <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
-                                    <c:forEach var="cartDetail" items="${cartDetails}">
-                                        <c:if test="${cartDetail.IDcart eq item.IDcart}">
-                                            <c:forEach var="product" items="${sessionScope.listProductHistory}">
-                                                <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
-                                                    ${product.price}<br/> 
+                                        </c:forEach>     
+                                    </td>
+                                    <td>
+                                        <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
+                                            <c:forEach var="cartDetail" items="${cartDetails}">
+                                                <c:if test="${cartDetail.IDcart eq item.IDcart}">
+                                                    <c:forEach var="product" items="${sessionScope.listProductHistory}">
+                                                        <c:if test="${product.IDproduct eq cartDetail.IDproduct}">
+                                                            ${product.price}<br/> 
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </c:if>
                                             </c:forEach>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach> 
-                                                    
-                            </td>
-                            
-                            <td>${item.totalPrice}</td>
-                            
-                            
-                        </tr>
-                    </c:if>
-                      
-                        
-                </c:forEach>
-                         
-            </div>
-            
+                                        </c:forEach>     
+                                    </td>
+                                    <td>${item.totalPrice}</td>
+                                    <td><button class="btn btn-danger">
+                                            <a href="MainController?BtnAction=adminRemoveCart&id=${item.IDcart}">Remove</a>  
+                                        </button>
 
-        </div>
-        <!-- Edit Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    
-                    <form action="add1" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add New Cart</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>IDcart</label>
-                                <input name="idcart" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Account</label>
-                                <input name="username"  type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>DateShip</label>
-                                <input name="dateShip" type="date" min ="2021-03-17" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>DateOrder</label>
-                                <input name="dateorder" type="text" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Status</label>
-                                <input name="status" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>ProductName</label>
-                                <input name="productname" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Quanlity</label>
-                                <input name="quanlity" type="text" class="form-control" required>
-                            </div>
-                             <div class="form-group">
-                                <label>Image</label>
-                                <input name="image" type="text" class="form-control" required>
-                            </div>
-                             
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Total</label>
-                                <input name="price" type="text" class="form-control" required>
-                            </div>
-                            
-                            
+                                    </td>
+
+                                </tr>
+                            </c:if>
+
+
+                        </c:forEach>
 
                         </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
+
+
                         </div>
-                       
-                    </form>
-                </div>
-                
-            </div>
-        </div>
-         <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
-        
-        
-    <script src="js/manager.js" type="text/javascript"></script>
-</body>
-</html>
+                        <!-- Edit Modal HTML -->
+                    <div id="addEmployeeModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <form action="add1" method="post">
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Add New Cart</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>IDcart</label>
+                                            <input name="idcart" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Account</label>
+                                            <input name="username"  type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>DateShip</label>
+                                            <input name="dateShip" type="date" min ="2021-03-17" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>DateOrder</label>
+                                            <input name="dateorder" type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <input name="status" class="form-control" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ProductName</label>
+                                            <input name="productname" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quanlity</label>
+                                            <input name="quanlity" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                            <input name="image" type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input name="price" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Total</label>
+                                            <input name="price" type="text" class="form-control" required>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                        <input type="submit" class="btn btn-success" value="Add">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
+
+
+                        <script src="js/manager.js" type="text/javascript"></script>
+                        </body>
+                        </html>
