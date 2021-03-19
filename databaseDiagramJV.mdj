@@ -351,20 +351,35 @@
 											"top": 173,
 											"width": 210.00439453125,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF4SeaAJqPvYzk=",
+											"_parent": {
+												"$ref": "AAAAAAF356zKxg/w5tk="
+											},
+											"model": {
+												"$ref": "AAAAAAF4SeaAH6PsTdU="
+											},
+											"font": "Arial;13;0",
+											"left": 477,
+											"top": 188,
+											"width": 210.00439453125,
+											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 472,
 									"top": 63,
 									"width": 220.00439453125,
-									"height": 128
+									"height": 143
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 472,
 							"top": 40,
 							"width": 220.00439453125,
-							"height": 161,
+							"height": 166,
 							"nameLabel": {
 								"$ref": "AAAAAAF356zKxg/vA5M="
 							},
@@ -713,7 +728,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 595,
-									"top": 345,
+									"top": 347,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -730,7 +745,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 595,
-									"top": 219,
+									"top": 224,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -764,7 +779,7 @@
 								"$ref": "AAAAAAF356zKxg/uqcE="
 							},
 							"lineStyle": 2,
-							"points": "580:200;580:504",
+							"points": "580:205;580:504",
 							"nameLabel": {
 								"$ref": "AAAAAAF38WSSOhd8Tm4="
 							},
@@ -1008,7 +1023,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 676,
-									"top": 219,
+									"top": 224,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -1025,7 +1040,7 @@
 								"$ref": "AAAAAAF38XOFvBepSfQ="
 							},
 							"lineStyle": 2,
-							"points": "768:403;691:403;691:200",
+							"points": "768:403;691:403;691:205",
 							"nameLabel": {
 								"$ref": "AAAAAAF38XhztRfXizU="
 							},
@@ -1241,7 +1256,7 @@
 							},
 							"name": "username",
 							"type": "nvarchar",
-							"length": "10",
+							"length": "20",
 							"primaryKey": true
 						},
 						{
@@ -1422,6 +1437,16 @@
 							"name": "FK IDcategory",
 							"type": "nvarchar",
 							"length": "10"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF4SeaAH6PsTdU=",
+							"_parent": {
+								"$ref": "AAAAAAF356zKxg/sjhk="
+							},
+							"name": "quanlity",
+							"type": "nvarchar",
+							"length": "10"
 						}
 					]
 				},
@@ -1568,7 +1593,7 @@
 							},
 							"name": "username",
 							"type": "nvarchar",
-							"length": "10"
+							"length": "20"
 						},
 						{
 							"_type": "ERDColumn",
