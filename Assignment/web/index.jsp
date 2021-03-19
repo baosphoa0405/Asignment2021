@@ -50,9 +50,10 @@
                                             <div class="card-body">
                                                 <h4 class="card-title">${item.name}</h4>
                                                 <p class="card-text">Price: ${item.price} vnđ</p>
+                                                <p class="card-text" style="color: red">Count: ${item.quanlity le 0 ? "No product" : item.quanlity}</p>
                                             </div>
                                             <p style="text-align: center">Description: ${item.description}</p>
-                                            <button name="BtnAction" value="addCart" type="submit" class="btn btn-success" >
+                                            <button name="BtnAction" value="addCart" type="submit" class="btn btn-success"  ${item.quanlity le 0 ? "disabled" : "dsa"}>
                                                 Add To Cart
                                             </button>
                                             <input type="hidden" name="ID" value="${item.IDproduct}" />

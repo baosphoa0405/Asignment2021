@@ -48,33 +48,37 @@ public class LoginGoogleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String code = request.getParameter("code");
         System.out.println("hahaha");
-        if (code == null || code.isEmpty()) {
-            RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
-            dis.forward(request, response);
-        } else {
-
-            String accessToken = GoogleUtils.getToken(code);
-            GooglePojo googlePojo = GoogleUtils.getUserInfo(accessToken);
-            System.out.println(googlePojo.toString());
-            HttpSession session = request.getSession();
-            session.setAttribute("id", googlePojo.getId());
-            session.setAttribute("name", googlePojo.getName());
-            session.setAttribute("email", googlePojo.getEmail());
-            //  kiểm tra có trong db chưa 
-            String[] words = googlePojo.getEmail().split("@");
-            UserDAO dao = new UserDAO();
-            dao.getAllUser();
-            UserDTO usergg = dao.findUser(words[0], dao.getAllUsers());
-            if (usergg == null) {
-                UserDTO a = new UserDTO(words[0], null, null, false);
-                int count = dao.insertUser(a);
-                session.setAttribute("info", a);
-                System.out.println("count" + count);
+        try {
+            if (code == null || code.isEmpty()) {
+                RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+                dis.forward(request, response);
             } else {
-                session.setAttribute("info", usergg);
+
+                String accessToken = GoogleUtils.getToken(code);
+                GooglePojo googlePojo = GoogleUtils.getUserInfo(accessToken);
+                System.out.println(googlePojo.toString());
+                HttpSession session = request.getSession();
+                session.setAttribute("id", googlePojo.getId());
+                session.setAttribute("name", googlePojo.getName());
+                session.setAttribute("email", googlePojo.getEmail());
+                //  kiểm tra có trong db chưa 
+                String[] words = googlePojo.getEmail().split("@");
+                UserDAO dao = new UserDAO();
+                dao.getAllUser();
+                UserDTO usergg = dao.findUser(words[0], dao.getAllUsers());
+                if (usergg == null) {
+                    UserDTO a = new UserDTO(words[0], null, null, false);
+                    int count = dao.insertUser(a);
+                    session.setAttribute("info", a);
+                    System.out.println("count" + count);
+                } else {
+                    session.setAttribute("info", usergg);
+                }
+                RequestDispatcher dis = request.getRequestDispatcher("ProductServlet");
+                dis.forward(request, response);
             }
-            RequestDispatcher dis = request.getRequestDispatcher("ProductServlet");
-            dis.forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
