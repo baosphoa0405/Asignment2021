@@ -59,10 +59,7 @@
                                     </span>
                                 </td>
                                 <td>${item.username}</td>
-                                <td>${item.name}</td>
-                                
-                                    
-
+                                <td>${item.name}</td>                                                                    
                                 <td>
                                     <a href="ViewHistoryByAdmin?pus=${item.username}"><button type="button" class="btn btn-primary">View Cart</button>
 <!--                                    <a href="delete?pid=${item.username}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->

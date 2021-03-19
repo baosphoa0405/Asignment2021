@@ -168,17 +168,17 @@ public class ProductDAO {
         return list;
     }
 
-    public static void insertProduct(String idproduct, String name, String image, String size, String price,
-            String description, String status, String idcategory) {
+    public static void insertProduct(String idproduct,String name, String image, String size,String price,
+                                     String description, String status, String quanlity,String idcategory ) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
         try {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
-                String sql = "insert into [dbo].[Product] values (?,?,?,?,?,?,?,?)";
+                String sql = "insert into [dbo].[Product] values (?,?,?,?,?,?,?,?,?)";
                 pstm = cn.prepareStatement(sql);
-
+                
                 pstm.setString(1, idproduct);
                 pstm.setString(2, name);
                 pstm.setString(3, image);
@@ -186,8 +186,9 @@ public class ProductDAO {
                 pstm.setString(5, price);
                 pstm.setString(6, description);
                 pstm.setString(7, status);
+                pstm.setString(9, quanlity);
                 pstm.setString(8, idcategory);
-
+                
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -200,7 +201,7 @@ public class ProductDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            
         }
     }
 
@@ -336,13 +337,13 @@ public class ProductDAO {
     }
 
     public void editProduct(String name, String image, String size, String price,
-            String description, String status, String idcategory, String pid) {
+            String description, String status, String idcategory,String quanlity, String pid) {
         Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String query = "update [dbo].[Product] set [name] = ?,[img] = ?,[size] = ?,[price] = ?, "
                 + "[description] = ?, \n"
-                + "[status] = ?, [IDcategory] = ? where [IDproduct] = ?";
+                + "[status] = ?, [IDcategory] = ?,[quanlity] = ? where [IDproduct] = ?";
         try {
             cn = MyConnection.getMakeConnect();
             pstm = cn.prepareStatement(query);
@@ -354,7 +355,8 @@ public class ProductDAO {
             pstm.setString(5, description);
             pstm.setString(6, status);
             pstm.setString(7, idcategory);
-            pstm.setString(8, pid);
+            pstm.setString(8, quanlity);
+            pstm.setString(9, pid);
             pstm.executeUpdate();
 
         } catch (Exception e) {
@@ -420,7 +422,7 @@ public class ProductDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String query = "select [IDproduct],[name],[img],"
-                + "[size],[price],[description],[status],[IDcategory] "
+                + "[size],[price],[description],[status],[IDcategory],[quanlity] "
                 + "from [dbo].[Product] where IDproduct =?";
         try {
             cn = MyConnection.getMakeConnect();

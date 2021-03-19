@@ -71,7 +71,10 @@
                                     <label>Price</label>
                                     <input value="${(detail.price)}" name="price" type="text" class="form-control" required>
                                 </div>
-            
+                                <div class="form-group">
+                                    <label>Quanlity</label>
+                                    <input value="${(detail.quanlity)}" name="quanlity" type="text" class="form-control" required>
+                                </div>    
                                 <div class="form-group">
                                     <label>Status</label>
                                     <input value="${detail.status}" name="status" type="text" class="form-control" required>

@@ -48,6 +48,7 @@
                             <th>Size</th>
                             <th>Price</th>
                             <th>Image</th>
+                            <th>Quanlity</th>
                             <th>Description</th>
                             <th>IDcategory</th>
                         </tr>
@@ -69,6 +70,7 @@
                                 <td>
                                     <img src="./images/${item.img}.jpg">
                                 </td>
+                                 <td>${item.quanlity}</td>
                                 <td>${item.description}</td>
                                 <td>${item.IDcategory}</td>
                                 
@@ -110,20 +112,23 @@
                             </div>
                             <div class="form-group">
                                 <label>Size</label>
-                                <textarea name="size" class="form-control" required></textarea>
+                                <input name="size" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
                                 <input name="price" type="text" class="form-control" required>
                             </div>
-                            
+                            <div class="form-group">
+                                <label>Quanlity</label>
+                                <input name="quanlity" type="text" class="form-control" required>
+                            </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <textarea name="status" class="form-control" required></textarea>
+                                 <input name="status" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>IDCategory</label>

@@ -25,22 +25,27 @@
              <c:if test="${empty sessionScope.cartHistory}">
         <h1 style="text-align: center">History Cart Of User Is Empty</h1>
     </c:if>
+        
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
                             <h2>View <b>History Cart</b></h2>
                         </div>
+                        
                         <div class="col-sm-6">
+                            
                             <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Cart</span></a>
-                            						
+<!--                            <a href="loadcart?pus=${item.username}"><button type="button" class="btn btn-primary">Edit Cart</button>		-->
+                                
                         </div>
+                        
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                           
+                            
                             <th>IDcart</th>
                             <th>Account</th>
                             <th  colspan="2">DateShip</th>
@@ -52,10 +57,12 @@
                             <th>Img</th>
                             <th>Price</th>
                             <th>Total</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="item" items="${sessionScope.cartHistory}">
+                            
                     <c:if test="${item.isPay eq true}">
                         <tr >
                             <td style="background: red">${item.IDcart}</td>
@@ -139,6 +146,8 @@
                                         </c:if>
                                     </c:forEach>
                                 </c:forEach>     
+                                                    
+                                                    
                             </td>
                             <td>
                                 <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
@@ -166,6 +175,7 @@
                                     </c:forEach>
                                 </c:forEach>     
                             </td>
+                            
                             <td>
                                 <c:forEach var="cartDetails" items="${sessionScope.cartDetail}">
                                     <c:forEach var="cartDetail" items="${cartDetails}">
@@ -177,16 +187,19 @@
                                             </c:forEach>
                                         </c:if>
                                     </c:forEach>
-                                </c:forEach>     
+                                </c:forEach> 
+                                                    
                             </td>
+                            
                             <td>${item.totalPrice}</td>
-                           
+                            
+                            
                         </tr>
                     </c:if>
-                       
-
-                </c:forEach>
+                      
                         
+                </c:forEach>
+                         
             </div>
             
 
