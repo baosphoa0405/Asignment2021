@@ -37,6 +37,9 @@ public class RemoveCartServlet extends HttpServlet {
         String ID = request.getParameter("ID");
 //        System.out.println("id" + ID);
 //        request.getRequestDispatcher(CART_JSP).forward(request, response);
+        CartDTO cart = (CartDTO) request.getSession().getAttribute("cart");
+        cart.removeItemCart(ID);
+        request.getSession().setAttribute("cart", cart);
         response.sendRedirect(CART_JSP);
 
     }

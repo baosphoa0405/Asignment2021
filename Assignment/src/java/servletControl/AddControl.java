@@ -46,7 +46,7 @@ public class AddControl extends HttpServlet {
         String pidcategory = request.getParameter("idcategory");
         
         ProductDAO dao = new ProductDAO();
-        dao.insertProduct(pidpro, pname, pimage, psize, pprice, pdescription, pstatus, pquanlity, pidcategory);
+        dao.insertProduct(pidpro, pname, pimage, psize, Float.parseFloat(pprice), pdescription, pstatus, pquanlity, pidcategory);
         response.sendRedirect("manager");
     }
 

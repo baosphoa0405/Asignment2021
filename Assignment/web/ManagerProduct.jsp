@@ -101,6 +101,7 @@
                             <div class="form-group">
                                 <label>IDProduct</label>
                                 <input name="idproduct" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.errorID}</p>
                             </div>
                             <div class="form-group">
                                 <label>Name</label>

@@ -91,26 +91,6 @@
                             
                     
                      </c:if>
-                     <c:if test="${sessionScope.info.isRole() == true}">    
-                        
-                            <li class="nav-item active">
-                                <a class="nav-link" href="manager"
-                            accesskey="">Manage Product <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            
-                    
-                     </c:if>  
-                     <c:if test="${sessionScope.info.isRole() == true}">    
-                        
-                            <li class="nav-item active">
-                                <a class="nav-link" href="ManageCartServlet"
-                            accesskey="">Manage Cart <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            
-                    
-                     </c:if>  
                    
                        
                         

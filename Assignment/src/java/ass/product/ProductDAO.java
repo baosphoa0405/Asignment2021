@@ -168,7 +168,7 @@ public class ProductDAO {
         return list;
     }
 
-    public static void insertProduct(String idproduct,String name, String image, String size,String price,
+    public static void insertProduct(String idproduct,String name, String image, String size,float price,
                                      String description, String status, String quanlity,String idcategory ) {
         Connection cn = null;
         PreparedStatement pstm = null;
@@ -183,7 +183,7 @@ public class ProductDAO {
                 pstm.setString(2, name);
                 pstm.setString(3, image);
                 pstm.setString(4, size);
-                pstm.setString(5, price);
+                pstm.setFloat(5, price);
                 pstm.setString(6, description);
                 pstm.setString(7, status);
                 pstm.setString(9, quanlity);
