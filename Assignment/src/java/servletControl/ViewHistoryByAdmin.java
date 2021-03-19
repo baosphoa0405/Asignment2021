@@ -5,22 +5,34 @@
  */
 package servletControl;
 
+import ass.cart.CartDetailDTO;
+import ass.checkout.CheckoutDAO;
+import ass.checkout.CheckoutDTO;
 import ass.product.ProductDAO;
+import ass.product.ProductDTO;
+import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Acer
  */
-@WebServlet(name = "EditControl", urlPatterns = {"/edit"})
-public class EditControl extends HttpServlet {
-
+@WebServlet(name = "ViewHistoryByAdmin", urlPatterns = {"/ViewHistoryByAdmin"})
+public class ViewHistoryByAdmin extends HttpServlet {
+    private String FAIL = "MainController";
+    private String SUCCESS = "viewCartByAdmin.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,21 +45,39 @@ public class EditControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String pidpro = request.getParameter("idproduct");
-        String pname = request.getParameter("name");
-        String pimage = request.getParameter("image");
-        String pprice = request.getParameter("price");
-        String psize = request.getParameter("size");
-        String pdescription = request.getParameter("description");
-        String pstatus = request.getParameter("status");
-        String psquanlity = request.getParameter("quanlity");
-        String pidcategory = request.getParameter("idcategory");
-        
-        ProductDAO dao = new ProductDAO();
-        dao.editProduct(pname, pimage, psize, pprice, pdescription, pstatus, pidcategory, psquanlity, pidpro);
-        response.sendRedirect("manager");
-        
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("info");
+        System.out.println("das" + user);
+        String pus = request.getParameter("pus");
+        System.out.println(user);
+        String url = FAIL;
+        CheckoutDAO dao = new CheckoutDAO();
+        if (user != null) {
+            System.out.println("succes dsadassa");
+            url = SUCCESS;
+            // get all list cart của user mua
+            List<CheckoutDTO> cart = dao.getAllInfoCartByUserName(pus);
+            List<CartDetailDTO> listCartDetail = null;
+            ArrayList<List<CartDetailDTO>> listCartDetailAll = new ArrayList<List<CartDetailDTO>>();
+            ProductDAO productDao = new ProductDAO();
+            productDao.getAllProduct();
+            List<ProductDTO> listProductTest = productDao.getAllLaptops();
+            for (CheckoutDTO item : cart) {
+                try {
+                    // lấy từng id zo bản cart detal query ra ;
+                    listCartDetail = dao.getAllInfoCartDetail(Integer.parseInt(item.getIDcart()));
+                    listCartDetailAll.add(listCartDetail);
+                    System.out.println("list cart detail"+listCartDetailAll);
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoryServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            session.setAttribute("cartHistory", cart);
+            session.setAttribute("cartDetail", listCartDetailAll);
+            session.setAttribute("listProductHistory", listProductTest);
+        }
+         System.out.println("dsadassa bao3 dep " + url);   
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

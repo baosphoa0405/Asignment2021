@@ -5,11 +5,9 @@
  */
 package servletControl;
 
-import ass.product.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Acer
  */
-@WebServlet(name = "EditControl", urlPatterns = {"/edit"})
-public class EditControl extends HttpServlet {
-
+public class ManageCartServlet extends HttpServlet {
+     private String MANAGECART_JSP = "ManageUserControl";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,21 +30,8 @@ public class EditControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String pidpro = request.getParameter("idproduct");
-        String pname = request.getParameter("name");
-        String pimage = request.getParameter("image");
-        String pprice = request.getParameter("price");
-        String psize = request.getParameter("size");
-        String pdescription = request.getParameter("description");
-        String pstatus = request.getParameter("status");
-        String psquanlity = request.getParameter("quanlity");
-        String pidcategory = request.getParameter("idcategory");
-        
-        ProductDAO dao = new ProductDAO();
-        dao.editProduct(pname, pimage, psize, pprice, pdescription, pstatus, pidcategory, psquanlity, pidpro);
-        response.sendRedirect("manager");
-        
+         String url = MANAGECART_JSP;
+           request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
