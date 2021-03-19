@@ -5,24 +5,28 @@
  */
 package servletControl;
 
-import ass.checkout.CheckoutDTO;
+import ass.user.UserDAO;
 import ass.user.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.GooglePojo;
+import util.GoogleUtils;
 
+//import stackjava.com.accessgoogle.common.GooglePojo;
+//import stackjava.com.accessgoogle.common.GoogleUtils;
 /**
  *
  * @author Admin
  */
-public class CheckoutServlet extends HttpServlet {
+@WebServlet(name = "LoginGoogleServlet", urlPatterns = {"/loginGoogle"})
+public class LoginGoogleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,27 +37,45 @@ public class CheckoutServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String SUCCESS = "checkout.jsp";
-    private String FAIL = "login.jsp";
+    private static final long serialVersionUID = 1L;
+
+    public LoginGoogleServlet() {
+        super();
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String total = request.getParameter("Total");
-        HttpSession session = request.getSession();
-        UserDTO user = (UserDTO) session.getAttribute("info");
-        System.out.println("user dasd" + user);
-        String emailGG = (String) session.getAttribute("email");
-        String url = FAIL;
-        if (user != null || emailGG != null) {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDateTime now = LocalDateTime.now();
-            url = SUCCESS;
-            CheckoutDTO checkout = new CheckoutDTO(null, user.getUsername(), dtf.format(now), null, Float.parseFloat(total), false);
-            System.out.println("date order " + checkout.getDateOrder());
-            session.setAttribute("checkout", checkout);
+        String code = request.getParameter("code");
+        System.out.println("hahaha");
+        if (code == null || code.isEmpty()) {
+            RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+            dis.forward(request, response);
+        } else {
+
+            String accessToken = GoogleUtils.getToken(code);
+            GooglePojo googlePojo = GoogleUtils.getUserInfo(accessToken);
+            System.out.println(googlePojo.toString());
+            HttpSession session = request.getSession();
+            session.setAttribute("id", googlePojo.getId());
+            session.setAttribute("name", googlePojo.getName());
+            session.setAttribute("email", googlePojo.getEmail());
+            //  kiểm tra có trong db chưa 
+            String[] words = googlePojo.getEmail().split("@");
+            UserDAO dao = new UserDAO();
+            dao.getAllUser();
+            UserDTO usergg = dao.findUser(words[0], dao.getAllUsers());
+            if (usergg == null) {
+                UserDTO a = new UserDTO(words[0], null, null, false);
+                int count = dao.insertUser(a);
+                session.setAttribute("info", a);
+                System.out.println("count" + count);
+            } else {
+                session.setAttribute("info", usergg);
+            }
+            RequestDispatcher dis = request.getRequestDispatcher("ProductServlet");
+            dis.forward(request, response);
         }
-        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

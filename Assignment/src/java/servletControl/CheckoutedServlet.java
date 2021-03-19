@@ -51,6 +51,7 @@ public class CheckoutedServlet extends HttpServlet {
             HttpSession session = request.getSession();
             CheckoutDTO checkout = (CheckoutDTO) session.getAttribute("checkout");
             System.out.println("checkout  date" + checkout.getDateOrder());
+            System.out.println(checkout + "Dasds");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date dateShipCom = sdf.parse(dateShip);
             Date dateOrderCom = sdf.parse(checkout.getDateOrder());
