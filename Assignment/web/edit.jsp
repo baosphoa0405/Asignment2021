@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,33 +24,33 @@
             }
         </style>
     <body>
-        
+
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
                             <h2>Edit <b>Product</b></h2>
-                            
+
                         </div>
                         <div class="col-sm-6">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div id="editEmployeeModal">
-                
+
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form action="edit" method="post">
                             <div class="modal-header">						
                                 <h4 class="modal-title">Edit Product</h4>
-                                
+
                             </div>
-                            
+
                             <div class="modal-body">	
-                                
+
                                 <div class="form-group">
                                     <label>IDProduct</label>
                                     <input value="${detail.IDproduct}" name="idproduct" type="text" class="form-control" readonly required>
@@ -77,7 +77,11 @@
                                 </div>    
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <input value="${detail.status}" name="status" type="text" class="form-control" required>
+                                    <label>Status</label>
+                                    <select name="status" class="form-select" aria-label="Default select example">
+                                        <option value="true" >True</option>
+                                        <option value="false">False</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
@@ -87,26 +91,26 @@
                                     <label>Category</label>
                                     <select name="idcategory" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${listCC}" var="item">
-                                        <option value="${item.IDcategory}">${item.categoryName}</option>
-                                    </c:forEach>
+                                            <option value="${item.IDcategory}">${item.categoryName}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
                                 <a href="manager"><button type="button" class="btn btn-primary">Cancel</button>
-                                <input type="submit" class="btn btn-success" value="Edit">
-                            </div>
-                        </form>
-                    </div>
-                                
-                </div>
-                                
-            </div>
+                                    <input type="submit" class="btn btn-success" value="Edit">
+                                    </div>
+                                    </form>
+                                    </div>
 
-        </div>
+                                    </div>
+
+                                    </div>
+
+                                    </div>
 
 
-        <script src="js/manager.js" type="text/javascript"></script>
-    </body>
-</html>
+                                    <script src="js/manager.js" type="text/javascript"></script>
+                                    </body>
+                                    </html>

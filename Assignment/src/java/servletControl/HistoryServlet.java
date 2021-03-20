@@ -57,7 +57,7 @@ public class HistoryServlet extends HttpServlet {
             List<CartDetailDTO> listCartDetail = null;
             ArrayList<List<CartDetailDTO>> listCartDetailAll = new ArrayList<List<CartDetailDTO>>();
             ProductDAO productDao = new ProductDAO();
-            productDao.getAllProduct();
+            productDao.getAllProductNoStatus();
             List<ProductDTO> listProductTest = productDao.getAllLaptops();
             for (CheckoutDTO item : cart) {
                 try {
