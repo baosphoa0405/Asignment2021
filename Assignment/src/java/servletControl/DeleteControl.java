@@ -39,14 +39,14 @@ public class DeleteControl extends HttpServlet {
         String pid = request.getParameter("pid");
         ProductDAO dao = new ProductDAO();
         try {
-            dao.deleteProduct(pid);
-            
+            boolean flag = dao.updateStatusProduct(pid);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DeleteControl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DeleteControl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            response.sendRedirect("manager");
         }
-        response.sendRedirect("manager");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

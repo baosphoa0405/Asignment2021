@@ -57,7 +57,63 @@ public class ProductDAO {
             cn = MyConnection.getMakeConnect();
             if (cn != null) {
                 String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory],[quanlity] \n"
-                        + "from [dbo].[Product]";
+                        + "from [dbo].[Product] where [status] = 'true'";
+                pstm = cn.prepareStatement(sql);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    String IDproduct = rs.getString("IDproduct");
+                    String name = rs.getString("name");
+                    String img = rs.getString("img");
+                    String size = rs.getString("size");
+                    float price = rs.getFloat("price");
+                    String description = rs.getString("description");
+                    boolean status = rs.getBoolean("status");
+                    String IDcategory = rs.getString("IDcategory");
+                    int quanlity = Integer.parseInt(rs.getString("quanlity"));
+//                    System.out.println("huhu" +quanlity);
+                    ProductDTO pro = new ProductDTO(IDproduct, name, img, size, description, IDcategory, price, status, quanlity);
+                    if (allProduct == null) {
+                        allProduct = new ArrayList<>();
+                    }
+                    allProduct.add(pro);
+//                    System.out.println("hahaha"+ allProduct.get(0).getQuanlity());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (pstm != null) {
+                try {
+                    pstm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+     public void getAllProductNoStatus() {
+        Connection cn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "select [IDproduct],[name],[img],[size],[price],[description],[status],[IDcategory],[quanlity] \n"
+                        + "from [dbo].[Product] ";
                 pstm = cn.prepareStatement(sql);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
@@ -168,8 +224,8 @@ public class ProductDAO {
         return list;
     }
 
-    public static void insertProduct(String idproduct,String name, String image, String size,float price,
-                                     String description, String status, String quanlity,String idcategory ) {
+    public static void insertProduct(String idproduct, String name, String image, String size, float price,
+            String description, String status, String quanlity, String idcategory) {
         Connection cn = null;
         PreparedStatement pstm = null;
         int rs = 0;
@@ -178,7 +234,7 @@ public class ProductDAO {
             if (cn != null) {
                 String sql = "insert into [dbo].[Product] values (?,?,?,?,?,?,?,?,?)";
                 pstm = cn.prepareStatement(sql);
-                
+
                 pstm.setString(1, idproduct);
                 pstm.setString(2, name);
                 pstm.setString(3, image);
@@ -188,7 +244,7 @@ public class ProductDAO {
                 pstm.setString(7, status);
                 pstm.setString(9, quanlity);
                 pstm.setString(8, idcategory);
-                
+
                 rs = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -201,7 +257,7 @@ public class ProductDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }
 
@@ -309,7 +365,8 @@ public class ProductDAO {
         }
         return rs;
     }
-        public static boolean updateQuanlityProduct(String count, String id) throws ClassNotFoundException, SQLException {
+
+    public static boolean updateQuanlityProduct(String count, String id) throws ClassNotFoundException, SQLException {
         Connection cn = null;
 
         PreparedStatement pstm = null;
@@ -321,7 +378,34 @@ public class ProductDAO {
                 pstm = cn.prepareStatement(sql);
                 pstm.setString(1, count);
                 pstm.setString(2, id);
-                check =  pstm.executeUpdate() > 0;
+                check = pstm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return check;
+    }
+
+    public static boolean updateStatusProduct(String id) throws ClassNotFoundException, SQLException {
+        Connection cn = null;
+
+        PreparedStatement pstm = null;
+        boolean check = false;
+        try {
+            cn = MyConnection.getMakeConnect();
+            if (cn != null) {
+                String sql = "update [dbo].Product set [status] = ? where [IDproduct] = ?";
+                pstm = cn.prepareStatement(sql);
+                pstm.setBoolean(1, false);
+                pstm.setString(2, id);
+                check = pstm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -337,7 +421,7 @@ public class ProductDAO {
     }
 
     public void editProduct(String name, String image, String size, String price,
-            String description, String status, String idcategory,String quanlity, String pid) {
+            String description, String status, String idcategory, String quanlity, String pid) {
         Connection cn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -444,7 +528,6 @@ public class ProductDAO {
         return null;
     }
 
-    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         ProductDAO dao = new ProductDAO();
 //        dao.getAllProduct();

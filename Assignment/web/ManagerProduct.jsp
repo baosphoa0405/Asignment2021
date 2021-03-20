@@ -1,3 +1,4 @@
+<%@page import="ass.product.ProductErr"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -66,26 +67,26 @@
                                 <td>${item.name}</td>
                                 <td>${item.size}</td>
                                 <td>${String.format("%,.0f", item.price)}</td>
-                                
+
                                 <td>
                                     <img src="./images/${item.img}.jpg">
                                 </td>
-                                 <td>${item.quanlity}</td>
+                                <td>${item.quanlity}</td>
                                 <td>${item.description}</td>
                                 <td>${item.IDcategory}</td>
-                                
+
                                 <td>
                                     <a href="loadproduct?pid=${item.IDproduct}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="delete?pid=${item.IDproduct}" class="delete" data-toggle="modal" onclick="return confirm('Are you sure?')"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                    
+
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-               
+
             </div>
-            
+
 
         </div>
         <!-- Edit Modal HTML -->
@@ -101,35 +102,44 @@
                             <div class="form-group">
                                 <label>IDProduct</label>
                                 <input name="idproduct" type="text" class="form-control" required>
-                                <p style="color: red">${requestScope.errorID}</p>
+                                <p style="color: red">${requestScope.error.getDuplicateErrorID()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
                                 <input name="name" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.error.getEmptyErrorName()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
                                 <input name="image" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.error.getEmptyImg()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Size</label>
                                 <input name="size" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.error.getEmptySize()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
                                 <input name="price" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.error.getEmptyPrice()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Quanlity</label>
                                 <input name="quanlity" type="text" class="form-control" required>
+                                <p style="color: red">${requestScope.error.getEmptyQuanlity()}</p>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" required></textarea>
+
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                 <input name="status" type="text" class="form-control" required>
+                                <select name="status" class="form-select" aria-label="Default select example">
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>IDCategory</label>
@@ -145,15 +155,15 @@
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" class="btn btn-success" value="Add">
                         </div>
-                       
+
                     </form>
                 </div>
-                
+
             </div>
         </div>
-         <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
-        
-        
-    <script src="js/manager.js" type="text/javascript"></script>
-</body>
+        <a href="index.jsp"><button type="button" class="btn btn-primary">Back to home</button>
+
+
+            <script src="js/manager.js" type="text/javascript"></script>
+    </body>
 </html>
